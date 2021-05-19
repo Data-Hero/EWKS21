@@ -1,0 +1,5 @@
+rootProject.name = "isomatic"
+
+include ":isomatic-booking"
+include ":isomatic-device"
+include ":isomatic-user"
