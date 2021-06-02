@@ -1,15 +1,15 @@
 package de.joergiso.isomaticbooking.service;
 
-import de.joergiso.isomaticbooking.dao.FunctionBundleDao;
+import de.joergiso.isomaticbooking.repository.FunctionBundleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FunctionBundleService {
-  private final FunctionBundleDao functionBundleDao;
+  private final FunctionBundleRepository functionBundleRepository;
 
   @Autowired
-  public FunctionBundleService(FunctionBundleDao functionBundleDao) {
-    this.functionBundleDao = functionBundleDao;
+  public FunctionBundleService(FunctionBundleRepository functionBundleRepository) {
+    this.functionBundleRepository = functionBundleRepository;
   }
 }

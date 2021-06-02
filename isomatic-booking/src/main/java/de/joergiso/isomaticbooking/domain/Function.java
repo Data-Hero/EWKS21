@@ -6,8 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Invoice {
-
+public class Function {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
