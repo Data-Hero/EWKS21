@@ -1,9 +1,11 @@
 package de.joergiso.isomatic.device.domain.unit.value;
 
-public class DeviceUnitSerialNumber {
-    public final String VALUE;
+import java.io.Serializable;
+
+public class DeviceUnitSerialNumber implements Serializable {
+    public final String value;
 
     public DeviceUnitSerialNumber(String value) {
-        VALUE = value;
+        this.value = value;
     }
 }

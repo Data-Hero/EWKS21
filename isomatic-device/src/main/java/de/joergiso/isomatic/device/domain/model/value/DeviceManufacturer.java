@@ -1,11 +1,13 @@
 package de.joergiso.isomatic.device.domain.model.value;
 
-public class DeviceManufacturer {
-    public final String label;
+import java.io.Serializable;
+
+public class DeviceManufacturer implements Serializable {
+    public final String abbr;
     public final String name;
 
-    public DeviceManufacturer(String label, String name) {
-        this.label = label;
+    public DeviceManufacturer(String abbr, String name) {
+        this.abbr = abbr;
         this.name = name;
     }
 }

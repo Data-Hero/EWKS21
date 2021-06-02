@@ -1,9 +1,9 @@
 package de.joergiso.isomatic.device.domain.model.value;
 
 public class DeviceName {
-    public final String VALUE;
+    public final String value;
 
     public DeviceName(String value) {
-        VALUE = value;
+        this.value = value;
     }
 }
