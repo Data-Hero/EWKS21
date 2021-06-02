@@ -1,10 +1,24 @@
-package de.joergiso.isomaticbooking.model;
+package de.joergiso.isomaticbooking.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class FunctionBundle {
 
+  @Id
   private String functionBundleId;
+
+  @OneToMany(fetch = FetchType.LAZY)
   private String functionId;
+
+  @Column
   private Double priceByMinute;
+
+  @Column
   private Double discount;
 
   public String getFunctionBundleId() {
