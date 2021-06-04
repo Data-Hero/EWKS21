@@ -30,8 +30,6 @@ public class DummyLoad implements ApplicationListener<ContextRefreshedEvent> {
 
     Booking booking1 = new Booking();
     Booking booking2 = new Booking();
-
-
-
   }
+
 }

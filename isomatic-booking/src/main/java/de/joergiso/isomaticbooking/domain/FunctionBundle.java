@@ -1,8 +1,11 @@
 package de.joergiso.isomaticbooking.domain;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -10,12 +13,16 @@ import javax.persistence.OneToMany;
 public class FunctionBundle {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
+
+  @Column(nullable = false)
   private String functionBundleId;
 
   @OneToMany(fetch = FetchType.LAZY)
-  private String functionId;
+  private List<Function> function;
 
-  @Column
+  @Column(nullable = false)
   private Double priceByMinute;
 
   @Column
@@ -29,12 +36,12 @@ public class FunctionBundle {
     this.functionBundleId = functionBundleId;
   }
 
-  public String getFunctionId() {
-    return functionId;
+  public List<Function> getFunction() {
+    return function;
   }
 
-  public void setFunctionId(String functionId) {
-    this.functionId = functionId;
+  public void setFunction(List<Function> function) {
+    this.function = function;
   }
 
   public Double getPriceByMinute() {
