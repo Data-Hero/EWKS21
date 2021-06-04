@@ -1,4 +1,4 @@
-package de.joergiso.isomaticdevice;
+package de.joergiso.isomatic.device;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
