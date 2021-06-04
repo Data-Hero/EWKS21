@@ -1,5 +1,6 @@
 rootProject.name = "isomatic"
 
+include ":isomatic-config-server"
 include ":isomatic-eureka-server"
 include ":isomatic-booking"
 include ":isomatic-device"
