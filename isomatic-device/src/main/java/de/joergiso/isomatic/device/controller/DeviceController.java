@@ -7,16 +7,16 @@ import de.joergiso.isomatic.device.exception.DeviceAlreadyRegisteredException;
 import de.joergiso.isomatic.device.exception.DeviceNotFoundException;
 import de.joergiso.isomatic.device.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class DeviceController {
+    @Value("${foo.bar}")
+    private String fooBar = "empty";
+
     private final DeviceService deviceService;
 
     @Autowired
@@ -24,6 +24,10 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
+    @GetMapping("/config")
+    public String getFooBar() {
+        return fooBar;
+    }
 
     @GetMapping("/devices")
     public List<DeviceUnitDto> getAllDevices() {
