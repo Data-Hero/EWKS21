@@ -1,6 +1,5 @@
 package de.joergiso.isomaticbooking.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +15,7 @@ public class Booking {
 
   @OneToOne
   private FunctionBundle functionBundle;
+
 
   public Booking() {}
 
