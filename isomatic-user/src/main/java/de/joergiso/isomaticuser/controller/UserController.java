@@ -1,7 +1,7 @@
-package de.joergiso.isomaticuser.controllers;
+package de.joergiso.isomaticuser.controller;
 
 import de.joergiso.isomaticuser.domain.User;
-import de.joergiso.isomaticuser.services.UserService;
+import de.joergiso.isomaticuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

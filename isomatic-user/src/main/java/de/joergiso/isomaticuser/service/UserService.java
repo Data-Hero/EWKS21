@@ -1,4 +1,4 @@
-package de.joergiso.isomaticuser.services;
+package de.joergiso.isomaticuser.service;
 
 import de.joergiso.isomaticuser.domain.User;
 import de.joergiso.isomaticuser.repository.UserRepository;
