@@ -1,9 +1,7 @@
 package de.joergiso.isomaticuser.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -12,7 +10,29 @@ public class User {
     private Long id;
     private String name;
 
+    @OneToMany
+    private Set<Booking> bookings;
+
+    @OneToMany
+    private Set<Device> devices;
+
     public User() {}
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public Set<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
+    }
 
     public Long getId() {
         return id;
