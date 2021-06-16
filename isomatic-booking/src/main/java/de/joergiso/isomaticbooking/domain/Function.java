@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Function {
@@ -30,17 +31,21 @@ public class Function {
   @Enumerated(EnumType.STRING)
   private TimeUnit timeRequired;
 
+  @OneToOne
+  private Device device;
+
   protected Function() {
     // empty constructor
   }
 
-  public Function(String functionNumber, String functionName, Double pricePerTimeUnit, Integer amountOfTime, TimeUnit timeRequired) {
+  public Function(String functionNumber, String functionName, Double pricePerTimeUnit, Integer amountOfTime, TimeUnit timeRequired, Device device) {
     this();
     this.functionNumber = functionNumber;
     this.functionName = functionName;
     this.pricePerTimeUnit = pricePerTimeUnit;
     this.amountOfTime = amountOfTime;
     this.timeRequired = timeRequired;
+    this.device = device;
   }
 
   public Long getId() {
@@ -85,6 +90,14 @@ public class Function {
 
   public void setTimeRequired(TimeUnit timeRequired) {
     this.timeRequired = timeRequired;
+  }
+
+  public Device getDevice() {
+    return device;
+  }
+
+  public void setDevice(Device device) {
+    this.device = device;
   }
 
   @Override

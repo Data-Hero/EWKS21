@@ -34,12 +34,48 @@ public class Booking {
   public Booking() {
   }
 
+  public int getId() {
+    return id;
+  }
+
   public FunctionBundle getFunctionBundle() {
     return functionBundle;
   }
 
   public void setFunctionBundle(FunctionBundle functionBundle) {
     this.functionBundle = functionBundle;
+  }
+
+  public LocalDateTime getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(LocalDateTime startTime) {
+    this.startTime = startTime;
+  }
+
+  public LocalDateTime getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(LocalDateTime endTime) {
+    this.endTime = endTime;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public Device getDevice() {
+    return device;
+  }
+
+  public void setDevice(Device device) {
+    this.device = device;
   }
 
   @Override
