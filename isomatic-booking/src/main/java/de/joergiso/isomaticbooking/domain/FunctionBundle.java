@@ -1,6 +1,7 @@
 package de.joergiso.isomaticbooking.domain;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,6 +28,15 @@ public class FunctionBundle {
 
   @Column
   private Double discount;
+
+  public FunctionBundle() {}
+
+  public FunctionBundle(String functionBundleId, List<Function> function, Double priceByMinute, Double discount) {
+    this.functionBundleId = functionBundleId;
+    this.function = function;
+    this.priceByMinute = priceByMinute;
+    this.discount = discount;
+  }
 
   public String getFunctionBundleId() {
     return functionBundleId;
@@ -58,5 +68,33 @@ public class FunctionBundle {
 
   public void setDiscount(Double discount) {
     this.discount = discount;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FunctionBundle that = (FunctionBundle) o;
+    return id == that.id;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  @Override
+  public String toString() {
+    return "FunctionBundle{" +
+        "id=" + id +
+        ", functionBundleId='" + functionBundleId + '\'' +
+        ", function=" + function +
+        ", priceByMinute=" + priceByMinute +
+        ", discount=" + discount +
+        '}';
   }
 }
