@@ -1,0 +1,17 @@
+{
+  "/api/booking/*": {
+    "target": "http://localhost:8081",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/api/device/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/api/user/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
