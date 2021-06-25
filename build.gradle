@@ -1,13 +1,14 @@
-task generateOpenApiDocs(type: Exec) {
+task generateOpenApiDocsAndNgRestApi(type: Exec) {
     group '@project'
     environment "SPRING_CLOUD_CONFIG_ENABLED", false
-    workingDir '.'
     standardOutput = new ByteArrayOutputStream()
 
     dependsOn ':isomatic-booking:generateOpenApiDocs'
     dependsOn ':isomatic-device:generateOpenApiDocs'
     dependsOn ':isomatic-user:generateOpenApiDocs'
 
-    commandLine 'echo', 'Generated ApiDocs successfully!'
-    println standardOutput
+    workingDir './isomatic-frontend'
+    commandLine 'npm', 'install'
+    commandLine 'npm', 'run', 'rest-api'
+    println standardOutput.toString()
 }
