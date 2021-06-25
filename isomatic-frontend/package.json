@@ -6,7 +6,17 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "rest-api": "npm run rest-api:remove && npm run rest-api:copyOpenApiJson && npm run rest-api:generate",
+    "rest-api:remove": "shx rm -rf src/app/shared/_generated/rest-api",
+    "rest-api:generate": "npm run rest-api:generate:booking && npm run rest-api:generate:device && npm run rest-api:generate:user",
+    "rest-api:generate:booking": "openapi-generator-cli generate -i src/app/shared/openapi-booking.json -o src/app/shared/_generated/rest-api -g typescript-angular --skip-validate-spec --additional-properties=fileNaming=kebab-case --additional-properties=enumPropertyNaming=UPPERCASE",
+    "rest-api:generate:device": "openapi-generator-cli generate -i src/app/shared/openapi-device.json -o src/app/shared/_generated/rest-api -g typescript-angular --skip-validate-spec --additional-properties=fileNaming=kebab-case --additional-properties=enumPropertyNaming=UPPERCASE",
+    "rest-api:generate:user": "openapi-generator-cli generate -i src/app/shared/openapi-user.json -o src/app/shared/_generated/rest-api -g typescript-angular --skip-validate-spec --additional-properties=fileNaming=kebab-case --additional-properties=enumPropertyNaming=UPPERCASE",
+    "rest-api:copyOpenApiJson": "npm run rest-api:copyOpenApiJson:booking && npm run rest-api:copyOpenApiJson:device && npm run rest-api:copyOpenApiJson:user",
+    "rest-api:copyOpenApiJson:booking": "shx mkdir -p src/app/shared && shx cp ../isomatic-booking/build/openapi.json src/app/shared/openapi-booking.json",
+    "rest-api:copyOpenApiJson:device": "shx mkdir -p src/app/shared && shx cp ../isomatic-device/build/openapi.json src/app/shared/openapi-device.json",
+    "rest-api:copyOpenApiJson:user": "shx mkdir -p src/app/shared && shx cp ../isomatic-user/build/openapi.json src/app/shared/openapi-user.json"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +36,7 @@
     "@angular-devkit/build-angular": "~12.1.0",
     "@angular/cli": "~12.1.0",
     "@angular/compiler-cli": "~12.1.0",
+    "@openapitools/openapi-generator-cli": "^2.3.5",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.7.0",
@@ -34,6 +45,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "shx": "^0.3.3",
     "typescript": "~4.3.2"
   }
 }
