@@ -16,8 +16,7 @@ public class BookingDto {
 
   String functionBundleId;
 
-  public BookingDto() {
-  }
+  public BookingDto() { }
 
   public BookingDto(int id,
                     Long userId,

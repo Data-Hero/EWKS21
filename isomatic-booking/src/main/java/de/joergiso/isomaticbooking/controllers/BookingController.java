@@ -1,13 +1,10 @@
 package de.joergiso.isomaticbooking.controllers;
 
-import de.joergiso.isomaticbooking.domain.User;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.service.BookingService;
 import de.joergiso.isomaticbooking.service.ConfigurationService;
-import de.joergiso.isomaticbooking.service.Mapper;
 import de.joergiso.isomaticbooking.service.FunctionBundleService;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +20,6 @@ public class BookingController {
   private final FunctionBundleService functionBundleService;
 
   private final ConfigurationService configurationService;
-
-
 
 
   @Autowired
@@ -60,7 +55,7 @@ public class BookingController {
   @PostMapping("/book")
   @ResponseBody
   public BookingDto bookFunctionBundle(@RequestBody FunctionBundleDto functionBundleDto) {
-      return bookingService.book(functionBundleDto);
+    return bookingService.book(functionBundleDto);
 
   }
 

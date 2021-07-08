@@ -18,8 +18,7 @@ public class IsomaticBookingApplication {
     SpringApplication.run(IsomaticBookingApplication.class, args);
   }
 
-  @Bean
-  @LoadBalanced
+  @Bean("bookingRestTemplate")
   public RestTemplate restTemplate() {
     return new RestTemplate();
   }

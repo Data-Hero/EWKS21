@@ -4,6 +4,7 @@ import de.joergiso.isomaticbooking.domain.User;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class UserService {
 
+  @Autowired
+  @Qualifier(value = "bookingRestTemplate")
   private RestTemplate restTemplate;
 
   private ConfigurationService configurationService;
 
   @Autowired
-  public UserService(RestTemplate restTemplate, ConfigurationService configurationService) {
-    this.restTemplate = restTemplate;
+  public UserService(ConfigurationService configurationService) {
     this.configurationService = configurationService;
   }
 
@@ -27,7 +29,7 @@ public class UserService {
     ResponseEntity<List<User>> response
         = restTemplate.exchange(
         configurationService.getUserEndpoint()
-            + "/user"
+            + "/user/"
             + userId.toString(),
         HttpMethod.GET,
         null,

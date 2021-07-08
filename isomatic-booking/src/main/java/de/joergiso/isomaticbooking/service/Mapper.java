@@ -5,12 +5,14 @@ import de.joergiso.isomaticbooking.controllers.FunctionBundleDto;
 import de.joergiso.isomaticbooking.domain.Booking;
 import de.joergiso.isomaticbooking.domain.Function;
 import de.joergiso.isomaticbooking.domain.FunctionBundle;
+import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
+import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.repository.FunctionBundleRepository;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class Mapper {
   private final FunctionBundleRepository functionBundleRepository;
 
@@ -49,7 +51,7 @@ public class Mapper {
     );
   }
 
-  public Booking bookingFromDto(BookingDto bookingDto) {
+  public Booking bookingFromDto(BookingDto bookingDto) throws UserNotFoundException, DeviceNotFoundException {
     Booking booking = new Booking();
     booking.setStartTime(bookingDto.getStartTime());
     booking.setEndTime(bookingDto.getEndTime());
