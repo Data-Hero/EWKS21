@@ -1,0 +1,77 @@
+package de.joergiso.isomaticbooking.service;
+
+import de.joergiso.isomaticbooking.controllers.BookingDto;
+import de.joergiso.isomaticbooking.controllers.FunctionBundleDto;
+import de.joergiso.isomaticbooking.domain.Booking;
+import de.joergiso.isomaticbooking.domain.Function;
+import de.joergiso.isomaticbooking.domain.FunctionBundle;
+import de.joergiso.isomaticbooking.repository.FunctionBundleRepository;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Mapper {
+  private final FunctionBundleRepository functionBundleRepository;
+
+  private final DeviceService deviceService;
+
+  private final UserService userService;
+
+
+  @Autowired
+  public Mapper(FunctionBundleRepository functionBundleRepository,
+                DeviceService deviceService,
+                UserService userService) {
+    this.functionBundleRepository = functionBundleRepository;
+    this.deviceService = deviceService;
+    this.userService = userService;
+  }
+
+  public FunctionBundleDto functionBundleToDto(FunctionBundle functionBundle) {
+    return new FunctionBundleDto(
+        functionBundle.getFunctionBundleId(),
+        functionBundle.getFunction()
+            .stream().map(Function::getFunctionNumber).collect(Collectors.toList()),
+        functionBundle.getPriceByMinute(),
+        functionBundle.getDiscount()
+    );
+  }
+
+  public BookingDto bookingToDto(Booking booking) {
+    return new BookingDto(
+        booking.getId(),
+        booking.getUser().getId(),
+        booking.getDevice().getId(),
+        booking.getStartTime(),
+        booking.getEndTime(),
+        booking.getFunctionBundle().getFunctionBundleId()
+    );
+  }
+
+  public Booking bookingFromDto(BookingDto bookingDto) {
+    Booking booking = new Booking();
+    booking.setStartTime(bookingDto.getStartTime());
+    booking.setEndTime(bookingDto.getEndTime());
+    booking.setFunctionBundle(
+        functionBundleRepository.getFunctionBundleByFunctionBundleIdEquals(
+            bookingDto.getFunctionBundleId()
+        )
+    );
+    // TODO device and user
+    booking.setDevice(
+        deviceService.fetchDevice(bookingDto.getDeviceId())
+    );
+    booking.setUser(
+        userService.fetchUser(bookingDto.getUserId())
+    );
+    return booking;
+  }
+
+  public FunctionBundle functionBundleFromDto(FunctionBundleDto functionBundleDto) {
+    return new FunctionBundle(
+        //TODO
+    );
+  }
+
+}
