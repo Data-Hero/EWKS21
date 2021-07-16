@@ -1,24 +1,64 @@
 package de.joergiso.isomaticbooking.controllers;
 
-import de.joergiso.isomaticbooking.domain.Booking;
+import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.service.BookingService;
+import de.joergiso.isomaticbooking.service.ConfigurationService;
+import de.joergiso.isomaticbooking.service.FunctionBundleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BookingController {
-  public BookingService bookingService;
+  private final BookingService bookingService;
+
+  private final FunctionBundleService functionBundleService;
+
+  private final ConfigurationService configurationService;
+
 
   @Autowired
-  public BookingController(BookingService bookingService) {
+  public BookingController(BookingService bookingService,
+                           FunctionBundleService functionBundleService,
+                           ConfigurationService configurationService) {
     this.bookingService = bookingService;
+    this.functionBundleService = functionBundleService;
+    this.configurationService = configurationService;
+  }
+
+  @GetMapping("/config")
+  public String getConfig() {
+    return configurationService.getDeviceEndpoint();
   }
 
   @GetMapping("/booking")
-  public List<Booking> getAllBookings() {
+  public List<BookingDto> getAllBookings() {
     return bookingService.getAllBookings();
+
   }
+
+  @GetMapping("/functionBundle/{userId}")
+  public List<FunctionBundleDto> getAvailableFunctionBundles(@PathVariable Long userId) throws UserNotFoundException {
+    return functionBundleService.getFunctionBundleByUser(userId);
+  }
+
+  @PostMapping("/functionBundle/add")
+  public void addFunctionBundle(@RequestBody FunctionBundleDto functionBundleDto) {
+    functionBundleService.addFunctionBundle(functionBundleDto);
+  }
+
+  @PostMapping("/book")
+  @ResponseBody
+  public BookingDto bookFunctionBundle(@RequestBody FunctionBundleDto functionBundleDto) {
+    BookingDto bookingDto =  bookingService.book(functionBundleDto);
+    return bookingDto;
+
+  }
+
+
 }
