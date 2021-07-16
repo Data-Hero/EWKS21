@@ -42,7 +42,7 @@ public class BookingController {
 
   }
 
-  @GetMapping("/functionBundles/{userId}")
+  @GetMapping("/functionBundle/{userId}")
   public List<FunctionBundleDto> getAvailableFunctionBundles(@PathVariable Long userId) throws UserNotFoundException {
     return functionBundleService.getFunctionBundleByUser(userId);
   }

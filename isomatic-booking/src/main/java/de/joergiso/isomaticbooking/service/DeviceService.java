@@ -38,4 +38,12 @@ public class DeviceService {
         .orElseThrow(DeviceNotFoundException::new);
   }
 
+  public List<Device> fetchDevices() {
+    ResponseEntity<List<Device>> response
+        = restTemplate.exchange(
+        configurationService.getDeviceEndpoint() + "/devices", HttpMethod.GET, null,
+        new ParameterizedTypeReference<List<Device>>() {}
+    );
+    return response.getBody();
+  }
 }

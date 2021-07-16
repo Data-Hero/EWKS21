@@ -26,19 +26,19 @@ public class UserService {
   }
 
   public User fetchUser(Long userId) throws UserNotFoundException {
-    ResponseEntity<List<User>> response
+    ResponseEntity<User> response
         = restTemplate.exchange(
         configurationService.getUserEndpoint()
-            + "/user/"
+            + "/userservice/user/"
             + userId.toString(),
         HttpMethod.GET,
         null,
-        new ParameterizedTypeReference<List<User>>() {}
+        new ParameterizedTypeReference<User>() {}
     );
-    return response.getBody()
-        .stream()
-        .filter(user -> userId.equals(user.getId()))
-        .findFirst()
-        .orElseThrow(UserNotFoundException::new);
+    User user = response.getBody();
+    if (user == null) {
+      throw new UserNotFoundException();
+    }
+    return user;
   }
 }
