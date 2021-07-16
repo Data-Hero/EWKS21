@@ -24,6 +24,7 @@ dependencies {
 	compile "org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.3"
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
 	implementation 'org.springframework.cloud:spring-cloud-config-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	compile "org.springdoc:springdoc-openapi-ui:1.2.32"
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

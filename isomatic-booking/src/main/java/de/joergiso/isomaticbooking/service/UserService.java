@@ -2,9 +2,9 @@ package de.joergiso.isomaticbooking.service;
 
 import de.joergiso.isomaticbooking.domain.User;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +19,7 @@ public class UserService {
   private RestTemplate restTemplate;
 
   private ConfigurationService configurationService;
+
 
   @Autowired
   public UserService(ConfigurationService configurationService) {
