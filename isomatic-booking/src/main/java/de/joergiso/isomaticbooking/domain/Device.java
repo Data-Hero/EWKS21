@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Device {
+
   @Id
   @GeneratedValue
   private Long id;

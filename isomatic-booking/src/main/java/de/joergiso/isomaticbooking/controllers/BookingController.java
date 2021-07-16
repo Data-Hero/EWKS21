@@ -55,7 +55,8 @@ public class BookingController {
   @PostMapping("/book")
   @ResponseBody
   public BookingDto bookFunctionBundle(@RequestBody FunctionBundleDto functionBundleDto) {
-    return bookingService.book(functionBundleDto);
+    BookingDto bookingDto =  bookingService.book(functionBundleDto);
+    return bookingDto;
 
   }
 

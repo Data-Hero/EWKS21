@@ -9,6 +9,8 @@ import de.joergiso.isomaticbooking.domain.FunctionBundle;
 import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.repository.FunctionBundleRepository;
+import de.joergiso.isomaticbooking.repository.RemoteDeviceRepository;
+import de.joergiso.isomaticbooking.repository.RemoteUserRepository;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,17 +21,17 @@ import org.springframework.stereotype.Component;
 public class Mapper {
   private final FunctionBundleRepository functionBundleRepository;
 
-  private final DeviceService deviceService;
+  private final RemoteDeviceRepository remoteDeviceRepository;
 
-  private final UserService userService;
+  private final RemoteUserRepository remoteUserRepository;
 
   @Autowired
   public Mapper(FunctionBundleRepository functionBundleRepository,
-                DeviceService deviceService,
-                UserService userService) {
+                RemoteDeviceRepository remoteDeviceRepository,
+                RemoteUserRepository remoteUserRepository) {
     this.functionBundleRepository = functionBundleRepository;
-    this.deviceService = deviceService;
-    this.userService = userService;
+    this.remoteDeviceRepository = remoteDeviceRepository;
+    this.remoteUserRepository = remoteUserRepository;
   }
 
   public FunctionBundleDto functionBundleToDto(FunctionBundle functionBundle) {
@@ -64,10 +66,10 @@ public class Mapper {
     );
     // TODO device and user
     booking.setDevice(
-        deviceService.fetchDevice(bookingDto.getDeviceId())
+        remoteDeviceRepository.fetchDevice(bookingDto.getDeviceId())
     );
     booking.setUser(
-        userService.fetchUser(bookingDto.getUserId())
+        remoteUserRepository.fetchUser(bookingDto.getUserId())
     );
     return booking;
   }
@@ -82,7 +84,7 @@ public class Mapper {
   }
 
   private List<Function> functionNumberToFunction(List<String> functionNumbers) {
-    List<Device> devices = deviceService.fetchDevices();
+    List<Device> devices = remoteDeviceRepository.fetchDevices();
     System.out.println(devices);
     return devices.stream()
         .map(Device::getDeviceFunctions)

@@ -5,6 +5,7 @@ import de.joergiso.isomaticbooking.domain.FunctionBundle;
 import de.joergiso.isomaticbooking.domain.User;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.repository.FunctionBundleRepository;
+import de.joergiso.isomaticbooking.repository.RemoteUserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -15,18 +16,18 @@ import org.springframework.stereotype.Service;
 public class FunctionBundleService {
   private final FunctionBundleRepository functionBundleRepository;
   private final Mapper mapper;
-  private final UserService userService;
+  private final RemoteUserRepository remoteUserRepository;
   @Autowired
   public FunctionBundleService(FunctionBundleRepository functionBundleRepository,
                                Mapper mapper,
-                               UserService userService) {
+                               RemoteUserRepository remoteUserRepository) {
     this.functionBundleRepository = functionBundleRepository;
     this.mapper = mapper;
-    this.userService = userService;
+    this.remoteUserRepository = remoteUserRepository;
   }
 
   public List<FunctionBundleDto> getFunctionBundleByUser(Long userId) throws UserNotFoundException {
-    User user = userService.fetchUser(userId);
+    User user = remoteUserRepository.fetchUser(userId);
     return StreamSupport.stream(
         functionBundleRepository.findAll().spliterator(), false
       ).filter(fb -> fb.getFunction().stream().allMatch(

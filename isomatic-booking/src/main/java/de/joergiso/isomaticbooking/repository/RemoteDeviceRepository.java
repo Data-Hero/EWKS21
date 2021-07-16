@@ -1,18 +1,19 @@
-package de.joergiso.isomaticbooking.service;
+package de.joergiso.isomaticbooking.repository;
 
 import de.joergiso.isomaticbooking.domain.Device;
 import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
+import de.joergiso.isomaticbooking.service.ConfigurationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public class DeviceService {
+@Repository
+public class RemoteDeviceRepository {
 
   @Autowired
   @Qualifier(value = "bookingRestTemplate")
@@ -21,7 +22,7 @@ public class DeviceService {
   private ConfigurationService configurationService;
 
   @Autowired
-  public DeviceService(ConfigurationService configurationService) {
+  public RemoteDeviceRepository(ConfigurationService configurationService) {
     this.configurationService = configurationService;
   }
 
@@ -29,7 +30,8 @@ public class DeviceService {
     ResponseEntity<List<Device>> response
         = restTemplate.exchange(
         configurationService.getDeviceEndpoint() + "/devices", HttpMethod.GET, null,
-        new ParameterizedTypeReference<List<Device>>() {}
+        new ParameterizedTypeReference<>() {
+        }
     );
     return response.getBody()
         .stream()
