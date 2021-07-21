@@ -1,6 +1,6 @@
 package de.joergiso.isomaticbooking.service;
 
-import de.joergiso.isomaticbooking.controllers.FunctionBundleDto;
+import de.joergiso.isomaticbooking.controller.FunctionBundleDto;
 import de.joergiso.isomaticbooking.domain.FunctionBundle;
 import de.joergiso.isomaticbooking.domain.User;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;

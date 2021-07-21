@@ -1,4 +1,4 @@
-package de.joergiso.isomaticbooking.controllers;
+package de.joergiso.isomaticbooking.controller;
 
 import java.util.List;
 
