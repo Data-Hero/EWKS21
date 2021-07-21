@@ -13,7 +13,7 @@ public class FunctionPricing implements Serializable {
         this.timeUnit = timeUnit;
     }
 
-    enum TimeUnit {
+    public enum TimeUnit {
         MINUTE, HOUR, DAY
     }
 }

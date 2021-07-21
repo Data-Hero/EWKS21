@@ -52,12 +52,12 @@ public class BookingController {
     functionBundleService.addFunctionBundle(functionBundleDto);
   }
 
-  @PostMapping("/book")
+  @PostMapping("/book/{functionBundleId}")
   @ResponseBody
-  public BookingDto bookFunctionBundle(@RequestBody FunctionBundleDto functionBundleDto,
+  public BookingDto bookFunctionBundle(@PathVariable String functionBundleId,
                                        @RequestBody BookingInformationDto bookingInformationDto)
       throws UserNotFoundException, DeviceNotFoundException {
-    return bookingService.book(functionBundleDto, bookingInformationDto);
+    return bookingService.book(functionBundleId, bookingInformationDto);
   }
 
 

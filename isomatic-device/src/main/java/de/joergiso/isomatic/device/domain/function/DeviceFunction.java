@@ -24,4 +24,11 @@ public class DeviceFunction {
     @Column
     private FunctionPricing pricing;
 
+    public DeviceFunction() {}
+
+    public DeviceFunction(FunctionNumber number, FunctionName name, FunctionPricing pricing) {
+        this.number = number;
+        this.name = name;
+        this.pricing = pricing;
+    }
 }

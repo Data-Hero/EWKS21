@@ -1,18 +1,27 @@
 package de.joergiso.isomaticbooking.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 
 public class BookingInformationDto {
 
-  Long userId;
+  private Long userId;
 
-  Long deviceId;
+  private Long deviceId;
 
-  LocalDateTime startTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Europe/Berlin")
+  private LocalDateTime startTime;
 
-  LocalDateTime endTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Europe/Berlin")
+  private LocalDateTime endTime;
 
-  public BookingInformationDto(Long userId, Long deviceId, LocalDateTime startTime, LocalDateTime endTime) {
+  public BookingInformationDto() {}
+
+  public BookingInformationDto(@JsonProperty("userId") Long userId,
+                               @JsonProperty("deviceId") Long deviceId,
+                               @JsonProperty("startTime") LocalDateTime startTime,
+                               @JsonProperty("endTime") LocalDateTime endTime) {
     this.userId = userId;
     this.deviceId = deviceId;
     this.startTime = startTime;
