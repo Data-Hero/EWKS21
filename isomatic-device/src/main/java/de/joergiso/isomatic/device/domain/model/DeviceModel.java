@@ -7,6 +7,7 @@ import de.joergiso.isomatic.device.domain.model.value.DeviceType;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class DeviceModel {
@@ -22,8 +23,8 @@ public class DeviceModel {
     @Column
     private DeviceManufacturer manufacturer;
 
-    @OneToMany
-    private Set<DeviceFunction> deviceFunctions;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private Set<DeviceFunction> functions;
 
 
     public Long getId() {
@@ -54,11 +55,24 @@ public class DeviceModel {
         this.manufacturer = manufacturer;
     }
 
-    public Set<DeviceFunction> getDeviceFunctions() {
-        return deviceFunctions;
+    public Set<DeviceFunction> getFunctions() {
+        return functions;
     }
 
-    public void setDeviceFunctions(Set<DeviceFunction> deviceFunctions) {
-        this.deviceFunctions = deviceFunctions;
+    public void setFunctions(Set<DeviceFunction> functions) {
+        this.functions = functions;
+    }
+
+    public DeviceModel fromDto(DeviceModelDto dto) {
+        this.type = dto.getType();
+        this.name = dto.getName();
+        this.manufacturer = dto.getManufacturer();
+        this.functions = dto.getFunctions().stream().map(it -> new DeviceFunction().fromDto(it)).collect(Collectors.toSet());
+
+        return this;
+    }
+
+    public DeviceModelDto toDto() {
+        return new DeviceModelDto(type, name, manufacturer, functions.stream().map(DeviceFunction::toDto).collect(Collectors.toSet()));
     }
 }

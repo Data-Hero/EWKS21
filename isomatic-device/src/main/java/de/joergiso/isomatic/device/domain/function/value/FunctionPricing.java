@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class FunctionPricing implements Serializable {
     public final float price;
-    public final int timeAmount;
-    public final TimeUnit timeUnit;
+    public final int amount;
+    public final Usage usage;
 
-    public FunctionPricing(float price, int timeAmount, TimeUnit timeUnit) {
+    public FunctionPricing(float price, int amount, Usage usage) {
         this.price = price;
-        this.timeAmount = timeAmount;
-        this.timeUnit = timeUnit;
+        this.amount = amount;
+        this.usage = usage;
     }
 
-    enum TimeUnit {
-        MINUTE, HOUR, DAY
+    public enum Usage {
+        PER_USE, PER_MINUTE;
     }
 }
