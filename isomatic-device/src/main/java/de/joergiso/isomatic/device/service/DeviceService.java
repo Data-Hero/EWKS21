@@ -1,6 +1,7 @@
 package de.joergiso.isomatic.device.service;
 
 import de.joergiso.isomatic.device.domain.model.DeviceModel;
+import de.joergiso.isomatic.device.domain.model.DeviceModelDto;
 import de.joergiso.isomatic.device.domain.unit.DeviceUnit;
 import de.joergiso.isomatic.device.domain.unit.DeviceUnitDto;
 import de.joergiso.isomatic.device.domain.unit.value.DeviceUnitRegistrationStatus;
@@ -50,12 +51,12 @@ public class DeviceService {
         Optional<DeviceModel> optional = deviceModelRepository.findById(deviceModelId);
         DeviceModel model = optional.orElseThrow(DeviceModelNotFoundException::new);
 
-        return createDeviceUnitByDeviceModel(model).toDto();
+        return createDeviceUnitByDeviceModel(model.toDto()).toDto();
     }
 
     @Transactional
-    DeviceUnit createDeviceUnitByDeviceModel(DeviceModel model) throws DuplicateSerialNumberException {
-        DeviceUnitDto dto = DeviceUnitFactory.build(model);
+    DeviceUnit createDeviceUnitByDeviceModel(DeviceModelDto modelDto) throws DuplicateSerialNumberException {
+        DeviceUnitDto dto = DeviceUnitFactory.build(modelDto);
         return deviceUnitRepository.save(new DeviceUnit().fromDto(dto));
     }
 
@@ -68,7 +69,7 @@ public class DeviceService {
             throw new DeviceAlreadyRegisteredException(serialNumber);
 
         } else {
-            entity.setRegistrationStatus(new DeviceUnitRegistrationStatus(DeviceUnitRegistrationStatus.Type.REGISTERED));
+            entity.setRegistrationStatus(new DeviceUnitRegistrationStatus(DeviceUnitRegistrationStatus.Status.REGISTERED));
             DeviceUnit saved = deviceUnitRepository.save(entity);
 
             return saved.toDto();
@@ -80,7 +81,7 @@ public class DeviceService {
         Optional<DeviceUnit> optionalEntity = deviceUnitRepository.findBySerialNumber(serialNumber);
         DeviceUnit entity = optionalEntity.orElseThrow(() -> new DeviceNotFoundException(serialNumber));
 
-        entity.setRegistrationStatus(new DeviceUnitRegistrationStatus(DeviceUnitRegistrationStatus.Type.UNREGISTERED));
+        entity.setRegistrationStatus(new DeviceUnitRegistrationStatus(DeviceUnitRegistrationStatus.Status.UNREGISTERED));
         DeviceUnit saved = deviceUnitRepository.save(entity);
 
         return saved.toDto();

@@ -1,7 +1,7 @@
 package de.joergiso.isomatic.device.domain.function;
 
-import de.joergiso.isomatic.device.domain.function.value.FunctionName;
 import de.joergiso.isomatic.device.domain.function.value.FunctionIdentifier;
+import de.joergiso.isomatic.device.domain.function.value.FunctionName;
 import de.joergiso.isomatic.device.domain.function.value.FunctionPricing;
 
 public class DeviceFunctionDto {

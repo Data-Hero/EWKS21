@@ -6,10 +6,7 @@ import de.joergiso.isomatic.device.domain.function.value.FunctionPricing;
 import de.joergiso.isomatic.device.request.DeviceFunctionBlueprint;
 import de.joergiso.isomatic.device.util.DeviceFunctionFactory;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -18,12 +15,15 @@ public class DeviceFunction {
     @Id @GeneratedValue
     private Long id;
 
+    @Embedded
     @Column(unique = true)
     private FunctionIdentifier identifier;
 
+    @Embedded
     @Column
     private FunctionName name;
 
+    @Embedded
     @Column
     private FunctionPricing pricing;
 

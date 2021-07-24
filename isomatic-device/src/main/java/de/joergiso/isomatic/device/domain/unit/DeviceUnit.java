@@ -12,12 +12,14 @@ public class DeviceUnit {
     @Id @GeneratedValue
     private Long id;
 
+    @Embedded
     @Column(unique = true)
     private DeviceUnitSerialNumber serialNumber;
 
     @OneToOne
     private DeviceModel model;
 
+    @Embedded
     @Column
     private DeviceUnitRegistrationStatus registrationStatus;
 
@@ -51,16 +53,16 @@ public class DeviceUnit {
     }
 
     public boolean isRegistered() {
-        return this.registrationStatus.type == DeviceUnitRegistrationStatus.Type.REGISTERED;
+        return this.registrationStatus.status == DeviceUnitRegistrationStatus.Status.REGISTERED;
     }
 
     public DeviceUnitDto toDto() {
-        return new DeviceUnitDto(serialNumber, model);
+        return new DeviceUnitDto(serialNumber, model.toDto());
     }
 
     public DeviceUnit fromDto(DeviceUnitDto dto) {
         this.serialNumber = dto.getSerialNumber();
-        this.model = dto.getModel();
+        this.model = new DeviceModel().fromDto(dto.getModelDto());
 
         return this;
     }

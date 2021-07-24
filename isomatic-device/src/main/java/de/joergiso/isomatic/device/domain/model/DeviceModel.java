@@ -14,16 +14,18 @@ public class DeviceModel {
     @Id @GeneratedValue
     private Long id;
 
+    @Embedded
     @Column
     private DeviceType type;
 
+    @Embedded
     @Column
     private DeviceName name;
 
-    @Column
+    @Embedded
     private DeviceManufacturer manufacturer;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<DeviceFunction> functions;
 
 
