@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BookingModule} from './booking/booking.module';
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {BookingModule} from './booking/booking.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    BookingModule
+    BookingModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
