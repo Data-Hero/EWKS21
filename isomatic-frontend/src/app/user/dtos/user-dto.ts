@@ -1,8 +1,8 @@
 export class UserDto {
   id: number = 0;
   name: string = '';
-  bookings?: [];
-  devices?: [];
+  bookings: [] = [];
+  devices: [] = [];
 
   public UserDto(id: number, name: string, bookings: [], devices: []) {
     this.id = id;

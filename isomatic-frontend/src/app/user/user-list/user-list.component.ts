@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../service/user.service";
 import {UserDto} from "../dtos/user-dto";
 
@@ -11,13 +11,15 @@ export class UserListComponent implements OnInit {
 
   users: UserDto[] = [];
 
-  constructor(private userService: UserService) { }
-
-  ngOnInit(): void {
+  constructor(private userService: UserService) {
     this.getUsers();
   }
 
+  ngOnInit(): void {
+
+  }
+
   getUsers() {
-    this.userService.getUsers().subscribe(users => this.users = users);
+    this.userService.getUsers().subscribe(e => this.users = e);
   }
 }
