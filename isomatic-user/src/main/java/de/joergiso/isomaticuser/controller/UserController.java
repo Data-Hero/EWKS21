@@ -5,6 +5,8 @@ import de.joergiso.isomaticuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/userservice")
 public class UserController {
@@ -25,10 +27,13 @@ public class UserController {
         return this.userService.getUserById(id);
     }
 
+    @GetMapping("/user")
+    public List<User> getAll() {
+        return this.userService.getAll();
+    }
+
     @PutMapping("/user")
     public void updateUser(@RequestBody User user) {
         this.userService.updateUser(user);
     }
-
-
 }
