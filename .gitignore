@@ -2,5 +2,6 @@
 .idea/*
 gradle/**
 build/**
-database/*
-/**/database/*
+database/**
+**/*.db
+*.db
