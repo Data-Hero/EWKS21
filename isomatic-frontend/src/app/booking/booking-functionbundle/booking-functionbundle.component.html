@@ -1,3 +1,4 @@
+<div *ngIf="!addFunctionBundleForm" >
 <div class="container">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -32,12 +33,41 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<div class="container">
+<div  class="container">
   <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-label>UserID</mat-label>
       <input matInput formControlName="UserId" required>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Fetch FunctionBundle</button>
+    <button mat-raised-button color="primary" (click)="showAddFunctionBundleForm()">Add FunctionBundle</button>
   </form>
 </div>
+</div>
+<div class="container" *ngIf="addFunctionBundleForm" >
+  <form [formGroup] = "addForm" (ngSubmit)="onCreate()">
+    <mat-form-field appearance="fill">
+      <mat-label>FunctionBundleID</mat-label>
+      <input matInput formControlName="FunctionBundleId" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>FunctionIDs as comma seperated values</mat-label>
+      <input matInput formControlName="FunctionId" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Discount</mat-label>
+      <input matInput formControlName="Discount" type="number" required>
+    </mat-form-field >
+    <mat-form-field appearance="fill">
+      <mat-label>PriceByMinute</mat-label>
+      <input matInput formControlName="PriceByMinute" type="number" required>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit">Create new FunctionBundle</button>
+  </form>
+</div>
+<div class="container" *ngIf="addFunctionBundleForm" >
+<button mat-raised-button color="primary" (click)="hideAddFunctionBundleForm()">FunctionBundle List</button>
+</div>
+
