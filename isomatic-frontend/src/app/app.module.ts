@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BookingModule} from './booking/booking.module';
+import {DeviceModule} from "./device/device.module";
 import {UserModule} from "./user/user.module";
 import {HttpClientModule} from "@angular/common/http";
 
@@ -20,7 +21,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatTabsModule,
     BookingModule,
     UserModule,
-    HttpClientModule
+    HttpClientModule,
+    DeviceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
