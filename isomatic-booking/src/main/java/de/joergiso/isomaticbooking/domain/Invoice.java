@@ -1,5 +1,6 @@
 package de.joergiso.isomaticbooking.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,8 +29,7 @@ public class Invoice {
   @Column(nullable = false)
   private Double bill;
 
-  public Invoice() {
-  }
+  public Invoice() { }
 
   public Invoice(FunctionBundle functionBundle, PaymentMethod paymentMethod, Booking booking, Double bill) {
     this.functionBundle = functionBundle;
@@ -37,6 +37,7 @@ public class Invoice {
     this.booking = booking;
     this.bill = bill;
   }
+
 
   public FunctionBundle getFunctionBundle() {
     return functionBundle;
@@ -68,5 +69,33 @@ public class Invoice {
 
   public void setBill(Double bill) {
     this.bill = bill;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Invoice invoice = (Invoice) o;
+    return id == invoice.id;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  @Override
+  public String toString() {
+    return "Invoice{" +
+        "id=" + id +
+        ", functionBundle=" + functionBundle +
+        ", paymentMethod=" + paymentMethod +
+        ", booking=" + booking +
+        ", bill=" + bill +
+        '}';
   }
 }
