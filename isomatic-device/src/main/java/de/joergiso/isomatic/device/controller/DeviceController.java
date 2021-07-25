@@ -36,8 +36,8 @@ public class DeviceController {
     }
 
     @PostMapping("/devices")
-    public DeviceUnitDto createDevice(@RequestParam long deviceModelId) {
-        return deviceService.createDeviceUnitByDeviceModelId(deviceModelId);
+    public DeviceUnitDto createDeviceByModelIdentifier(@RequestParam String identifier) {
+        return deviceService.createDeviceUnitByDeviceModelIdentifier(identifier);
     }
 
     @GetMapping("/devices/{serialNumber}")

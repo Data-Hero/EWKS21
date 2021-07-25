@@ -2,6 +2,7 @@ package de.joergiso.isomatic.device.service;
 
 import de.joergiso.isomatic.device.domain.model.DeviceModel;
 import de.joergiso.isomatic.device.domain.model.DeviceModelDto;
+import de.joergiso.isomatic.device.domain.model.value.DeviceModelIdentifier;
 import de.joergiso.isomatic.device.domain.unit.DeviceUnit;
 import de.joergiso.isomatic.device.domain.unit.DeviceUnitDto;
 import de.joergiso.isomatic.device.domain.unit.value.DeviceUnitRegistrationStatus;
@@ -47,17 +48,18 @@ public class DeviceService {
         return deviceUnitRepository.findBySerialNumber(serialNumber).map(DeviceUnit::getRegistrationStatus).orElseThrow(() -> new DeviceNotFoundException(serialNumber));
     }
 
-    public DeviceUnitDto createDeviceUnitByDeviceModelId(Long deviceModelId) throws DeviceModelNotFoundException {
-        Optional<DeviceModel> optional = deviceModelRepository.findById(deviceModelId);
+    @Transactional
+    public DeviceUnitDto createDeviceUnitByDeviceModelIdentifier(String identifier) throws DeviceModelNotFoundException {
+        Optional<DeviceModel> optional = deviceModelRepository.findByIdentifier(new DeviceModelIdentifier(identifier));
         DeviceModel model = optional.orElseThrow(DeviceModelNotFoundException::new);
 
-        return createDeviceUnitByDeviceModel(model.toDto()).toDto();
+        return createDeviceUnitByDeviceModel(model).toDto();
     }
 
     @Transactional
-    DeviceUnit createDeviceUnitByDeviceModel(DeviceModelDto modelDto) throws DuplicateSerialNumberException {
-        DeviceUnitDto dto = DeviceUnitFactory.build(modelDto);
-        return deviceUnitRepository.save(new DeviceUnit().fromDto(dto));
+    public DeviceUnit createDeviceUnitByDeviceModel(DeviceModel model) throws DuplicateSerialNumberException {
+        DeviceUnit deviceUnit = DeviceUnitFactory.build(model);
+        return deviceUnitRepository.save(deviceUnit);
     }
 
     @Transactional

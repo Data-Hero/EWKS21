@@ -28,8 +28,8 @@ public class DeviceModelController {
         return deviceModelService.createDeviceModel(request);
     }
 
-    @GetMapping("/{id}")
-    public DeviceModelDto getDeviceModelById(@PathVariable("id") long id) {
-        return deviceModelService.getDeviceModelById(id);
+    @GetMapping("/{identifier}")
+    public DeviceModelDto getDeviceModelByIdentifier(@PathVariable("identifier") String identifier) {
+        return deviceModelService.getDeviceModelByIdentifier(identifier);
     }
 }

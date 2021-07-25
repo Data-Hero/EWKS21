@@ -23,6 +23,17 @@ public class DeviceUnit {
     @Column
     private DeviceUnitRegistrationStatus registrationStatus;
 
+    public DeviceUnit() {
+        this.serialNumber = new DeviceUnitSerialNumber();
+        this. model = new DeviceModel();
+        this.registrationStatus = new DeviceUnitRegistrationStatus();
+    }
+
+    public DeviceUnit(DeviceUnitSerialNumber serialNumber, DeviceModel model, DeviceUnitRegistrationStatus registrationStatus) {
+        this.serialNumber = serialNumber;
+        this.model = model;
+        this.registrationStatus = registrationStatus;
+    }
 
     public Long getId() {
         return id;

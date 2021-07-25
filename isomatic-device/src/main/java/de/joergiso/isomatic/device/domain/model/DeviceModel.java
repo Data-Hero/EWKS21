@@ -2,6 +2,7 @@ package de.joergiso.isomatic.device.domain.model;
 
 import de.joergiso.isomatic.device.domain.function.DeviceFunction;
 import de.joergiso.isomatic.device.domain.model.value.DeviceManufacturer;
+import de.joergiso.isomatic.device.domain.model.value.DeviceModelIdentifier;
 import de.joergiso.isomatic.device.domain.model.value.DeviceName;
 import de.joergiso.isomatic.device.domain.model.value.DeviceType;
 
@@ -13,6 +14,10 @@ import java.util.stream.Collectors;
 public class DeviceModel {
     @Id @GeneratedValue
     private Long id;
+
+    @Embedded
+    @Column
+    private DeviceModelIdentifier identifier;
 
     @Embedded
     @Column
@@ -31,6 +36,14 @@ public class DeviceModel {
 
     public Long getId() {
         return id;
+    }
+
+    public DeviceModelIdentifier getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(DeviceModelIdentifier identifier) {
+        this.identifier = identifier;
     }
 
     public DeviceType getType() {
@@ -66,6 +79,7 @@ public class DeviceModel {
     }
 
     public DeviceModel fromDto(DeviceModelDto dto) {
+        this.identifier = dto.getIdentifier();
         this.type = dto.getType();
         this.name = dto.getName();
         this.manufacturer = dto.getManufacturer();
@@ -75,6 +89,6 @@ public class DeviceModel {
     }
 
     public DeviceModelDto toDto() {
-        return new DeviceModelDto(type, name, manufacturer, functions.stream().map(DeviceFunction::toDto).collect(Collectors.toSet()));
+        return new DeviceModelDto(identifier, type, name, manufacturer, functions.stream().map(DeviceFunction::toDto).collect(Collectors.toSet()));
     }
 }

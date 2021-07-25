@@ -1,37 +1,32 @@
 package de.joergiso.isomatic.device.bootstrap;
 
-import de.joergiso.isomatic.device.domain.function.DeviceFunctionDto;
 import de.joergiso.isomatic.device.domain.function.value.FunctionPricing;
-import de.joergiso.isomatic.device.domain.model.DeviceModel;
 import de.joergiso.isomatic.device.domain.model.DeviceModelDto;
 import de.joergiso.isomatic.device.domain.model.value.DeviceManufacturer;
-import de.joergiso.isomatic.device.domain.unit.DeviceUnit;
-import de.joergiso.isomatic.device.repository.DeviceModelRepository;
-import de.joergiso.isomatic.device.repository.DeviceUnitRepository;
 import de.joergiso.isomatic.device.request.DeviceFunctionBlueprint;
+import de.joergiso.isomatic.device.service.DeviceModelService;
+import de.joergiso.isomatic.device.service.DeviceService;
 import de.joergiso.isomatic.device.util.DeviceFunctionFactory;
 import de.joergiso.isomatic.device.util.DeviceModelFactory;
-import de.joergiso.isomatic.device.util.DeviceUnitFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @Component
 public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedEvent> {
-    private final DeviceModelRepository deviceModelRepository;
-    private final DeviceUnitRepository deviceUnitRepository;
+    private final DeviceModelService deviceModelService;
+    private final DeviceService deviceService;
 
     @Autowired
-    public DummyDataBootstrap(DeviceModelRepository deviceModelRepository, DeviceUnitRepository deviceUnitRepository) {
-        this.deviceModelRepository = deviceModelRepository;
-        this.deviceUnitRepository = deviceUnitRepository;
+    public DummyDataBootstrap(DeviceModelService deviceModelService, DeviceService deviceService) {
+        this.deviceModelService = deviceModelService;
+        this.deviceService = deviceService;
     }
 
     @Override
@@ -40,7 +35,7 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
     }
 
     private void initData() {
-        if (!deviceModelRepository.findAll().iterator().hasNext()) {
+        if (deviceModelService.getAllDeviceModels().isEmpty()) {
             DeviceFunctionBlueprint fncBp1 = new DeviceFunctionBlueprint("CO2-Ausgleich", 0.1f, 60, FunctionPricing.Usage.PER_MINUTE);
             DeviceFunctionBlueprint fncBp2 = new DeviceFunctionBlueprint("4D-Wäsche", 1.0f, 1, FunctionPricing.Usage.PER_USE);
             DeviceFunctionBlueprint fncBp3 = new DeviceFunctionBlueprint("Magic Sous-Vide", 2.5f, 120, FunctionPricing.Usage.PER_MINUTE);
@@ -63,15 +58,17 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
             deviceModelDtoElectroluxAH.setFunctions(Set.of(fncBp1, fncBp4, fncBp6).stream().map(DeviceFunctionFactory::build).collect(Collectors.toSet()));
             deviceModelDtoAegIH.setFunctions(Set.of(fncBp1, fncBp3, fncBp6).stream().map(DeviceFunctionFactory::build).collect(Collectors.toSet()));
 
-            deviceModelRepository.saveAll(Stream.of(deviceModelDtoBoschGS, deviceModelDtoSiemensBO, deviceModelDtoElectroluxAH, deviceModelDtoAegIH).map(it -> new DeviceModel().fromDto(it)).collect(Collectors.toList()));
+            this.deviceModelService.createDeviceModel(deviceModelDtoBoschGS);
+            this.deviceModelService.createDeviceModel(deviceModelDtoSiemensBO);
+            this.deviceModelService.createDeviceModel(deviceModelDtoElectroluxAH);
+            this.deviceModelService.createDeviceModel(deviceModelDtoAegIH);
         }
 
-        if (!deviceUnitRepository.findAll().iterator().hasNext()) {
-            StreamSupport.stream(deviceModelRepository.findAll().spliterator(), false)
-                    .map(DeviceModel::toDto)
-                    .map(DeviceUnitFactory::build)
-                    .map(it -> new DeviceUnit().fromDto(it))
-                    .forEach(deviceUnitRepository::save);
+        if (deviceService.getAllDeviceUnits().isEmpty()) {
+            List<DeviceModelDto> models = this.deviceModelService.getAllDeviceModels();
+            models.forEach(it ->
+                    this.deviceService.createDeviceUnitByDeviceModelIdentifier(it.getIdentifier().identifier)
+            );
         }
     }
 }
