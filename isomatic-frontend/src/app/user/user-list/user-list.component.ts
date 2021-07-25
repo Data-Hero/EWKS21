@@ -11,6 +11,8 @@ export class UserListComponent implements OnInit {
 
   users: UserDto[] = [];
 
+  selectedUser: UserDto = new UserDto();
+
   constructor(private userService: UserService) {
     this.getUsers();
   }
@@ -21,5 +23,13 @@ export class UserListComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers().subscribe(e => this.users = e);
+  }
+
+  getUserById(id: number) {
+    this.userService.getUserById(id).subscribe(user => this.selectedUser = user);
+  }
+
+  saveUser(user: UserDto) {
+    this.userService.saveUser(user);
   }
 }
