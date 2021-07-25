@@ -5,11 +5,12 @@ import de.joergiso.isomaticuser.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -26,9 +27,18 @@ public class UserService {
         return user.orElse(null);
     }
 
+    public List<User> getAll() {
+        return this.userRepository.findAll();
+    }
+
     public void updateUser(User user) {
         Optional<User> storedUser = this.userRepository.findById(user.getId());
 
-        storedUser.ifPresent(entity -> this.userRepository.save(user));
+        storedUser.ifPresent(entity -> {
+            entity.setBookings(user.getBookings());
+            entity.setDevices(user.getDevices());
+
+            this.userRepository.save(entity);
+        });
     }
 }

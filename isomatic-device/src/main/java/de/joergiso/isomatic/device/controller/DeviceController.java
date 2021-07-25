@@ -35,6 +35,11 @@ public class DeviceController {
         return deviceService.getAllDeviceUnits();
     }
 
+    @PostMapping("/devices")
+    public DeviceUnitDto createDeviceByModelIdentifier(@RequestParam String identifier) {
+        return deviceService.createDeviceUnitByDeviceModelIdentifier(identifier);
+    }
+
     @GetMapping("/devices/{serialNumber}")
     public DeviceUnitDto getDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
         return deviceService.getDeviceUnit(serialNumber);
