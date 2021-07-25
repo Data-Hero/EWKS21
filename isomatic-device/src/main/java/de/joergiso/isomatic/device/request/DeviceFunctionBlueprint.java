@@ -4,11 +4,11 @@ import de.joergiso.isomatic.device.domain.function.value.FunctionPricing;
 
 public class DeviceFunctionBlueprint {
     private String name;
-    private float price;
+    private int price;
     private int amount;
     private FunctionPricing.Usage usage;
 
-    public DeviceFunctionBlueprint(String name, float price, int amount, FunctionPricing.Usage usage) {
+    public DeviceFunctionBlueprint(String name, int price, int amount, FunctionPricing.Usage usage) {
         this.name = name;
         this.price = price;
         this.amount = amount;
@@ -23,11 +23,11 @@ public class DeviceFunctionBlueprint {
         this.name = name;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

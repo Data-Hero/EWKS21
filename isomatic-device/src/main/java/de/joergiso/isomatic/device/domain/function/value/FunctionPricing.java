@@ -5,17 +5,17 @@ import java.io.Serializable;
 
 @Embeddable
 public class FunctionPricing implements Serializable {
-    public final float price;
+    public final int price;
     public final int amount;
     public final Usage usage;
 
     public FunctionPricing() {
-        this.price = 0.0f;
+        this.price = 0;
         this.amount = 0;
         this.usage = Usage.PER_USE;
     }
 
-    public FunctionPricing(float price, int amount, Usage usage) {
+    public FunctionPricing(int price, int amount, Usage usage) {
         this.price = price;
         this.amount = amount;
         this.usage = usage;

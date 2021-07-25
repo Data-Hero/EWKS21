@@ -14,7 +14,7 @@ public class DeviceFunctionFactory {
         return build(blueprint.getName(), blueprint.getPrice(), blueprint.getAmount(), blueprint.getUsage());
     }
 
-    public static DeviceFunctionDto build(String name, float price, int amount, FunctionPricing.Usage usage) {
+    public static DeviceFunctionDto build(String name, int price, int amount, FunctionPricing.Usage usage) {
         return new DeviceFunctionDto(
                 new FunctionIdentifier(UUID.randomUUID().toString()),
                 new FunctionName(name),

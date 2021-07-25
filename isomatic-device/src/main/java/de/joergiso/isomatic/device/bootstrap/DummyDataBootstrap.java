@@ -36,12 +36,12 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
 
     private void initData() {
         if (deviceModelService.getAllDeviceModels().isEmpty()) {
-            DeviceFunctionBlueprint fncBp1 = new DeviceFunctionBlueprint("CO2-Ausgleich", 0.1f, 60, FunctionPricing.Usage.PER_MINUTE);
-            DeviceFunctionBlueprint fncBp2 = new DeviceFunctionBlueprint("4D-Wäsche", 1.0f, 1, FunctionPricing.Usage.PER_USE);
-            DeviceFunctionBlueprint fncBp3 = new DeviceFunctionBlueprint("Magic Sous-Vide", 2.5f, 120, FunctionPricing.Usage.PER_MINUTE);
-            DeviceFunctionBlueprint fncBp4 = new DeviceFunctionBlueprint("Magic Aktiv-Kohle", 1.0f, 60, FunctionPricing.Usage.PER_MINUTE);
-            DeviceFunctionBlueprint fncBp5 = new DeviceFunctionBlueprint("5D-Heißluft", 1.5f, 60, FunctionPricing.Usage.PER_MINUTE);
-            DeviceFunctionBlueprint fncBp6 = new DeviceFunctionBlueprint("Power-Boost", 0.5f, 30, FunctionPricing.Usage.PER_MINUTE);
+            DeviceFunctionBlueprint fncBp1 = new DeviceFunctionBlueprint("CO2-Ausgleich", 10, 60, FunctionPricing.Usage.PER_MINUTE);
+            DeviceFunctionBlueprint fncBp2 = new DeviceFunctionBlueprint("4D-Wäsche", 100, 1, FunctionPricing.Usage.PER_USE);
+            DeviceFunctionBlueprint fncBp3 = new DeviceFunctionBlueprint("Magic Sous-Vide", 250, 120, FunctionPricing.Usage.PER_MINUTE);
+            DeviceFunctionBlueprint fncBp4 = new DeviceFunctionBlueprint("Magic Aktiv-Kohle", 100, 60, FunctionPricing.Usage.PER_MINUTE);
+            DeviceFunctionBlueprint fncBp5 = new DeviceFunctionBlueprint("5D-Heißluft", 150, 60, FunctionPricing.Usage.PER_MINUTE);
+            DeviceFunctionBlueprint fncBp6 = new DeviceFunctionBlueprint("Power-Boost", 50, 30, FunctionPricing.Usage.PER_MINUTE);
 
             DeviceManufacturer dmBosch = new DeviceManufacturer("BSH", "Bosch");
             DeviceManufacturer dmSiemens = new DeviceManufacturer("BSH", "Siemens");
