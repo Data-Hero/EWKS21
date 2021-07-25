@@ -1,15 +1,15 @@
 package de.joergiso.isomatic.device.domain.unit;
 
-import de.joergiso.isomatic.device.domain.model.DeviceModel;
+import de.joergiso.isomatic.device.domain.model.DeviceModelDto;
 import de.joergiso.isomatic.device.domain.unit.value.DeviceUnitSerialNumber;
 
 public class DeviceUnitDto {
     private DeviceUnitSerialNumber serialNumber;
-    private DeviceModel model;
+    private DeviceModelDto modelDto;
 
-    public DeviceUnitDto(DeviceUnitSerialNumber serialNumber, DeviceModel model) {
+    public DeviceUnitDto(DeviceUnitSerialNumber serialNumber, DeviceModelDto modelDto) {
         this.serialNumber = serialNumber;
-        this.model = model;
+        this.modelDto = modelDto;
     }
 
     public DeviceUnitSerialNumber getSerialNumber() {
@@ -20,11 +20,11 @@ public class DeviceUnitDto {
         this.serialNumber = serialNumber;
     }
 
-    public DeviceModel getModel() {
-        return model;
+    public DeviceModelDto getModelDto() {
+        return modelDto;
     }
 
-    public void setModel(DeviceModel model) {
-        this.model = model;
+    public void setModelDto(DeviceModelDto modelDto) {
+        this.modelDto = modelDto;
     }
 }

@@ -1,41 +1,26 @@
 package de.joergiso.isomatic.device.domain.model;
 
-import de.joergiso.isomatic.device.domain.function.DeviceFunction;
+import de.joergiso.isomatic.device.domain.function.DeviceFunctionDto;
 import de.joergiso.isomatic.device.domain.model.value.DeviceManufacturer;
 import de.joergiso.isomatic.device.domain.model.value.DeviceModelIdentifier;
 import de.joergiso.isomatic.device.domain.model.value.DeviceName;
 import de.joergiso.isomatic.device.domain.model.value.DeviceType;
 
-import javax.persistence.*;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@Entity
-public class DeviceModel {
-    @Id @GeneratedValue
-    private Long id;
-
-    @Embedded
-    @Column
+public class DeviceModelDto {
     private DeviceModelIdentifier identifier;
-
-    @Embedded
-    @Column
     private DeviceType type;
-
-    @Embedded
-    @Column
     private DeviceName name;
-
-    @Embedded
     private DeviceManufacturer manufacturer;
+    Set<DeviceFunctionDto> functions;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Set<DeviceFunction> functions;
-
-
-    public Long getId() {
-        return id;
+    public DeviceModelDto(DeviceModelIdentifier identifier, DeviceType type, DeviceName name, DeviceManufacturer manufacturer, Set<DeviceFunctionDto> functions) {
+        this.identifier = identifier;
+        this.type = type;
+        this.name = name;
+        this.manufacturer = manufacturer;
+        this.functions = functions;
     }
 
     public DeviceModelIdentifier getIdentifier() {
@@ -70,25 +55,11 @@ public class DeviceModel {
         this.manufacturer = manufacturer;
     }
 
-    public Set<DeviceFunction> getFunctions() {
+    public Set<DeviceFunctionDto> getFunctions() {
         return functions;
     }
 
-    public void setFunctions(Set<DeviceFunction> functions) {
+    public void setFunctions(Set<DeviceFunctionDto> functions) {
         this.functions = functions;
-    }
-
-    public DeviceModel fromDto(DeviceModelDto dto) {
-        this.identifier = dto.getIdentifier();
-        this.type = dto.getType();
-        this.name = dto.getName();
-        this.manufacturer = dto.getManufacturer();
-        this.functions = dto.getFunctions().stream().map(it -> new DeviceFunction().fromDto(it)).collect(Collectors.toSet());
-
-        return this;
-    }
-
-    public DeviceModelDto toDto() {
-        return new DeviceModelDto(identifier, type, name, manufacturer, functions.stream().map(DeviceFunction::toDto).collect(Collectors.toSet()));
     }
 }
