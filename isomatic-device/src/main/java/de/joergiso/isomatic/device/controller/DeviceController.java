@@ -18,7 +18,7 @@ import java.util.List;
 public class DeviceController {
 
     @Value("${foo.bar:default}")
-    private String fooBar = "empty";
+    private final String fooBar = "empty";
 
     private final DeviceService deviceService;
 

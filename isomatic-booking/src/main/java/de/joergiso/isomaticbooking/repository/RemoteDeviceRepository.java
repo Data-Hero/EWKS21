@@ -19,7 +19,7 @@ public class RemoteDeviceRepository {
   @Qualifier(value = "bookingRestTemplate")
   private RestTemplate restTemplate;
 
-  private ConfigurationService configurationService;
+  private final ConfigurationService configurationService;
 
   @Autowired
   public RemoteDeviceRepository(ConfigurationService configurationService) {
@@ -29,7 +29,7 @@ public class RemoteDeviceRepository {
   public Device fetchDevice(Long deviceId) throws DeviceNotFoundException {
     ResponseEntity<List<Device>> response
         = restTemplate.exchange(
-        configurationService.getDeviceEndpoint() + "/devices", HttpMethod.GET, null,
+        configurationService.getDeviceEndpoint() + "/device/devices", HttpMethod.GET, null,
         new ParameterizedTypeReference<>() {
         }
     );
@@ -43,7 +43,7 @@ public class RemoteDeviceRepository {
   public List<Device> fetchDevices() {
     ResponseEntity<List<Device>> response
         = restTemplate.exchange(
-        configurationService.getDeviceEndpoint() + "/devices", HttpMethod.GET, null,
+        configurationService.getDeviceEndpoint() + "/device/devices", HttpMethod.GET, null,
         new ParameterizedTypeReference<List<Device>>() {}
     );
     return response.getBody();

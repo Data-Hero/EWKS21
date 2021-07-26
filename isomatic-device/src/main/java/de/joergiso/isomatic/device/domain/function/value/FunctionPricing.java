@@ -22,6 +22,6 @@ public class FunctionPricing implements Serializable {
     }
 
     public enum Usage {
-        PER_USE, PER_MINUTE;
+        PER_USE, PER_MINUTE
     }
 }
