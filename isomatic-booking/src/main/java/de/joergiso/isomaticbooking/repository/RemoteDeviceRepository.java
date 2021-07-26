@@ -35,15 +35,6 @@ public class RemoteDeviceRepository {
   }
 
   public List<DeviceUnitDto> fetchDevices() {
-    ResponseEntity<DeviceUnitDto> response1
-        = restTemplate.exchange(
-        configurationService.getDeviceEndpoint()
-            + "/devices",
-        HttpMethod.GET,
-        null,
-        new ParameterizedTypeReference<>() {
-        });
-    System.out.println(response1.getBody());
     Iterable<DeviceUnitDto> devices = circuitBreakerFactory.create("fetchUser").run(() -> {
       ResponseEntity<List<DeviceUnitDto>> response
           = restTemplate.exchange(
@@ -56,7 +47,6 @@ public class RemoteDeviceRepository {
       );
       return response.getBody();
     }, t -> new LinkedList<>());
-    System.out.println(devices);
     return StreamSupport.stream(devices.spliterator(), false).collect(Collectors.toList());
   }
 }

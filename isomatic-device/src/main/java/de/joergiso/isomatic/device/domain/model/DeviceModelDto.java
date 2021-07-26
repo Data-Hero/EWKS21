@@ -17,7 +17,11 @@ public class DeviceModelDto {
   public DeviceModelDto() {
   }
 
-  public DeviceModelDto(DeviceModelIdentifier identifier, DeviceType type, DeviceName name, DeviceManufacturer manufacturer, Set<DeviceFunctionDto> functions) {
+  public DeviceModelDto(DeviceModelIdentifier identifier,
+                        DeviceType type,
+                        DeviceName name,
+                        DeviceManufacturer manufacturer,
+                        Set<DeviceFunctionDto> functions) {
     this.identifier = identifier;
     this.type = type;
     this.name = name;

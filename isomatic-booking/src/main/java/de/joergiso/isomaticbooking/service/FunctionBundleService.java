@@ -38,23 +38,33 @@ public class FunctionBundleService {
     List<DeviceUnitDto> deviceUnitDtosOfUser = remoteDeviceRepository
         .fetchDevices()
         .stream()
-        .filter(deviceUnitDto -> {
-          System.out.println(deviceUnitDto.getSerialNumber().serialNumber);
-          return user.getDevices().contains(deviceUnitDto.getSerialNumber().serialNumber);
-        })
+        .filter(deviceUnitDto -> user.getDevices().contains(deviceUnitDto.getSerialNumber().serialNumber))
         .collect(Collectors.toList());
     System.out.println(remoteDeviceRepository
-        .fetchDevices());
-
+        .fetchDevices()
+        .stream()
+        .map(DeviceUnitDto::getModelDto)
+        .flatMap(modelDto -> modelDto.getFunctions().stream())
+        .map(deviceFunctionDto -> deviceFunctionDto.getName().name)
+        .collect(Collectors.toList()));
+    System.out.println(StreamSupport.stream(
+        functionBundleRepository.findAll().spliterator(), false
+    ).flatMap(functionBundle -> functionBundle.getFunctions().stream()).collect(Collectors.toList()));
     return StreamSupport.stream(
         functionBundleRepository.findAll().spliterator(), false
       ).filter(fb -> fb.getFunctions().stream().allMatch(
-          function -> deviceUnitDtosOfUser.stream().flatMap(deviceUnitDto ->
-              deviceUnitDto
+          function -> deviceUnitDtosOfUser.stream().flatMap(deviceUnitDto -> {
+            System.out.println(deviceUnitDto);
+            return deviceUnitDto
                   .getModelDto()
                   .getFunctions()
-                  .stream())
-              .anyMatch((deviceFunction) -> function.equals(deviceFunction.getIdentifier().identifier))))
+                  .stream();
+          })
+              .anyMatch((deviceFunction) -> {
+                System.out.println(function);
+                System.out.println(deviceFunction.getIdentifier().identifier);
+                return  function.equals(deviceFunction.getIdentifier().identifier);
+              })))
         .map(mapper::functionBundleToDto)
         .collect(Collectors.toList());
   }
