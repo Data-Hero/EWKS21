@@ -9,7 +9,6 @@
     {
       "inputFile": "./src/app/shared/openapi-device.json",
       "pathModification": {
-        "prepend": "/device"
       }
     },
     {

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController()
+@RequestMapping("device/devices")
 public class DeviceController {
 
     @Value("${foo.bar:default}")
@@ -30,32 +32,32 @@ public class DeviceController {
         return fooBar;
     }
 
-    @GetMapping("/devices")
+    @GetMapping()
     public List<DeviceUnitDto> getAllDevices() {
         return deviceService.getAllDeviceUnits();
     }
 
-    @PostMapping("/devices")
+    @PostMapping()
     public DeviceUnitDto createDeviceByModelIdentifier(@RequestParam String identifier) {
         return deviceService.createDeviceUnitByDeviceModelIdentifier(identifier);
     }
 
-    @GetMapping("/devices/{serialNumber}")
+    @GetMapping("/{serialNumber}")
     public DeviceUnitDto getDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
         return deviceService.getDeviceUnit(serialNumber);
     }
 
-    @GetMapping("/devices/{serialNumber}/registration")
+    @GetMapping("/{serialNumber}/registration")
     public DeviceUnitRegistrationStatus getDeviceRegistrationStatus(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
         return deviceService.getDeviceUnitRegistrationStatus(serialNumber);
     }
 
-    @PostMapping("/devices/{serialNumber}/registration")
+    @PostMapping("/{serialNumber}/registration")
     public DeviceUnitDto registerDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException, DeviceAlreadyRegisteredException {
         return deviceService.registerDevice(serialNumber);
     }
 
-    @DeleteMapping("/devices/{serialNumber}/registration")
+    @DeleteMapping("/{serialNumber}/registration")
     public DeviceUnitDto unregisterDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
         return deviceService.unregisterDevice(serialNumber);
     }

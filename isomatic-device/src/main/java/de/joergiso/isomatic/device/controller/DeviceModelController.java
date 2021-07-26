@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/models")
+@RequestMapping("device/models")
 public class DeviceModelController {
     private final DeviceModelService deviceModelService;
 

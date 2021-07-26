@@ -1,1 +1,18 @@
 <p>device-unit works!</p>
+<div *ngFor="let device of devices">
+  <span>Gerät: </span><br>
+  <span><strong>Seriennummer:</strong> {{device.serialNumber?.serialNumber || "n/a"}}</span><br>
+  <span><strong>Registrierung-Status:</strong> {{device.registrationStatus?.status || "n/a"}}</span><br>
+</div>
+<h4>Gerät anlegen</h4>
+<mat-form-field appearance="fill">
+  <mat-label>Gerätemodell</mat-label>
+  <mat-select [(ngModel)]="selectedModel">
+    <mat-option *ngFor="let model of $models | async" [value]="model.identifier?.identifier">
+      {{model.manufacturer?.manName}}
+      {{model.name?.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<span>{{selectedModel}}</span>
+<button (click)="createDeviceFromSelectedModelIdentifier()">Anlegen</button>

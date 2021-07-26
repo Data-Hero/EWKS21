@@ -68,11 +68,12 @@ public class DeviceUnit {
     }
 
     public DeviceUnitDto toDto() {
-        return new DeviceUnitDto(serialNumber, model.toDto());
+        return new DeviceUnitDto(serialNumber, registrationStatus, model.toDto());
     }
 
     public DeviceUnit fromDto(DeviceUnitDto dto) {
         this.serialNumber = dto.getSerialNumber();
+        this.registrationStatus = dto.getRegistrationStatus();
         this.model = new DeviceModel().fromDto(dto.getModelDto());
 
         return this;
