@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController()
+@RequestMapping("device/devices")
 public class DeviceController {
 
     @Value("${foo.bar:default}")
@@ -30,33 +32,38 @@ public class DeviceController {
         return fooBar;
     }
 
-    @GetMapping("/devices")
+    @GetMapping()
     public List<DeviceUnitDto> getAllDevices() {
         return deviceService.getAllDeviceUnits();
     }
 
-    @PostMapping("/devices")
+    @PostMapping()
     public DeviceUnitDto createDeviceByModelIdentifier(@RequestParam String identifier) {
         return deviceService.createDeviceUnitByDeviceModelIdentifier(identifier);
     }
 
-    @GetMapping("/devices/{serialNumber}")
-    public DeviceUnitDto getDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
+    @GetMapping("/{serialNumber}")
+    public DeviceUnitDto getDevice(@PathVariable String serialNumber) throws DeviceNotFoundException {
         return deviceService.getDeviceUnit(serialNumber);
     }
 
-    @GetMapping("/devices/{serialNumber}/registration")
-    public DeviceUnitRegistrationStatus getDeviceRegistrationStatus(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
+    @DeleteMapping("/{serialNumber}")
+    public void deleteDevice(@PathVariable String serialNumber) throws DeviceNotFoundException {
+        deviceService.deleteDeviceBySerialNumber(serialNumber);
+    }
+
+    @GetMapping("/{serialNumber}/registration")
+    public DeviceUnitRegistrationStatus getDeviceRegistrationStatus(@PathVariable String serialNumber) throws DeviceNotFoundException {
         return deviceService.getDeviceUnitRegistrationStatus(serialNumber);
     }
 
-    @PostMapping("/devices/{serialNumber}/registration")
-    public DeviceUnitDto registerDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException, DeviceAlreadyRegisteredException {
+    @PostMapping("/{serialNumber}/registration")
+    public DeviceUnitDto registerDevice(@PathVariable String serialNumber) throws DeviceNotFoundException, DeviceAlreadyRegisteredException {
         return deviceService.registerDevice(serialNumber);
     }
 
-    @DeleteMapping("/devices/{serialNumber}/registration")
-    public DeviceUnitDto unregisterDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
+    @DeleteMapping("/{serialNumber}/registration")
+    public DeviceUnitDto unregisterDevice(@PathVariable String serialNumber) throws DeviceNotFoundException {
         return deviceService.unregisterDevice(serialNumber);
     }
 

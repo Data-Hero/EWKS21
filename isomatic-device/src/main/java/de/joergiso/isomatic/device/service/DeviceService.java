@@ -1,7 +1,6 @@
 package de.joergiso.isomatic.device.service;
 
 import de.joergiso.isomatic.device.domain.model.DeviceModel;
-import de.joergiso.isomatic.device.domain.model.DeviceModelDto;
 import de.joergiso.isomatic.device.domain.model.value.DeviceModelIdentifier;
 import de.joergiso.isomatic.device.domain.unit.DeviceUnit;
 import de.joergiso.isomatic.device.domain.unit.DeviceUnitDto;
@@ -40,12 +39,16 @@ public class DeviceService {
                 .collect(Collectors.toList());
     }
 
-    public DeviceUnitDto getDeviceUnit(DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
-        return deviceUnitRepository.findBySerialNumber(serialNumber).map(DeviceUnit::toDto).orElseThrow(() -> new DeviceNotFoundException(serialNumber));
+    public DeviceUnitDto getDeviceUnit(String serialNumber) throws DeviceNotFoundException {
+        return deviceUnitRepository.findBySerialNumber(new DeviceUnitSerialNumber(serialNumber))
+                .map(DeviceUnit::toDto)
+                .orElseThrow(() -> new DeviceNotFoundException(new DeviceUnitSerialNumber(serialNumber)));
     }
 
-    public DeviceUnitRegistrationStatus getDeviceUnitRegistrationStatus(DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
-        return deviceUnitRepository.findBySerialNumber(serialNumber).map(DeviceUnit::getRegistrationStatus).orElseThrow(() -> new DeviceNotFoundException(serialNumber));
+    public DeviceUnitRegistrationStatus getDeviceUnitRegistrationStatus(String serialNumber) throws DeviceNotFoundException {
+        return deviceUnitRepository.findBySerialNumber(new DeviceUnitSerialNumber(serialNumber))
+                .map(DeviceUnit::getRegistrationStatus)
+                .orElseThrow(() -> new DeviceNotFoundException(new DeviceUnitSerialNumber(serialNumber)));
     }
 
     @Transactional
@@ -63,12 +66,20 @@ public class DeviceService {
     }
 
     @Transactional
-    public DeviceUnitDto registerDevice(DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException, DeviceAlreadyRegisteredException {
-        Optional<DeviceUnit> optionalEntity = deviceUnitRepository.findBySerialNumber(serialNumber);
-        DeviceUnit entity = optionalEntity.orElseThrow(() -> new DeviceNotFoundException(serialNumber));
+    public void deleteDeviceBySerialNumber(String serialNumber) throws DeviceNotFoundException {
+        DeviceUnit entity = this.deviceUnitRepository.findBySerialNumber(new DeviceUnitSerialNumber(serialNumber))
+                .orElseThrow(() -> new DeviceNotFoundException(new DeviceUnitSerialNumber(serialNumber)));
+
+        this.deviceUnitRepository.delete(entity);
+    }
+
+    @Transactional
+    public DeviceUnitDto registerDevice(String serialNumber) throws DeviceNotFoundException, DeviceAlreadyRegisteredException {
+        DeviceUnit entity = deviceUnitRepository.findBySerialNumber(new DeviceUnitSerialNumber(serialNumber))
+                .orElseThrow(() -> new DeviceNotFoundException(new DeviceUnitSerialNumber(serialNumber)));
 
         if (entity.isRegistered()) {
-            throw new DeviceAlreadyRegisteredException(serialNumber);
+            throw new DeviceAlreadyRegisteredException(new DeviceUnitSerialNumber(serialNumber));
 
         } else {
             entity.setRegistrationStatus(new DeviceUnitRegistrationStatus(DeviceUnitRegistrationStatus.Status.REGISTERED));
@@ -79,9 +90,9 @@ public class DeviceService {
     }
 
     @Transactional
-    public DeviceUnitDto unregisterDevice(DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
-        Optional<DeviceUnit> optionalEntity = deviceUnitRepository.findBySerialNumber(serialNumber);
-        DeviceUnit entity = optionalEntity.orElseThrow(() -> new DeviceNotFoundException(serialNumber));
+    public DeviceUnitDto unregisterDevice(String serialNumber) throws DeviceNotFoundException {
+        Optional<DeviceUnit> optionalEntity = deviceUnitRepository.findBySerialNumber(new DeviceUnitSerialNumber(serialNumber));
+        DeviceUnit entity = optionalEntity.orElseThrow(() -> new DeviceNotFoundException(new DeviceUnitSerialNumber(serialNumber)));
 
         entity.setRegistrationStatus(new DeviceUnitRegistrationStatus(DeviceUnitRegistrationStatus.Status.UNREGISTERED));
         DeviceUnit saved = deviceUnitRepository.save(entity);
