@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BookingModule} from './booking/booking.module';
 import {DeviceModule} from "./device/device.module";
+import {ApiModule} from "./shared/_generated/rest-api";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {DeviceModule} from "./device/device.module";
     BrowserAnimationsModule,
     MatTabsModule,
     BookingModule,
-    DeviceModule
+    DeviceModule,
+    HttpClientModule,
+    ApiModule
   ],
   providers: [],
   bootstrap: [AppComponent]
