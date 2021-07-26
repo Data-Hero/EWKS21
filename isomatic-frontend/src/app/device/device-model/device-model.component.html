@@ -1,1 +1,30 @@
-<p>device-model works!</p>
+<h2>Gerätemodelle</h2>
+<div *ngFor="let model of models">
+  <span><strong>Gerätetyp:</strong> {{model.type?.type}}</span><br>
+  <span><strong>Bezeichnung:</strong> {{model.name?.name}}</span><br>
+  <span><strong>Hersteller:</strong> {{model.manufacturer?.manName}} ({{model.manufacturer?.manAbbr}})</span><br>
+  <span><strong>Funktionen: </strong></span><small>| <span *ngFor="let function of model.functions">{{function.name?.name || "Unbekannt"}} ({{getEuroFromCent(function.pricing?.price) | currency:'EUR':'symbol':'1.2-2'}} / {{function.pricing?.amount}} <span *ngIf="isPerUse(function.pricing?.usage)">Nutzungen</span><span *ngIf="!isPerUse(function.pricing?.usage)">Minuten</span>) | </span></small><br>
+  <button (click)="deleteDeviceModel(model)">Entfernen</button>
+  <br><br>
+</div>
+
+<h2>Modell anlegen</h2>
+<span><strong>Gerätetyp: </strong><input [(ngModel)]="newDeviceModel.type" type="text"></span><br>
+<span><strong>Bezeichnung: </strong><input [(ngModel)]="newDeviceModel.name" type="text"></span><br>
+<span><strong>Herstellername: </strong><input [(ngModel)]="newDeviceModel.manufacturerName" type="text"></span><br>
+<span><strong>Herstellerkürzel: </strong><input [(ngModel)]="newDeviceModel.manufacturerAbbr" type="text"></span><br>
+<div *ngFor="let bp of functionBlueprints; let i = index">
+  {{i+1}}:
+  Name: <input [(ngModel)]="bp.name" type="text">
+  Preis (Cent): <input [(ngModel)]="bp.price" type="number">
+  Anzahl: <input [(ngModel)]="bp.amount" type="number">
+  Art: <select [(ngModel)]="bp.usage" type="text">
+  <option value="PER_USE">Nutzung</option>
+  <option value="PER_MINUTE">Minute</option>
+</select>
+  <button (click)="deleteFunctionBlueprintByIndex(i)">Entfernen</button>
+</div>
+<button (click)="addFunctionBlueprint()">Funktion hinzufügen</button><br>
+<button (click)="createDeviceModel()">Anlegen</button>
+
+

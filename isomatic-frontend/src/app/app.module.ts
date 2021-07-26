@@ -9,6 +9,7 @@ import {BookingModule} from './booking/booking.module';
 import {DeviceModule} from "./device/device.module";
 import {ApiModule} from "./shared/_generated/rest-api";
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {HttpClientModule} from "@angular/common/http";
     BookingModule,
     DeviceModule,
     HttpClientModule,
-    ApiModule
+    ApiModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

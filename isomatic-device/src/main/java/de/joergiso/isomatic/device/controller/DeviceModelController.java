@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -36,8 +35,13 @@ public class DeviceModelController {
         return deviceModelService.getDeviceModelByIdentifier(identifier);
     }
 
+    @DeleteMapping("/{identifier}")
+    public void deleteDeviceModel(@PathVariable("identifier") String identifier) {
+        this.deviceModelService.deleteDeviceModelByIdentifier(identifier);
+    }
+
     @GetMapping("/{identifier}/functions")
-    public Set<DeviceFunctionDto> getDeviceModelFunctions(@PathVariable("identifier") String identifier) {
+    public List<DeviceFunctionDto> getDeviceModelFunctions(@PathVariable("identifier") String identifier) {
         return deviceModelService.getDeviceModelByIdentifier(identifier).getFunctions();
     }
 }
