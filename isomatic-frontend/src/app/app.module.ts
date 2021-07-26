@@ -24,7 +24,8 @@ import {FormsModule} from "@angular/forms";
     DeviceModule,
     HttpClientModule,
     ApiModule,
-    FormsModule
+    FormsModule,
+    UserModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
