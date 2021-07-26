@@ -5,61 +5,63 @@ import de.joergiso.isomatic.device.domain.model.value.DeviceManufacturer;
 import de.joergiso.isomatic.device.domain.model.value.DeviceModelIdentifier;
 import de.joergiso.isomatic.device.domain.model.value.DeviceName;
 import de.joergiso.isomatic.device.domain.model.value.DeviceType;
-
 import java.util.Set;
 
 public class DeviceModelDto {
-    private DeviceModelIdentifier identifier;
-    private DeviceType type;
-    private DeviceName name;
-    private DeviceManufacturer manufacturer;
-    Set<DeviceFunctionDto> functions;
+  private DeviceModelIdentifier identifier;
+  private DeviceType type;
+  private DeviceName name;
+  private DeviceManufacturer manufacturer;
+  Set<DeviceFunctionDto> functions;
 
-    public DeviceModelDto(DeviceModelIdentifier identifier, DeviceType type, DeviceName name, DeviceManufacturer manufacturer, Set<DeviceFunctionDto> functions) {
-        this.identifier = identifier;
-        this.type = type;
-        this.name = name;
-        this.manufacturer = manufacturer;
-        this.functions = functions;
-    }
+  public DeviceModelDto() {
+  }
 
-    public DeviceModelIdentifier getIdentifier() {
-        return identifier;
-    }
+  public DeviceModelDto(DeviceModelIdentifier identifier, DeviceType type, DeviceName name, DeviceManufacturer manufacturer, Set<DeviceFunctionDto> functions) {
+    this.identifier = identifier;
+    this.type = type;
+    this.name = name;
+    this.manufacturer = manufacturer;
+    this.functions = functions;
+  }
 
-    public void setIdentifier(DeviceModelIdentifier identifier) {
-        this.identifier = identifier;
-    }
+  public DeviceModelIdentifier getIdentifier() {
+    return identifier;
+  }
 
-    public DeviceType getType() {
-        return type;
-    }
+  public void setIdentifier(DeviceModelIdentifier identifier) {
+    this.identifier = identifier;
+  }
 
-    public void setType(DeviceType type) {
-        this.type = type;
-    }
+  public DeviceType getType() {
+    return type;
+  }
 
-    public DeviceName getName() {
-        return name;
-    }
+  public void setType(DeviceType type) {
+    this.type = type;
+  }
 
-    public void setName(DeviceName name) {
-        this.name = name;
-    }
+  public DeviceName getName() {
+    return name;
+  }
 
-    public DeviceManufacturer getManufacturer() {
-        return manufacturer;
-    }
+  public void setName(DeviceName name) {
+    this.name = name;
+  }
 
-    public void setManufacturer(DeviceManufacturer manufacturer) {
-        this.manufacturer = manufacturer;
-    }
+  public DeviceManufacturer getManufacturer() {
+    return manufacturer;
+  }
 
-    public Set<DeviceFunctionDto> getFunctions() {
-        return functions;
-    }
+  public void setManufacturer(DeviceManufacturer manufacturer) {
+    this.manufacturer = manufacturer;
+  }
 
-    public void setFunctions(Set<DeviceFunctionDto> functions) {
-        this.functions = functions;
-    }
+  public Set<DeviceFunctionDto> getFunctions() {
+    return functions;
+  }
+
+  public void setFunctions(Set<DeviceFunctionDto> functions) {
+    this.functions = functions;
+  }
 }
