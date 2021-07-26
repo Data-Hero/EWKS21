@@ -9,6 +9,8 @@ public class DeviceUnitDto {
     private DeviceUnitRegistrationStatus registrationStatus;
     private DeviceModelDto modelDto;
 
+    public DeviceUnitDto() {}
+
     public DeviceUnitDto(DeviceUnitSerialNumber serialNumber, DeviceUnitRegistrationStatus registrationStatus, DeviceModelDto modelDto) {
         this.serialNumber = serialNumber;
         this.registrationStatus = registrationStatus;

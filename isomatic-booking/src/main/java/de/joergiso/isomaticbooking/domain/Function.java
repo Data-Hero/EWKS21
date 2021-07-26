@@ -31,21 +31,22 @@ public class Function {
   @Enumerated(EnumType.STRING)
   private TimeUnit timeRequired;
 
-  @OneToOne
-  private Device device;
+  @Column(nullable = false)
+  private String deviceSerialNumber;
 
   protected Function() {
     // empty constructor
   }
 
-  public Function(String functionNumber, String functionName, Double pricePerTimeUnit, Integer amountOfTime, TimeUnit timeRequired, Device device) {
+  public Function(String functionNumber, String functionName, Double pricePerTimeUnit,
+                  Integer amountOfTime, TimeUnit timeRequired, String deviceSerialNumber) {
     this();
     this.functionNumber = functionNumber;
     this.functionName = functionName;
     this.pricePerTimeUnit = pricePerTimeUnit;
     this.amountOfTime = amountOfTime;
     this.timeRequired = timeRequired;
-    this.device = device;
+    this.deviceSerialNumber = deviceSerialNumber;
   }
 
   public Long getId() {
@@ -92,12 +93,12 @@ public class Function {
     this.timeRequired = timeRequired;
   }
 
-  public Device getDevice() {
-    return device;
+  public String getDevice() {
+    return deviceSerialNumber;
   }
 
-  public void setDevice(Device device) {
-    this.device = device;
+  public void setDevice(String deviceSerialNumber) {
+    this.deviceSerialNumber = deviceSerialNumber;
   }
 
   @Override

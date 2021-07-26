@@ -34,6 +34,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springdoc:springdoc-openapi-common:1.5.9'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.9'
+	implementation project(':isomatic-device')
 }
 
 dependencyManagement {

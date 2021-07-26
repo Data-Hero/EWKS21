@@ -55,7 +55,6 @@ public class BookingService {
     Booking booking = new Booking();
     booking.setFunctionBundle(functionBundleRepository.getFunctionBundleByFunctionBundleIdEquals(functionBundleId));
     booking.setUser(remoteUserRepository.fetchUser(bookingInformationDto.getUserId()));
-    booking.setDevice(remoteDeviceRepository.fetchDevice(bookingInformationDto.getDeviceId()));
     booking.setStartTime(bookingInformationDto.getStartTime());
     booking.setStartTime(bookingInformationDto.getEndTime());
     bookingRepository.save(booking);

@@ -1,9 +1,9 @@
 package de.joergiso.isomaticbooking.repository;
 
-import de.joergiso.isomaticbooking.domain.Device;
+import de.joergiso.isomatic.device.domain.unit.DeviceUnitDto;
 import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
 import de.joergiso.isomaticbooking.service.ConfigurationService;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -28,43 +28,34 @@ public class RemoteDeviceRepository {
 
   private final ConfigurationService configurationService;
 
-  private final DeviceRepository deviceRepository;
 
   @Autowired
-  public RemoteDeviceRepository(ConfigurationService configurationService,
-                                DeviceRepository deviceRepository) {
+  public RemoteDeviceRepository(ConfigurationService configurationService) {
     this.configurationService = configurationService;
-    this.deviceRepository = deviceRepository;
   }
 
-  public String fetchDevice(Long deviceId) throws DeviceNotFoundException {
-    ResponseEntity<List<String>> response
+  public List<DeviceUnitDto> fetchDevices() {
+    ResponseEntity<List<DeviceUnitDto>> response1
         = restTemplate.exchange(
-        configurationService.getDeviceEndpoint() + "/devices", HttpMethod.GET, null,
-        new ParameterizedTypeReference<>() {
-        }
-    );
-    return response.getBody()
-        .stream()
-        .filter(device -> true) // TODO
-        .findFirst()
-        .orElseThrow(DeviceNotFoundException::new);
-  }
-
-  public List<String> fetchDevices() {
-    Iterable<Device> devices = circuitBreakerFactory.create("fetchUser").run(() -> {
-      ResponseEntity<List<Device>> response
+        configurationService.getDeviceEndpoint()
+            + "/devices",
+        HttpMethod.GET,
+        null,
+        new ParameterizedTypeReference<List<DeviceUnitDto>>() {
+        });
+    System.out.println(response1);
+    Iterable<DeviceUnitDto> devices = circuitBreakerFactory.create("fetchUser").run(() -> {
+      ResponseEntity<List<DeviceUnitDto>> response
           = restTemplate.exchange(
-          configurationService.getUserEndpoint()
+          configurationService.getDeviceEndpoint()
               + "/devices",
           HttpMethod.GET,
           null,
-          new ParameterizedTypeReference<List<Device>>() {
+          new ParameterizedTypeReference<List<DeviceUnitDto>>() {
           }
       );
       return response.getBody();
-    }, t -> deviceRepository.findAll());
-    devices.forEach(deviceRepository::save);
+    }, t -> new LinkedList<>());
     return StreamSupport.stream(devices.spliterator(), false).collect(Collectors.toList());
   }
 }

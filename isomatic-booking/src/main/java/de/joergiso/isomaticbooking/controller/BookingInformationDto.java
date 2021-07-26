@@ -8,7 +8,7 @@ public class BookingInformationDto {
 
   private Long userId;
 
-  private Long deviceId;
+  private String deviceId;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Europe/Berlin")
   private LocalDateTime startTime;
@@ -19,7 +19,7 @@ public class BookingInformationDto {
   public BookingInformationDto() {}
 
   public BookingInformationDto(@JsonProperty("userId") Long userId,
-                               @JsonProperty("deviceId") Long deviceId,
+                               @JsonProperty("deviceId") String deviceId,
                                @JsonProperty("startTime") LocalDateTime startTime,
                                @JsonProperty("endTime") LocalDateTime endTime) {
     this.userId = userId;
@@ -36,11 +36,11 @@ public class BookingInformationDto {
     this.userId = userId;
   }
 
-  public Long getDeviceId() {
+  public String getDeviceId() {
     return deviceId;
   }
 
-  public void setDeviceId(Long deviceId) {
+  public void setDeviceId(String deviceId) {
     this.deviceId = deviceId;
   }
 

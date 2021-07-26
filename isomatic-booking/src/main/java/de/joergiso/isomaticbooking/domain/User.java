@@ -2,6 +2,8 @@ package de.joergiso.isomaticbooking.domain;
 
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,13 +16,15 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
+
+  @Column
   private String name;
 
   @OneToMany
   private Set<Booking> bookings;
 
-  @OneToMany
-  private Set<Device> devices;
+  @ElementCollection
+  private Set<String> devices;
 
   public User() {}
 
@@ -32,11 +36,11 @@ public class User {
     this.bookings = bookings;
   }
 
-  public Set<Device> getDevices() {
+  public Set<String> getDevices() {
     return devices;
   }
 
-  public void setDevices(Set<Device> devices) {
+  public void setDevices(Set<String> devices) {
     this.devices = devices;
   }
 
