@@ -1,5 +1,6 @@
-package de.joergiso.isomaticbooking.controllers;
+package de.joergiso.isomaticbooking.controller;
 
+import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.service.BookingService;
 import de.joergiso.isomaticbooking.service.ConfigurationService;
@@ -43,7 +44,6 @@ public class BookingController {
   @GetMapping("/booking")
   public List<BookingDto> getAllBookings() {
     return bookingService.getAllBookings();
-
   }
 
   @GetMapping(value = "/functionBundle/{userId}", produces = MediaType.APPLICATION_JSON)
@@ -56,12 +56,12 @@ public class BookingController {
     functionBundleService.addFunctionBundle(functionBundleDto);
   }
 
-  @PostMapping("/book")
+  @PostMapping("/book/{functionBundleId}")
   @ResponseBody
-  public BookingDto bookFunctionBundle(@RequestBody FunctionBundleDto functionBundleDto) {
-    BookingDto bookingDto =  bookingService.book(functionBundleDto);
-    return bookingDto;
-
+  public BookingDto bookFunctionBundle(@PathVariable String functionBundleId,
+                                       @RequestBody BookingInformationDto bookingInformationDto)
+      throws UserNotFoundException, DeviceNotFoundException {
+    return bookingService.book(functionBundleId, bookingInformationDto);
   }
 
 

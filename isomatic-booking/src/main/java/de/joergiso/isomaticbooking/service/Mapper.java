@@ -1,7 +1,7 @@
 package de.joergiso.isomaticbooking.service;
 
-import de.joergiso.isomaticbooking.controllers.BookingDto;
-import de.joergiso.isomaticbooking.controllers.FunctionBundleDto;
+import de.joergiso.isomaticbooking.controller.BookingDto;
+import de.joergiso.isomaticbooking.controller.FunctionBundleDto;
 import de.joergiso.isomaticbooking.domain.Booking;
 import de.joergiso.isomaticbooking.domain.Device;
 import de.joergiso.isomaticbooking.domain.Function;
