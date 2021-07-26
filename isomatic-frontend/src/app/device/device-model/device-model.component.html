@@ -3,7 +3,16 @@
   <span><strong>Gerätetyp:</strong> {{model.type?.type}}</span><br>
   <span><strong>Bezeichnung:</strong> {{model.name?.name}}</span><br>
   <span><strong>Hersteller:</strong> {{model.manufacturer?.manName}} ({{model.manufacturer?.manAbbr}})</span><br>
-  <span><strong>Funktionen: </strong></span><small>| <span *ngFor="let function of model.functions">{{function.name?.name || "Unbekannt"}} ({{getEuroFromCent(function.pricing?.price) | currency:'EUR':'symbol':'1.2-2'}} / {{function.pricing?.amount}} <span *ngIf="isPerUse(function.pricing?.usage)">Nutzungen</span><span *ngIf="!isPerUse(function.pricing?.usage)">Minuten</span>) | </span></small><br>
+  <span><strong>Funktionen: </strong></span>
+  <small>|
+    <span *ngFor="let function of model.functions">
+      {{function.name?.name || "Unbekannt"}}
+      ({{getEuroFromCent(function.pricing?.price) | currency:'EUR':'symbol':'1.2-2'}}
+      / {{function.pricing?.amount}}
+      <span *ngIf="isPerUse(function.pricing?.usage)">Nutzungen</span>
+      <span *ngIf="!isPerUse(function.pricing?.usage)">Minuten</span>)
+      | </span>
+  </small><br>
   <button (click)="deleteDeviceModel(model)">Entfernen</button>
   <br><br>
 </div>
