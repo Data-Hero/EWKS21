@@ -6,16 +6,16 @@ import de.joergiso.isomatic.device.domain.model.value.DeviceModelIdentifier;
 import de.joergiso.isomatic.device.domain.model.value.DeviceName;
 import de.joergiso.isomatic.device.domain.model.value.DeviceType;
 
-import java.util.Set;
+import java.util.List;
 
 public class DeviceModelDto {
     private DeviceModelIdentifier identifier;
     private DeviceType type;
     private DeviceName name;
     private DeviceManufacturer manufacturer;
-    Set<DeviceFunctionDto> functions;
+    List <DeviceFunctionDto> functions;
 
-    public DeviceModelDto(DeviceModelIdentifier identifier, DeviceType type, DeviceName name, DeviceManufacturer manufacturer, Set<DeviceFunctionDto> functions) {
+    public DeviceModelDto(DeviceModelIdentifier identifier, DeviceType type, DeviceName name, DeviceManufacturer manufacturer, List<DeviceFunctionDto> functions) {
         this.identifier = identifier;
         this.type = type;
         this.name = name;
@@ -55,11 +55,11 @@ public class DeviceModelDto {
         this.manufacturer = manufacturer;
     }
 
-    public Set<DeviceFunctionDto> getFunctions() {
+    public List<DeviceFunctionDto> getFunctions() {
         return functions;
     }
 
-    public void setFunctions(Set<DeviceFunctionDto> functions) {
+    public void setFunctions(List<DeviceFunctionDto> functions) {
         this.functions = functions;
     }
 }

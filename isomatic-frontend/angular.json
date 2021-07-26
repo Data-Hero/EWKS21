@@ -72,7 +72,8 @@
               "browserTarget": "isomatic-frontend:build:production"
             },
             "development": {
-              "browserTarget": "isomatic-frontend:build:development"
+              "browserTarget": "isomatic-frontend:build:development",
+              "proxyConfig": "proxy.config.json"
             }
           },
           "defaultConfiguration": "development"
