@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  CreateDeviceModelRequest,
+  CreateDeviceModelRequest, DeviceControllerService,
   DeviceFunctionBlueprint,
   DeviceModelControllerService,
-  DeviceModelDto
+  DeviceModelDto, DeviceUnitDto
 } from "../../shared/_generated/rest-api";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-device-model',
@@ -13,20 +14,32 @@ import {
 })
 export class DeviceModelComponent implements OnInit {
 
+  $devices = this.deviceController.getAllDevices()
+  devices: Array<DeviceUnitDto> = []
+
   $models = this.deviceModelController.getAllDeviceModels()
   models: Array<DeviceModelDto> = []
 
   newDeviceModel: CreateDeviceModelRequest = {};
   functionBlueprints: Array<DeviceFunctionBlueprint> = []
 
-  constructor(private deviceModelController: DeviceModelControllerService) { }
+  constructor(private deviceController: DeviceControllerService, private deviceModelController: DeviceModelControllerService) { }
 
   ngOnInit(): void {
+    this.$devices.subscribe(data => this.devices = data)
     this.$models.subscribe(data => this.models = data)
   }
 
   getEuroFromCent(cent?: number): number {
     return (cent || 0) / 100;
+  }
+
+  isDeletable(model: DeviceModelDto): boolean {
+    if (model.identifier?.identifier === undefined) return true
+    else {
+      const identifier = model.identifier.identifier
+      return !this.devices.find(value => value.modelDto?.identifier?.identifier === identifier)
+    }
   }
 
   isPerUse(usage?: string): boolean {
@@ -44,6 +57,7 @@ export class DeviceModelComponent implements OnInit {
   createDeviceModel() {
     console.log("create: " + this.newDeviceModel)
 
+    this.newDeviceModel.manufacturerAbbr = this.newDeviceModel.manufacturerAbbr || "XXX"
     this.newDeviceModel.functionBlueprints = this.functionBlueprints
     this.deviceModelController.createDeviceModel(this.newDeviceModel).subscribe(data => {
       console.log("created: " + data)
