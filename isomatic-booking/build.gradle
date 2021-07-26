@@ -45,3 +45,7 @@ dependencyManagement {
 test {
 	useJUnitPlatform()
 }
+
+openApi {
+	waitTimeInSeconds.set(300)
+}

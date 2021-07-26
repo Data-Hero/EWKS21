@@ -1,0 +1,23 @@
+{
+  "inputs": [
+    {
+      "inputFile": "./src/app/shared/openapi-booking.json",
+      "pathModification": {
+        "prepend": "/booking"
+      }
+    },
+    {
+      "inputFile": "./src/app/shared/openapi-device.json",
+      "pathModification": {
+        "prepend": "/device"
+      }
+    },
+    {
+      "inputFile": "./src/app/shared/openapi-user.json",
+      "pathModification": {
+        "prepend": "/user"
+      }
+    }
+  ],
+  "output": "src/app/shared/openapi.json"
+}

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserComponent } from './user.component';
 import { AddDeviceComponent } from './add-device/add-device.component';
 import { UserListComponent } from './user-list/user-list.component';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -13,7 +14,8 @@ import { UserListComponent } from './user-list/user-list.component';
     UserListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     UserComponent

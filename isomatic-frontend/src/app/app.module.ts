@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BookingModule} from './booking/booking.module';
-import {HttpClientModule} from '@angular/common/http';
+import {DeviceModule} from "./device/device.module";
+import {UserModule} from "./user/user.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -14,10 +16,13 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    BookingModule,
+    UserModule,
+    HttpClientModule,
+    DeviceModule,
     BookingModule
   ],
   providers: [],
