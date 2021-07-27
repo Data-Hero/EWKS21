@@ -1,15 +1,26 @@
 context Booking {
+	//Entity
     structure FunctionBundle<valueObject> {
+    	//Id
+    	//GeneratedValue
         int id,
+        //Column
        	string functionBundleId,
+       	//Column
        	double price,
+       	//Column
        	double discount
+       	//ElementCollection
     }
-
+	//Entity
     structure Booking<valueObject> {
+		//Column
 		int id,
+		//OneToOne
 		FunctionBundle functionBundle,
+		// Column
 		date startTime,
+		// Column
 		date endTime
     }
 
