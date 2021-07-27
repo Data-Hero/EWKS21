@@ -7,4 +7,14 @@ import javax.persistence.Id;
 public class Booking {
     @Id
     private Long id;
+
+    public Booking() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

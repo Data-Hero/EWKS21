@@ -35,6 +35,7 @@ public class UserService {
         Optional<User> storedUser = this.userRepository.findById(user.getId());
 
         storedUser.ifPresent(entity -> {
+            entity.setName(user.getName());
             entity.setBookings(user.getBookings());
             entity.setDevices(user.getDevices());
 

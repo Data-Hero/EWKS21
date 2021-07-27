@@ -1,5 +1,7 @@
 package de.joergiso.isomaticuser.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -11,9 +13,11 @@ public class User {
     private Long id;
     private String name;
 
+    @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Booking> bookings;
 
+    @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Device> devices;
 

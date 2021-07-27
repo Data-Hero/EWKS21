@@ -11,7 +11,13 @@ export class UserListComponent implements OnInit {
 
   users: User[] = [];
 
+  selectedUserId: number = 1;
   selectedUser: User = {};
+
+  userToBeSaved: User = {};
+  userToBeUpdated: User = {};
+
+
 
   constructor(private userService: UserControllerService) {
     this.getUsers();
@@ -30,6 +36,13 @@ export class UserListComponent implements OnInit {
   }
 
   saveUser(user: User) {
-    this.userService.createUser(user);
+    user.bookings = new Set();
+    user.devices = new Set();
+
+    this.userService.createUser(user).subscribe(e => console.log("saved user: " + e));
+  }
+
+  updateUser(user: User) {
+    this.userService.updateUser(user).subscribe(e => console.log("updated user: " + e));
   }
 }
