@@ -1,0 +1,16 @@
+context Booking {
+    structure FunctionBundle<valueObject> {
+        int id,
+       	string functionBundleId,
+       	double price,
+       	double discount
+    }
+
+    structure Booking<valueObject> {
+		int id,
+		FunctionBundle functionBundle,
+		date startTime,
+		date endTime
+    }
+
+}
