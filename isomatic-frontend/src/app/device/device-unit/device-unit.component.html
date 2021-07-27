@@ -15,8 +15,8 @@
   <mat-select [(ngModel)]="selectedModelIdentifier">
     <mat-option style="height: 5em" *ngFor="let model of $models | async" [value]="model.identifier?.identifier">
       <small>{{model.type?.type}}</small>
-      {{model.manufacturer?.manName}}
-      {{model.name?.name}}
+      {{model.manufacturer?.manName || 'Unbekannt'}}
+      {{model.name?.name || '(n/a)'}}
     </mat-option>
   </mat-select>
 </mat-form-field><br>
