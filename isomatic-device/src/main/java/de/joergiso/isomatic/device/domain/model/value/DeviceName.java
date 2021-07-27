@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class DeviceName implements Serializable {
-    public final String name;
+    public String name;
 
     public DeviceName() {
         this.name = "";

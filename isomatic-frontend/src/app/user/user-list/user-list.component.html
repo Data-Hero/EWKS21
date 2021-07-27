@@ -1,0 +1,21 @@
+registered users:
+<li *ngFor="let user of users">
+  {{user.name}}
+</li>
+
+<br>get specific user:
+<label for="userid">Userid: </label>
+<input id ="userid" [(ngModel)]="selectedUser.id" (ngModelChange)="getUserById(selectedUser.id)" placeholder="id">
+<li>
+  {{this.selectedUser.id}}
+  {{this.selectedUser.name}}
+</li>
+
+<br> save user:
+<input id ="id" [(ngModel)]="selectedUser.id" placeholder="id">
+<input id ="username" [(ngModel)]="selectedUser.name" placeholder="name">
+
+<button (click)="saveUser(this.selectedUser)"> save </button>
+
+
+

@@ -3,6 +3,7 @@ package de.joergiso.isomaticbooking.domain;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,8 +21,8 @@ public class FunctionBundle {
   @Column(nullable = false)
   private String functionBundleId;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  private List<Function> function;
+  @ElementCollection
+  private List<String> functions;
 
   @Column(nullable = false)
   private Double priceByMinute;
@@ -31,9 +32,9 @@ public class FunctionBundle {
 
   public FunctionBundle() {}
 
-  public FunctionBundle(String functionBundleId, List<Function> function, Double priceByMinute, Double discount) {
+  public FunctionBundle(String functionBundleId, List<String> functionIds, Double priceByMinute, Double discount) {
     this.functionBundleId = functionBundleId;
-    this.function = function;
+    this.functions = functionIds;
     this.priceByMinute = priceByMinute;
     this.discount = discount;
   }
@@ -46,12 +47,12 @@ public class FunctionBundle {
     this.functionBundleId = functionBundleId;
   }
 
-  public List<Function> getFunction() {
-    return function;
+  public List<String> getFunctions() {
+    return functions;
   }
 
-  public void setFunction(List<Function> function) {
-    this.function = function;
+  public void setFunctions(List<String> functions) {
+    this.functions = functions;
   }
 
   public Double getPriceByMinute() {
@@ -92,7 +93,7 @@ public class FunctionBundle {
     return "FunctionBundle{" +
         "id=" + id +
         ", functionBundleId='" + functionBundleId + '\'' +
-        ", function=" + function +
+        ", function=" + functions +
         ", priceByMinute=" + priceByMinute +
         ", discount=" + discount +
         '}';

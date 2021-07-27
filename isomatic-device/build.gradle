@@ -39,3 +39,17 @@ dependencyManagement {
 test {
 	useJUnitPlatform()
 }
+
+openApi {
+	forkProperties.set("-Dserver.port=8080")
+	waitTimeInSeconds.set(300)
+}
+
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}

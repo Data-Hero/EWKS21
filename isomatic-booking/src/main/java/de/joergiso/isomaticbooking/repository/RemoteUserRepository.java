@@ -39,12 +39,11 @@ public class RemoteUserRepository {
       ResponseEntity<User> response
           = restTemplate.exchange(
           configurationService.getUserEndpoint()
-              + "/userservice/user/"
-              + userId.toString(),
+              + "/user/"
+              + userId,
           HttpMethod.GET,
           null,
-          new ParameterizedTypeReference<User>() {
-          }
+          new ParameterizedTypeReference<User>() { }
       );
       return Optional.ofNullable(response.getBody());
     }, t -> userRepository.findById(userId));

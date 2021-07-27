@@ -9,12 +9,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private Set<Booking> bookings;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private Set<Device> devices;
 
     public User() {}

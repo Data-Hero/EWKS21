@@ -1,11 +1,15 @@
 package de.joergiso.isomaticbooking.repository;
 
-import de.joergiso.isomaticbooking.domain.Device;
+import de.joergiso.isomatic.device.domain.unit.DeviceUnitDto;
 import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
 import de.joergiso.isomaticbooking.service.ConfigurationService;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,32 +23,35 @@ public class RemoteDeviceRepository {
   @Qualifier(value = "bookingRestTemplate")
   private RestTemplate restTemplate;
 
-  private ConfigurationService configurationService;
+  @Autowired
+  private CircuitBreakerFactory circuitBreakerFactory;
+
+  private final ConfigurationService configurationService;
+
 
   @Autowired
   public RemoteDeviceRepository(ConfigurationService configurationService) {
     this.configurationService = configurationService;
   }
 
-  public Device fetchDevice(Long deviceId) throws DeviceNotFoundException {
-    ResponseEntity<List<Device>> response
+  public List<DeviceUnitDto> fetchDevices() {
+    ResponseEntity<String> response2
         = restTemplate.exchange(
-        configurationService.getDeviceEndpoint() + "/devices", HttpMethod.GET, null,
+        configurationService.getDeviceEndpoint()
+            + "/devices",
+        HttpMethod.GET,
+        null,
         new ParameterizedTypeReference<>() {
         }
     );
-    return response.getBody()
-        .stream()
-        .filter(device -> deviceId.equals(device.getId()))
-        .findFirst()
-        .orElseThrow(DeviceNotFoundException::new);
-  }
-
-  public List<Device> fetchDevices() {
-    ResponseEntity<List<Device>> response
+    ResponseEntity<List<DeviceUnitDto>> response
         = restTemplate.exchange(
-        configurationService.getDeviceEndpoint() + "/devices", HttpMethod.GET, null,
-        new ParameterizedTypeReference<List<Device>>() {}
+        configurationService.getDeviceEndpoint()
+            + "/devices",
+        HttpMethod.GET,
+        null,
+        new ParameterizedTypeReference<>() {
+        }
     );
     return response.getBody();
   }

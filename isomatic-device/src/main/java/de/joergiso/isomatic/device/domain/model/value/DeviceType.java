@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class DeviceType implements Serializable {
-    public final String type;
+    public String type;
 
     public DeviceType() {
         this.type = "";
