@@ -41,13 +41,15 @@ test {
 }
 
 openApi {
-	forkProperties.set("-Dserver.port=8080")
 	waitTimeInSeconds.set(300)
+	forkProperties.set("-Dserver.port=8080 " +
+			"-Dspring.cloud.service-registry.auto-registration.enabled=false " +
+			"-Deureka.client.enabled=false " +
+			"-Deureka.client.serviceUrl.registerWithEureka=false")
 }
 
-
 bootJar {
-	enabled = false
+	enabled = true
 }
 
 jar {
