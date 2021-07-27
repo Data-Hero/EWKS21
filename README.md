@@ -19,7 +19,7 @@ cd ewks-sose21-joergiso/isomatic-frontend
 npm run rest-api
 ```
 
-Start the services.
+Start the services using the IntelliJ Spring Boot Run configurations
 
 Start the frontend
 ```shell

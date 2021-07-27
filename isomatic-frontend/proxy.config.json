@@ -10,7 +10,6 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
-
   },
   "/user/*": {
     "target": "http://localhost:8083",
