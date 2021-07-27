@@ -1,5 +1,6 @@
 package de.joergiso.isomatic.device.controller;
 
+import de.joergiso.isomatic.device.domain.function.DeviceFunctionDto;
 import de.joergiso.isomatic.device.domain.model.DeviceModelDto;
 import de.joergiso.isomatic.device.request.CreateDeviceModelRequest;
 import de.joergiso.isomatic.device.service.DeviceModelService;
@@ -32,5 +33,15 @@ public class DeviceModelController {
     @GetMapping("/{identifier}")
     public DeviceModelDto getDeviceModelByIdentifier(@PathVariable("identifier") String identifier) {
         return deviceModelService.getDeviceModelByIdentifier(identifier);
+    }
+
+    @DeleteMapping("/{identifier}")
+    public void deleteDeviceModel(@PathVariable("identifier") String identifier) {
+        this.deviceModelService.deleteDeviceModelByIdentifier(identifier);
+    }
+
+    @GetMapping("/{identifier}/functions")
+    public List<DeviceFunctionDto> getDeviceModelFunctions(@PathVariable("identifier") String identifier) {
+        return deviceModelService.getDeviceModelByIdentifier(identifier).getFunctions();
     }
 }

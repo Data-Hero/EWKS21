@@ -43,22 +43,27 @@ public class DeviceController {
     }
 
     @GetMapping("/{serialNumber}")
-    public DeviceUnitDto getDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
+    public DeviceUnitDto getDevice(@PathVariable String serialNumber) throws DeviceNotFoundException {
         return deviceService.getDeviceUnit(serialNumber);
     }
 
+    @DeleteMapping("/{serialNumber}")
+    public void deleteDevice(@PathVariable String serialNumber) throws DeviceNotFoundException {
+        deviceService.deleteDeviceBySerialNumber(serialNumber);
+    }
+
     @GetMapping("/{serialNumber}/registration")
-    public DeviceUnitRegistrationStatus getDeviceRegistrationStatus(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
+    public DeviceUnitRegistrationStatus getDeviceRegistrationStatus(@PathVariable String serialNumber) throws DeviceNotFoundException {
         return deviceService.getDeviceUnitRegistrationStatus(serialNumber);
     }
 
     @PostMapping("/{serialNumber}/registration")
-    public DeviceUnitDto registerDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException, DeviceAlreadyRegisteredException {
+    public DeviceUnitDto registerDevice(@PathVariable String serialNumber) throws DeviceNotFoundException, DeviceAlreadyRegisteredException {
         return deviceService.registerDevice(serialNumber);
     }
 
     @DeleteMapping("/{serialNumber}/registration")
-    public DeviceUnitDto unregisterDevice(@PathVariable DeviceUnitSerialNumber serialNumber) throws DeviceNotFoundException {
+    public DeviceUnitDto unregisterDevice(@PathVariable String serialNumber) throws DeviceNotFoundException {
         return deviceService.unregisterDevice(serialNumber);
     }
 

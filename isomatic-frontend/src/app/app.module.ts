@@ -10,7 +10,7 @@ import {DeviceModule} from "./device/device.module";
 import {ApiModule} from "./shared/_generated/rest-api";
 import {HttpClientModule} from "@angular/common/http";
 import {UserModule} from "./user/user.module";
-
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import {UserModule} from "./user/user.module";
     ApiModule,
     UserModule,
     DeviceModule,
-    BookingModule
+    BookingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -50,7 +50,7 @@ public class DeviceModelService {
                 request.getFunctionBlueprints().stream()
                         .map(DeviceFunctionFactory::build)
                         .map(this::preprocessDeviceFunction)
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toList())
         );
 
         return createDeviceModel(dto);
@@ -59,6 +59,14 @@ public class DeviceModelService {
     @Transactional
     public DeviceModelDto createDeviceModel(DeviceModelDto dto) {
         return this.deviceModelRepository.save(new DeviceModel().fromDto(dto)).toDto();
+    }
+
+    @Transactional
+    public void deleteDeviceModelByIdentifier(String identifier) throws DeviceModelNotFoundException {
+        DeviceModel entity = this.deviceModelRepository.findByIdentifier(new DeviceModelIdentifier(identifier))
+                .orElseThrow(DeviceModelNotFoundException::new);
+
+        this.deviceModelRepository.delete(entity);
     }
 
     private DeviceFunctionDto preprocessDeviceFunction(DeviceFunctionDto function) {

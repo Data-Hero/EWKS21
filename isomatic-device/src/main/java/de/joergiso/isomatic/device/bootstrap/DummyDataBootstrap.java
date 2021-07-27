@@ -13,10 +13,12 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -48,15 +50,15 @@ public class DummyDataBootstrap implements ApplicationListener<ContextRefreshedE
             DeviceManufacturer dmElectrolux = new DeviceManufacturer("ELX", "Electrolux");
             DeviceManufacturer dmAeg = new DeviceManufacturer("ELX", "AEG");
 
-            DeviceModelDto deviceModelDtoBoschGS = DeviceModelFactory.build("Geschirrspüler", "G133742096X", dmBosch, Set.of());
-            DeviceModelDto deviceModelDtoSiemensBO = DeviceModelFactory.build("Backofen", "B230173885S", dmSiemens, Set.of());
-            DeviceModelDto deviceModelDtoElectroluxAH = DeviceModelFactory.build("Dunstabzugshaube", "E473836574G", dmElectrolux, Set.of());
-            DeviceModelDto deviceModelDtoAegIH = DeviceModelFactory.build("Induktionskochfeld", "A256396640X", dmAeg, Set.of());
+            DeviceModelDto deviceModelDtoBoschGS = DeviceModelFactory.build("Geschirrspüler", "G133742096X", dmBosch, Collections.emptyList());
+            DeviceModelDto deviceModelDtoSiemensBO = DeviceModelFactory.build("Backofen", "B230173885S", dmSiemens, Collections.emptyList());
+            DeviceModelDto deviceModelDtoElectroluxAH = DeviceModelFactory.build("Dunstabzugshaube", "E473836574G", dmElectrolux, Collections.emptyList());
+            DeviceModelDto deviceModelDtoAegIH = DeviceModelFactory.build("Induktionskochfeld", "A256396640X", dmAeg, Collections.emptyList());
 
-            deviceModelDtoBoschGS.setFunctions(Set.of(fncBp1, fncBp2, fncBp4).stream().map(DeviceFunctionFactory::build).collect(Collectors.toSet()));
-            deviceModelDtoSiemensBO.setFunctions(Set.of(fncBp1, fncBp3, fncBp5, fncBp6).stream().map(DeviceFunctionFactory::build).collect(Collectors.toSet()));
-            deviceModelDtoElectroluxAH.setFunctions(Set.of(fncBp1, fncBp4, fncBp6).stream().map(DeviceFunctionFactory::build).collect(Collectors.toSet()));
-            deviceModelDtoAegIH.setFunctions(Set.of(fncBp1, fncBp3, fncBp6).stream().map(DeviceFunctionFactory::build).collect(Collectors.toSet()));
+            deviceModelDtoBoschGS.setFunctions(Stream.of(fncBp1, fncBp2, fncBp4).map(DeviceFunctionFactory::build).collect(Collectors.toList()));
+            deviceModelDtoSiemensBO.setFunctions(Stream.of(fncBp1, fncBp3, fncBp5, fncBp6).map(DeviceFunctionFactory::build).collect(Collectors.toList()));
+            deviceModelDtoElectroluxAH.setFunctions(Stream.of(fncBp1, fncBp4, fncBp6).map(DeviceFunctionFactory::build).collect(Collectors.toList()));
+            deviceModelDtoAegIH.setFunctions(Stream.of(fncBp1, fncBp3, fncBp6).map(DeviceFunctionFactory::build).collect(Collectors.toList()));
 
             this.deviceModelService.createDeviceModel(deviceModelDtoBoschGS);
             this.deviceModelService.createDeviceModel(deviceModelDtoSiemensBO);

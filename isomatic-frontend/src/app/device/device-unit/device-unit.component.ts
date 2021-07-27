@@ -9,14 +9,12 @@ import {takeUntil, tap} from "rxjs/operators";
 })
 export class DeviceUnitComponent implements OnInit {
 
-  $devices = this.deviceController.getAllDevices().pipe(tap(
-
-  ))
+  $devices = this.deviceController.getAllDevices()
   $models = this.deviceModelController.getAllDeviceModels()
 
   devices: Array<DeviceUnitDto> = []
 
-  selectedModel: string = ""
+  selectedModelIdentifier: string = ""
 
   constructor(private deviceController: DeviceControllerService, private deviceModelController: DeviceModelControllerService) { }
 
@@ -26,16 +24,43 @@ export class DeviceUnitComponent implements OnInit {
     })
   }
 
-  public deleteDeviceBySerialNumber(serialNumber: string) {
+  public isDeviceRegistered(device: DeviceUnitDto): boolean {
+    return device.registrationStatus?.status == "REGISTERED"
   }
 
-  public createDeviceFromSelectedModelIdentifier() {
-    console.log("create")
-    this.deviceController.createDeviceByModelIdentifier(this.selectedModel).subscribe(dto => {
-      this.devices.push(dto)
-      console.log(dto)
+  public deleteDevice(device: DeviceUnitDto) {
+    const serialNumber = device.serialNumber?.serialNumber || ""
+    console.log("delete: " + serialNumber)
+
+    this.deviceController.deleteDevice(serialNumber).subscribe(() => {
+      this.devices = this.devices.filter(value => value.serialNumber?.serialNumber !== serialNumber)
     })
   }
 
+  public createDeviceFromSelectedModelIdentifier() {
+    console.log("create: " + this.selectedModelIdentifier)
+    this.deviceController.createDeviceByModelIdentifier(this.selectedModelIdentifier).subscribe(dto => {
+      this.devices.push(dto)
+    })
+  }
 
+  public registerDevice(device: DeviceUnitDto) {
+    const serialNumber = device.serialNumber?.serialNumber || ""
+    console.log("register: " + serialNumber)
+
+    this.deviceController.registerDevice(serialNumber).subscribe(dto => {
+      const index = this.devices.findIndex(value => value.serialNumber?.serialNumber == serialNumber)
+      this.devices[index] = dto;
+    })
+  }
+
+  public unregisterDevice(device: DeviceUnitDto) {
+    const serialNumber = device.serialNumber?.serialNumber || ""
+    console.log("unregister: " + serialNumber)
+
+    this.deviceController.unregisterDevice(serialNumber).subscribe(dto => {
+      const index = this.devices.findIndex(value => value.serialNumber?.serialNumber == serialNumber)
+      this.devices[index] = dto;
+    })
+  }
 }

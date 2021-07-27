@@ -1,15 +1,15 @@
 package de.joergiso.isomatic.device.request;
 
-import java.util.Set;
+import java.util.List;
 
 public class CreateDeviceModelRequest {
     private String type;
     private String name;
     private String manufacturerAbbr;
     private String manufacturerName;
-    private Set<DeviceFunctionBlueprint> functionBlueprints;
+    private List<DeviceFunctionBlueprint> functionBlueprints;
 
-    public CreateDeviceModelRequest(String type, String name, String manufacturerAbbr, String manufacturerName, Set<DeviceFunctionBlueprint> functionBlueprints) {
+    public CreateDeviceModelRequest(String type, String name, String manufacturerAbbr, String manufacturerName, List<DeviceFunctionBlueprint> functionBlueprints) {
         this.type = type;
         this.name = name;
         this.manufacturerAbbr = manufacturerAbbr;
@@ -49,11 +49,11 @@ public class CreateDeviceModelRequest {
         this.manufacturerName = manufacturerName;
     }
 
-    public Set<DeviceFunctionBlueprint> getFunctionBlueprints() {
+    public List<DeviceFunctionBlueprint> getFunctionBlueprints() {
         return functionBlueprints;
     }
 
-    public void setFunctionBlueprints(Set<DeviceFunctionBlueprint> functionBlueprints) {
+    public void setFunctionBlueprints(List<DeviceFunctionBlueprint> functionBlueprints) {
         this.functionBlueprints = functionBlueprints;
     }
 }

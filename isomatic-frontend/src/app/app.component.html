@@ -1,17 +1,25 @@
-<mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Nutzer">
-    <app-user></app-user>
-  </mat-tab>
-  <mat-tab label="Funktionsbündel">
-    <app-booking></app-booking>
-  </mat-tab>
-  <mat-tab label="Buchung">Buchung!</mat-tab>
-  <mat-tab label="Geräte">
-    <app-device-unit></app-device-unit>
-  </mat-tab>
-  <mat-tab label="Gerätemodelle">
-    <app-device-model></app-device-model>
-  </mat-tab>
-</mat-tab-group>
+<nav mat-tab-nav-bar>
+  <img src="assets/isomatic_blue.png" height="25px" style="margin: 10px" alt="IsoMatic Logo">
+  <a mat-tab-link
+     routerLink="/devices" [active]="activeLink == '/devices'">
+    Geräte
+  </a>
+  <a mat-tab-link
+     routerLink="/models" [active]="activeLink == '/models'">
+    Gerätemodelle
+  </a>
+  <a mat-tab-link
+     routerLink="/bookings" [active]="activeLink == '/bookings'">
+    Buchung
+  </a>
+  <a mat-tab-link
+     routerLink="/function-bundles" [active]="activeLink == '/function-bundles'">
+    Funktionsbündel
+  </a>
+  <a mat-tab-link
+     routerLink="/users" [active]="activeLink == '/users'">
+    Benutzer
+  </a>
+</nav>
 
 <router-outlet></router-outlet>
