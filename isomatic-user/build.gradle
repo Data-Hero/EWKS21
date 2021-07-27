@@ -44,3 +44,11 @@ openApi {
 	forkProperties.set("-Dserver.port=8080")
 	waitTimeInSeconds.set(300)
 }
+
+bootJar {
+	enabled = true
+}
+
+jar {
+	enabled = true
+}
