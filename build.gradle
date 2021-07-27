@@ -1,5 +1,5 @@
-task generateOpenApiDocsAndNgRestApi(type: Exec) {
-    group '@project'
+task generateAllOpenApiDocs(type: Exec) {
+    group "openapi"
     environment "SPRING_CLOUD_CONFIG_ENABLED", false
     environment "EUREKA_CLIENT_ENABLED", false
     standardOutput = new ByteArrayOutputStream()
@@ -8,8 +8,6 @@ task generateOpenApiDocsAndNgRestApi(type: Exec) {
     dependsOn ':isomatic-device:generateOpenApiDocs'
     dependsOn ':isomatic-user:generateOpenApiDocs'
 
-    workingDir './isomatic-frontend'
-    commandLine 'npm', 'install'
-    commandLine 'npm', 'run', 'rest-api'
+    commandLine 'echo'
     println standardOutput.toString()
 }
