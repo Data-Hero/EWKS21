@@ -1,28 +1,8 @@
 package de.joergiso.isomaticuser.domain;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
-import javax.persistence.*;
-
-@Entity
-public class Device {
-    @Id
+public class DeviceDto {
     private Long id;
-
-    @Column
     private String serialNumber;
-
-    public Device() {
-    }
-
-    public Device(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    public Device(Long id, String serialNumber) {
-        this.id = id;
-        this.serialNumber = serialNumber;
-    }
 
     public Long getId() {
         return id;
@@ -32,7 +12,6 @@ public class Device {
         this.id = id;
     }
 
-    @JsonValue
     public String getSerialNumber() {
         return serialNumber;
     }

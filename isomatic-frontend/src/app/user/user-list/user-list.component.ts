@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserControllerService} from "../service/user-controller.service";
 import {User} from "../dtos/user";
+import {DeviceDto} from "../dtos/device-dto";
 
 @Component({
   selector: 'app-user-list',
@@ -14,9 +15,12 @@ export class UserListComponent implements OnInit {
   selectedUserId: number = 0;
   selectedUser: User = {};
 
+  serialNumber: string = '';
+
   userToBeSaved: User = {};
   userToBeUpdated: User = {};
 
+  deviceDto: DeviceDto = {};
 
 
   constructor(private userService: UserControllerService) {
@@ -36,10 +40,11 @@ export class UserListComponent implements OnInit {
   }
 
   saveUser(user: User) {
-    user.bookings = new Set();
-    user.devices = new Set();
-
     this.userService.createUser(user).subscribe(e => console.log("saved user: " + e));
+  }
+
+  registerDevice(deviceDto: DeviceDto) {
+    this.userService.registerDevice(this.userToBeUpdated.id || 1, deviceDto).subscribe(e=> console.log("eeee" + e));
   }
 
   updateUser(user: User) {

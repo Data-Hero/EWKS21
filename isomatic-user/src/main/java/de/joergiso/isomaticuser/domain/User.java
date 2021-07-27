@@ -17,7 +17,6 @@ public class User {
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Booking> bookings;
 
-    @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Device> devices;
 

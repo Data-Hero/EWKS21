@@ -24,6 +24,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springdoc:springdoc-openapi-common:1.5.9'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.9'
+	implementation project(':isomatic-device')
 
 	compile 'com.h2database:h2'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

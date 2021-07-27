@@ -1,7 +1,6 @@
-package de.joergiso.isomaticbooking.repository;
+package de.joergiso.isomaticuser.repository;
 
 import de.joergiso.isomatic.device.domain.unit.DeviceUnitDto;
-import de.joergiso.isomaticbooking.service.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
@@ -16,22 +15,13 @@ import java.util.List;
 public class RemoteDeviceRepository {
 
   @Autowired
-  @Qualifier(value = "bookingRestTemplate")
+  @Qualifier(value = "userRestTemplate")
   private RestTemplate restTemplate;
-
-  private final ConfigurationService configurationService;
-
-
-  @Autowired
-  public RemoteDeviceRepository(ConfigurationService configurationService) {
-    this.configurationService = configurationService;
-  }
 
   public List<DeviceUnitDto> fetchDevices() {
     ResponseEntity<List<DeviceUnitDto>> response
         = restTemplate.exchange(
-        configurationService.getDeviceEndpoint()
-            + "/devices",
+            "http://localhost:8082/device/devices",
         HttpMethod.GET,
         null,
         new ParameterizedTypeReference<>() {

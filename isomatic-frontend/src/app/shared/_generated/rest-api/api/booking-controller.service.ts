@@ -238,8 +238,6 @@ export class BookingControllerService {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -280,7 +278,6 @@ export class BookingControllerService {
     }
 
     /**
->>>>>>> 1673d18209e2a5e17b451fad6488fd6ca6d13daf
      * @param userId
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

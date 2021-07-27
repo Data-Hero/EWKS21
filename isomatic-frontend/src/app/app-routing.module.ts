@@ -7,7 +7,7 @@ import {BookingFunctionbundleComponent} from "./booking/booking-functionbundle/b
 import {UserComponent} from "./user/user.component";
 
 const routes: Routes = [
-  {path: "", redirectTo: "/devices", pathMatch: "full"},
+  {path: "", redirectTo: "app/devices", pathMatch: "full"},
   {path: "app/users", component: UserComponent},
   {path: "app/devices", component: DeviceUnitComponent},
   {path: "app/models", component: DeviceModelComponent},
