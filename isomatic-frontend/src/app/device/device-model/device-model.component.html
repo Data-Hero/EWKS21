@@ -13,7 +13,7 @@
       <span *ngIf="!isPerUse(function.pricing?.usage)">Minuten</span>)
       | </span>
   </small><br>
-  <button (click)="deleteDeviceModel(model)">Entfernen</button>
+  <button *ngIf="isDeletable(model)" (click)="deleteDeviceModel(model)">Entfernen</button>
   <br><br>
 </div>
 
