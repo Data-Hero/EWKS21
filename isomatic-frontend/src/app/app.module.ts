@@ -10,6 +10,7 @@ import {DeviceModule} from "./device/device.module";
 import {ApiModule} from "./shared/_generated/rest-api";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [

@@ -5,7 +5,7 @@ registered users:
 
 <br>get specific user:
 <label for="userid">Userid: </label>
-<input id ="userid" [(ngModel)]="selectedUser.id" (ngModelChange)="getUserById(selectedUser.id)" placeholder="id">
+<input id ="userid" [(ngModel)]="selectedUser.id" (ngModelChange)="getUserById(selectedUser.id || 0)" placeholder="id">
 <li>
   {{this.selectedUser.id}}
   {{this.selectedUser.name}}
