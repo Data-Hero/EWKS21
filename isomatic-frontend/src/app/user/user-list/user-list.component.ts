@@ -11,7 +11,7 @@ export class UserListComponent implements OnInit {
 
   users: User[] = [];
 
-  selectedUserId: number = 1;
+  selectedUserId: number = 0;
   selectedUser: User = {};
 
   userToBeSaved: User = {};

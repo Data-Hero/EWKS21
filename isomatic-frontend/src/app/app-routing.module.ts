@@ -8,7 +8,7 @@ import {UserComponent} from "./user/user.component";
 
 const routes: Routes = [
   {path: "", redirectTo: "/devices", pathMatch: "full"},
-  {path: "users", component: UserComponent},
+  {path: "app/users", component: UserComponent},
   {path: "app/devices", component: DeviceUnitComponent},
   {path: "app/models", component: DeviceModelComponent},
   {path: "app/bookings", component: BookingComponent},

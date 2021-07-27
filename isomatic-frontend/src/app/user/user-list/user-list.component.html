@@ -1,25 +1,26 @@
 registered users:
 <li *ngFor="let user of users">
-  {{user.name}}
+  id: {{user.id}}
+  name: {{user.name}}
 </li>
 
 <br>get specific user:
 <br><label for="userid">Userid: </label>
-<input id ="userid" [(ngModel)]="this.selectedUserId" placeholder="id">
-<button (click)="getUserById(this.selectedUserId)"> load </button>
-<li>
-  {{this.selectedUser.id}}
-  {{this.selectedUser.name}}
+<input id="userid" [(ngModel)]="this.selectedUserId" placeholder="id">
+<button (click)="getUserById(this.selectedUserId)"> load</button>
+<li *ngIf="selectedUserId !== 0">
+  id: {{this.selectedUser.id}}
+  name: {{this.selectedUser.name}}
 </li>
 
-<br> save user:
-<br><input id ="username" [(ngModel)]="userToBeSaved.name" placeholder="name">
-<button (click)="saveUser(this.userToBeSaved)"> save </button>
+<br><br> save user:
+<br><input id="username" [(ngModel)]="userToBeSaved.name" placeholder="name">
+<button (click)="saveUser(this.userToBeSaved)"> save</button>
 
 <br><br> update user:
-<br><input id ="id" [(ngModel)]="userToBeUpdated.id" placeholder="id">
-<br><input id ="username2" [(ngModel)]="userToBeUpdated.name" placeholder="name">
-<button (click)="updateUser(this.userToBeUpdated)"> update </button>
+<br><input id="id" [(ngModel)]="userToBeUpdated.id" placeholder="id">
+<br><input id="username2" [(ngModel)]="userToBeUpdated.name" placeholder="name">
+<button (click)="updateUser(this.userToBeUpdated)"> update</button>
 
 
 
