@@ -28,4 +28,7 @@ context Booking {
 		date endTime
     }
 
+    list Bookings { Booking booking }
+    list FunctionBundles { FunctionBundle functionBundle }
+
 }

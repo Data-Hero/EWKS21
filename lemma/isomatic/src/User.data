@@ -1,4 +1,4 @@
-context User {
+ context User {
 	//Entity
 	structure User<valueObject> {
 		//Id
@@ -11,6 +11,8 @@ context User {
 		//OneToMany
 		Device devices
 	}
+
+	list Users { User user }
 
 	//Entity
 	structure Booking {
