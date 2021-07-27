@@ -156,6 +156,40 @@
         ]
       }
     },
+    "/booking/booking/{userId}": {
+      "get": {
+        "operationId": "getBookingsForUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
     "/booking/functionBundle/add": {
       "post": {
         "requestBody": {
@@ -172,6 +206,29 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/functionBundle": {
+      "get": {
+        "operationId": "getAllFunctionBundles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FunctionBundleDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [

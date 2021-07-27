@@ -29,7 +29,7 @@ import {UserModule} from "./user/user.module";
     UserModule
   ],
   providers: [
-    { provide: BASE_PATH, useValue: 'api' }
+    { provide: BASE_PATH, useValue: '' }
   ],
   bootstrap: [AppComponent]
 })
