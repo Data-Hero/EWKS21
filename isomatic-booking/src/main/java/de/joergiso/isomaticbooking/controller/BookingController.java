@@ -1,6 +1,5 @@
 package de.joergiso.isomaticbooking.controller;
 
-import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.service.BookingService;
 import de.joergiso.isomaticbooking.service.ConfigurationService;

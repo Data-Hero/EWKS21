@@ -59,4 +59,14 @@ public class BookingInformationDto {
   public void setEndTime(LocalDateTime endTime) {
     this.endTime = endTime;
   }
+
+  @Override
+  public String toString() {
+    return "BookingInformationDto{" +
+        "userId=" + userId +
+        ", deviceId='" + deviceId + '\'' +
+        ", startTime=" + startTime +
+        ", endTime=" + endTime +
+        '}';
+  }
 }

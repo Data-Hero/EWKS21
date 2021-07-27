@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {BookingControllerService} from '../../shared/_generated/rest-api';
-import {Router} from '@angular/router';
 
 export interface FunctionBundle {
   functionBundleId: string;
@@ -11,14 +10,7 @@ export interface FunctionBundle {
   discount: number;
 }
 
-const ELEMENT_DATA: FunctionBundle[] = [
-  {functionBundleId: 'FB1', functionNumber: 'F1', priceByMinute: 1.0079, discount: 0.1},
-  {functionBundleId: 'FB2', functionNumber: 'F2', priceByMinute: 4.0026, discount: 0.1},
-  {functionBundleId: 'FB3', functionNumber: 'F3', priceByMinute: 6.941, discount: 0.1},
-  {functionBundleId: 'FB4', functionNumber: 'F4', priceByMinute: 9.0122, discount: 0.1},
-  {functionBundleId: 'FB5', functionNumber: 'F5', priceByMinute: 10.811, discount: 0.1},
-  {functionBundleId: 'FB6', functionNumber: 'F6', priceByMinute: 12.0107, discount: 0.1}
-];
+const ELEMENTS: FunctionBundle[] = [];
 
 
 @Component({
@@ -29,7 +21,7 @@ const ELEMENT_DATA: FunctionBundle[] = [
 export class BookingFunctionbundleComponent implements OnInit {
 
   displayedColumns: string[] = ['functionBundleId', 'functionNumber', 'priceByMinute', 'discount'];
-  dataSource: MatTableDataSource<FunctionBundle> = new MatTableDataSource(ELEMENT_DATA);
+  dataSource: MatTableDataSource<FunctionBundle> = new MatTableDataSource(ELEMENTS);
   uploadForm: FormGroup;
   addForm: FormGroup;
   addFunctionBundleForm: boolean = false;

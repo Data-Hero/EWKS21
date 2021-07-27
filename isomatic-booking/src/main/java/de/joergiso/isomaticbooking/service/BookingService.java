@@ -22,7 +22,6 @@ public class BookingService {
 
   private FunctionBundleRepository functionBundleRepository;
 
-  private RemoteDeviceRepository remoteDeviceRepository;
 
   private RemoteUserRepository remoteUserRepository;
 
@@ -31,12 +30,10 @@ public class BookingService {
   @Autowired
   public BookingService(BookingRepository bookingRepository,
                         FunctionBundleRepository functionBundleRepository,
-                        RemoteDeviceRepository remoteDeviceRepository,
                         RemoteUserRepository remoteUserRepository,
                         Mapper mapper) {
     this.bookingRepository = bookingRepository;
     this.functionBundleRepository = functionBundleRepository;
-    this.remoteDeviceRepository = remoteDeviceRepository;
     this.remoteUserRepository = remoteUserRepository;
     this.mapper = mapper;
   }
@@ -56,7 +53,8 @@ public class BookingService {
     booking.setFunctionBundle(functionBundleRepository.getFunctionBundleByFunctionBundleIdEquals(functionBundleId));
     booking.setUser(remoteUserRepository.fetchUser(bookingInformationDto.getUserId()));
     booking.setStartTime(bookingInformationDto.getStartTime());
-    booking.setStartTime(bookingInformationDto.getEndTime());
+    booking.setEndTime(bookingInformationDto.getEndTime());
+    System.out.println(booking);
     bookingRepository.save(booking);
     return mapper.bookingToDto(booking);
   }
