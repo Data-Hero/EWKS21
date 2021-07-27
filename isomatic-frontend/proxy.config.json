@@ -1,29 +1,20 @@
 {
-  "api/booking/*": {
+  "/booking/*": {
     "target": "http://localhost:8084",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "changeOrigin": true
   },
-  "api/device/*": {
+  "/device/*": {
     "target": "http://localhost:8082",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "changeOrigin": true
   },
-  "api/user/*": {
+  "/user/*": {
     "target": "http://localhost:8083",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "changeOrigin": true
   }
 }

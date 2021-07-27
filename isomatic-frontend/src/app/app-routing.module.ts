@@ -6,11 +6,11 @@ import {BookingComponent} from "./booking/booking.component";
 import {BookingFunctionbundleComponent} from "./booking/booking-functionbundle/booking-functionbundle.component";
 
 const routes: Routes = [
-  { path: "", redirectTo: "/devices", pathMatch: "full" },
-  { path: "devices", component: DeviceUnitComponent },
-  { path: "models", component: DeviceModelComponent },
-  { path: "bookings", component: BookingComponent },
-  { path: "function-bundles", component: BookingFunctionbundleComponent },
+  { path: "", redirectTo: "app/devices", pathMatch: "full" },
+  { path: "app/devices", component: DeviceUnitComponent },
+  { path: "app/models", component: DeviceModelComponent },
+  { path: "app/bookings", component: BookingComponent },
+  { path: "app/function-bundles", component: BookingFunctionbundleComponent },
   // { path: "users", component:  }
 ];
 
