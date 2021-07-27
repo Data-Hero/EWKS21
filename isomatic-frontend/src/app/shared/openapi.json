@@ -1,0 +1,877 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "description": "Generated server url",
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/booking/book/{functionBundleId}": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingInformationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "bookFunctionBundle",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDto"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "functionBundleId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/booking": {
+      "get": {
+        "operationId": "getAllBookings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/config": {
+      "get": {
+        "operationId": "getConfig",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/functionBundle/add": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FunctionBundleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "addFunctionBundle",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/functionBundle/{userId}": {
+      "get": {
+        "operationId": "getAvailableFunctionBundles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FunctionBundleDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/device/models": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeviceModelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "createDeviceModel",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceModelDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "device-model-controller"
+        ]
+      },
+      "get": {
+        "operationId": "getAllDeviceModels",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DeviceModelDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "device-model-controller"
+        ]
+      }
+    },
+    "/device/devices": {
+      "post": {
+        "operationId": "createDeviceByModelIdentifier",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceUnitDto"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "identifier",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-controller"
+        ]
+      },
+      "get": {
+        "operationId": "getAllDevices",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DeviceUnitDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "device-controller"
+        ]
+      }
+    },
+    "/device/models/{identifier}": {
+      "get": {
+        "operationId": "getDeviceModelByIdentifier",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceModelDto"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "identifier",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-model-controller"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteDeviceModel",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "identifier",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-model-controller"
+        ]
+      }
+    },
+    "/device/devices/{serialNumber}": {
+      "get": {
+        "operationId": "getDevice",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceUnitDto"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "serialNumber",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-controller"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteDevice",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "serialNumber",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-controller"
+        ]
+      }
+    },
+    "/device/models/{identifier}/functions": {
+      "get": {
+        "operationId": "getDeviceModelFunctions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DeviceFunctionDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "identifier",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-model-controller"
+        ]
+      }
+    },
+    "/device/devices/{serialNumber}/registration": {
+      "post": {
+        "operationId": "registerDevice",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceUnitDto"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "serialNumber",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-controller"
+        ]
+      },
+      "get": {
+        "operationId": "getDeviceRegistrationStatus",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceUnitRegistrationStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "serialNumber",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-controller"
+        ]
+      },
+      "delete": {
+        "operationId": "unregisterDevice",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceUnitDto"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "serialNumber",
+            "required": true
+          }
+        ],
+        "tags": [
+          "device-controller"
+        ]
+      }
+    },
+    "/device/devices/config": {
+      "get": {
+        "operationId": "getFooBar",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "device-controller"
+        ]
+      }
+    },
+    "/userservice/user/{id}": {
+      "get": {
+        "operationId": "getUserById",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "tags": [
+          "user-controller"
+        ]
+      }
+    },
+    "/userservice/user": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "createUser",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "user-controller"
+        ]
+      },
+      "get": {
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "user-controller"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "updateUser",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "user-controller"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BookingDto": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "functionBundleId": {
+            "type": "string"
+          },
+          "userId": {
+            "format": "int64",
+            "type": "integer"
+          }
+        }
+      },
+      "BookingInformationDto": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "userId": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "deviceId": {
+            "type": "string"
+          }
+        }
+      },
+      "FunctionBundleDto": {
+        "type": "object",
+        "properties": {
+          "priceByMinute": {
+            "format": "double",
+            "type": "number"
+          },
+          "discount": {
+            "format": "double",
+            "type": "number"
+          },
+          "functionBundleId": {
+            "type": "string"
+          },
+          "functionNumber": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DeviceModelIdentifier": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceUnitSerialNumber": {
+        "type": "object",
+        "properties": {
+          "serialNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceModelDto": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "$ref": "#/components/schemas/DeviceModelIdentifier"
+          },
+          "functions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceFunctionDto"
+            }
+          },
+          "name": {
+            "$ref": "#/components/schemas/DeviceName"
+          },
+          "type": {
+            "$ref": "#/components/schemas/DeviceType"
+          },
+          "manufacturer": {
+            "$ref": "#/components/schemas/DeviceManufacturer"
+          }
+        }
+      },
+      "DeviceUnitRegistrationStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "UNREGISTERED",
+              "REGISTERED"
+            ]
+          }
+        }
+      },
+      "CreateDeviceModelRequest": {
+        "type": "object",
+        "properties": {
+          "manufacturerAbbr": {
+            "type": "string"
+          },
+          "manufacturerName": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "functionBlueprints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceFunctionBlueprint"
+            }
+          }
+        }
+      },
+      "DeviceType": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "FunctionIdentifier": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string"
+          }
+        }
+      },
+      "FunctionName": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceFunctionBlueprint": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "price": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "usage": {
+            "type": "string",
+            "enum": [
+              "PER_USE",
+              "PER_MINUTE"
+            ]
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "FunctionPricing": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "price": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "usage": {
+            "type": "string",
+            "enum": [
+              "PER_USE",
+              "PER_MINUTE"
+            ]
+          }
+        }
+      },
+      "DeviceManufacturer": {
+        "type": "object",
+        "properties": {
+          "manAbbr": {
+            "type": "string"
+          },
+          "manName": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceUnitDto": {
+        "type": "object",
+        "properties": {
+          "registrationStatus": {
+            "$ref": "#/components/schemas/DeviceUnitRegistrationStatus"
+          },
+          "serialNumber": {
+            "$ref": "#/components/schemas/DeviceUnitSerialNumber"
+          },
+          "modelDto": {
+            "$ref": "#/components/schemas/DeviceModelDto"
+          }
+        }
+      },
+      "DeviceFunctionDto": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "$ref": "#/components/schemas/FunctionIdentifier"
+          },
+          "name": {
+            "$ref": "#/components/schemas/FunctionName"
+          },
+          "pricing": {
+            "$ref": "#/components/schemas/FunctionPricing"
+          }
+        }
+      },
+      "DeviceName": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "devices": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "bookings": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Booking"
+            }
+          }
+        }
+      },
+      "Booking": {
+        "type": "object"
+      }
+    }
+  }
+}
