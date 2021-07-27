@@ -1,0 +1,174 @@
+context Device {
+	// Entity
+	structure DeviceUnit<entity, aggregate> {
+		// Id
+		// GeneratedValue
+		long id<identifier>,
+		// Column(unique=true)
+		string serialNumber<identifier>,
+		// OneToOne
+		DeviceModel model<part>,
+		// Column
+		RegistrationStatus registrationStatus
+	}
+	
+	enum RegistrationStatus {
+		REGISTERED,
+		UNREGISTERED
+	}
+	
+	list DeviceUnits { DeviceUnit u }
+	
+	// Entity
+	structure DeviceModel<entity, aggregate> {
+		// Id
+		// GeneratedValue
+		long id<identifier>,
+		// Column(unique=true)
+		string modelIdentifier<identifier>,
+		// Column
+		string type,
+		// Column
+		string name,
+		// Embedded
+		DeviceManufacturer manufacturer<part>,
+		// OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		DeviceModelFunctions functions
+		
+	}
+	
+	// Embeddable
+	structure DeviceManufacturer<valueObject> {
+		// Column
+		string name,
+		// Column
+		string abbreviation
+	}
+	
+	list DeviceModels { DeviceModel m }
+	
+	list DeviceModelFunctions { DeviceFunction f }
+	
+	structure CreateDeviceModelRequest {
+		string deviceType,
+		string deviceName,
+		string manufacturerAbbreviation,
+		string manufacturerName,
+		DeviceFunctionBlueprints functionBlueprints
+	}
+	
+	// Entity
+	structure DeviceFunction<entity, aggregate> {
+		// Id 
+		// GeneratedValue
+		long id<identifier>,
+		// Column(unique=true)
+		string functionIdentifier<identifier>,
+		// Column
+		string name,
+		// Embedded
+		FunctionPricing pricing<part>
+		
+	}
+	
+	// Embeddable
+	structure FunctionPricing<valueObject> {
+		// Column
+		int price,
+		// Column
+		int amount,
+		// Column
+		FunctionUsage usage
+	}
+	
+	enum FunctionUsage {
+		PER_USE,
+		PER_MINUTE
+	}
+	
+	structure DeviceFunctionBlueprint {
+		string name,
+		int price,
+		int amount,
+		FunctionUsage usage
+	}
+	
+	list DeviceFunctionBlueprints { DeviceFunctionBlueprint bp }
+	
+	structure Exception {
+		string message
+	}
+	
+	// ResponseStatus(HttpStatus.BAD_REQUEST)
+	structure DeviceModelNotFoundException extends Exception {
+		
+	}
+	
+	// ResponseStatus(HttpStatus.NOT_FOUND)
+	structure DeviceNotFoundException extends Exception {
+		string serialNumber
+	}
+	
+	// ResponseStatus(HttpStatus.BAD_REQUEST)
+	structure DeviceAlreadyRegisteredException extends Exception {
+		string serialNumber
+	}
+	
+	// ResponseStatus(HttpStatus.BAD_REQUEST)
+	structure DuplicateSerialNumberException extends Exception {
+		
+	}
+	
+	structure DeviceUnitRepository<repository> {
+		function DeviceUnits findAll(),
+		function DeviceUnit findBySerialNumber(string serialNumber),
+		function DeviceUnit save(DeviceUnit deviceUnit)
+	}
+	
+	structure DeviceModelRepository<repository> {
+		function DeviceModels findAll(),
+		function DeviceModel findByIdentifier(string modelIdentifier),
+		function DeviceModel save(DeviceModel deviceModel)
+	}
+	
+	structure DeviceFunctionRepository<repository> {
+		function DeviceFunction save(DeviceFunction deviceFunction)
+	}
+	
+	// Service
+	structure DeviceService<domainService> {
+		function DeviceUnits getAllDeviceUnits(),
+		function DeviceUnit getDeviceUnit(string serialNumber),
+		function RegistrationStatus getDeviceUnitRegistrationStatus(string serialNumber),
+		function DeviceUnit createDeviceUnitByDeviceModelIdentifier(string modelIdentifier),
+		function DeviceUnit createDeviceUnitByDeviceModel(DeviceModel model),
+		procedure deleteDeviceBySerialNumber(string serialNumber),
+		function DeviceUnit registerDevice(string serialNumber),
+		function DeviceUnit unregisrerDevice(string serialNumber)
+	}
+	
+	// Service
+	structure DeviceModelService<domainService> {
+		function DeviceModels getAllDeviceModels(),
+		function DeviceModel getDeviceModelByIdentifier(string modelIdentifier),
+		function DeviceModel createDeviceModel(DeviceModel model),
+		procedure deleteDeviceModelByIdentifier(string modelIdentifier)
+	}
+	
+	structure DeviceFunctionFactory<factory> {
+		function DeviceFunction build(DeviceFunctionBlueprint bp)
+	}
+	
+	structure DeviceModelFactory<factory> {
+		function DeviceModel build(string deviceType, string deviceName, string manufacturerAbbreviation, string manufacturerName, DeviceModelFunctions functions)
+	}
+	
+	structure DeviceUnitFactory<factory> {
+		function DeviceUnit build(DeviceModel model)
+	}
+	
+	structure DeviceUnitSerialNumberGenerator<factory> {
+		function string generate(DeviceModel model)
+	}
+	
+}

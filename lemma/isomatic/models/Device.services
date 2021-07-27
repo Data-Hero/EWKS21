@@ -1,0 +1,137 @@
+import datatypes from "Device.data" as device
+import technology from "../technology/JavaSpring.technology" as javaSpring
+
+@technology(javaSpring)
+@sync(javaSpring::_protocols.rest/json)
+@endpoints(javaSpring::_protocols.rest/json: "/device";)
+@javaSpring::_aspects.Application("IsomaticDeviceApplication")
+@javaSpring::_aspects.Port(8082)
+functional microservice de.joergiso.isomatic.Device {
+	
+	@endpoints(javaSpring::_protocols.rest/json: "/devices";)
+	interface DeviceController {
+		
+		@javaSpring::_aspects.GetMapping
+		getAllDevices(
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out devices: device::Device.DeviceUnits
+		);
+		
+		@javaSpring::_aspects.PostMapping
+		createDeviceByModelIdentifier(
+			@javaSpring::_aspects.RequestParam 
+			sync in modelIdentifier: string,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out deviceUnit: device::Device.DeviceUnit,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceModelNotFoundException,
+			@javaSpring::_aspects.ResponseStatus("500")
+			sync out fault duplicateSerialNumber: device::Device.DuplicateSerialNumberException
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}";)
+		@javaSpring::_aspects.GetMapping
+		getDevice(
+			@javaSpring::_aspects.PathVariable
+			sync in serialNumber: string,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out deviceUnit: device::Device.DeviceUnit,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceNotFoundException
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}";)
+		@javaSpring::_aspects.DeleteMapping
+		deleteDevice(
+			@javaSpring::_aspects.PathVariable
+			sync in serialNumber: string,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceNotFoundException
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}/registration";)
+		@javaSpring::_aspects.GetMapping
+		getDeviceUnitRegistrationStatus(
+			@javaSpring::_aspects.PathVariable
+			sync in serialNumber: string,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out registrationStatus: device::Device.RegistrationStatus,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceNotFoundException
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}/registration";)
+		@javaSpring::_aspects.PostMapping
+		registerDevice(
+			@javaSpring::_aspects.PathVariable
+			sync in serialNumber: string,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out deviceUnit: device::Device.DeviceUnit,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceNotFoundException,
+			@javaSpring::_aspects.ResponseStatus("400")
+			sync out fault alreadyRegistered: device::Device.DeviceAlreadyRegisteredException
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}/registration";)
+		@javaSpring::_aspects.DeleteMapping
+		unregisterDevice(
+			@javaSpring::_aspects.PathVariable
+			sync in serialNumber: string,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out deviceUnit: device::Device.DeviceUnit,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceNotFoundException
+		);
+	}
+	
+	
+	@endpoints(javaSpring::_protocols.rest/json: "/models";)
+	interface DeviceModelController {
+		
+		@javaSpring::_aspects.GetMapping
+		getAllDeviceModels(
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out models: device::Device.DeviceModels
+		);
+		
+		@javaSpring::_aspects.PostMapping
+		createDeviceModel(
+			@javaSpring::_aspects.RequestBody
+			sync in request: device::Device.CreateDeviceModelRequest,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out deviceModel: device::Device.DeviceModel
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{modelIdentifier}";)
+		@javaSpring::_aspects.GetMapping
+		getDeviceModel(
+			@javaSpring::_aspects.PathVariable
+			sync in modelIdentifier: string,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out deviceModel: device::Device.DeviceModel,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceModelNotFoundException
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{modelIdentifier}";)
+		@javaSpring::_aspects.DeleteMapping
+		deleteDeviceModel(
+			@javaSpring::_aspects.PathVariable
+			sync in modelIdentifier: string,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceModelNotFoundException
+		);
+		
+		@endpoints(javaSpring::_protocols.rest/json: "/{modelIdentifier}/functions";)
+		@javaSpring::_aspects.GetMapping
+		getDeviceModelFunctions(
+			@javaSpring::_aspects.PathVariable
+			sync in modelIdentifier: string,
+			@javaSpring::_aspects.ResponseStatus("200")
+			sync out functions: device::Device.DeviceModelFunctions,
+			@javaSpring::_aspects.ResponseStatus("404")
+			sync out fault notFound: device::Device.DeviceModelNotFoundException
+		);		
+	}
+}
