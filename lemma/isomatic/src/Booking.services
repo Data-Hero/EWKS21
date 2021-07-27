@@ -1,0 +1,25 @@
+import datatypes from "Booking.data" as domain
+import datatypes from "User.data" as user
+import technology from "Java.technology" as Java
+import technology from "Spring.technology" as Spring
+
+
+@technology(Spring)
+@technology(Java)
+public functional microservice de.joergiso.isomatic.device.Booking {
+	interface BookingController {
+		---
+		Acess CRUD functionality inside Booking Microservice
+
+		---
+	@Spring::_aspects.Get
+	getAllBookings(
+	);
+	@Spring::_aspects.Get
+	getBookingForUser(
+		sync in userId : user::User.User
+	);
+	@Spring::_aspects.Get
+
+	}
+}
