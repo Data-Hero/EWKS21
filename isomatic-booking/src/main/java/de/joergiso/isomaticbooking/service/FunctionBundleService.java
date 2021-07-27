@@ -40,31 +40,15 @@ public class FunctionBundleService {
         .stream()
         .filter(deviceUnitDto -> user.getDevices().contains(deviceUnitDto.getSerialNumber().serialNumber))
         .collect(Collectors.toList());
-    System.out.println(remoteDeviceRepository
-        .fetchDevices()
-        .stream()
-        .map(DeviceUnitDto::getModelDto)
-        .flatMap(modelDto -> modelDto.getFunctions().stream())
-        .map(deviceFunctionDto -> deviceFunctionDto.getName().name)
-        .collect(Collectors.toList()));
-    System.out.println(StreamSupport.stream(
-        functionBundleRepository.findAll().spliterator(), false
-    ).flatMap(functionBundle -> functionBundle.getFunctions().stream()).collect(Collectors.toList()));
+
     return StreamSupport.stream(
         functionBundleRepository.findAll().spliterator(), false
       ).filter(fb -> fb.getFunctions().stream().allMatch(
-          function -> deviceUnitDtosOfUser.stream().flatMap(deviceUnitDto -> {
-            System.out.println(deviceUnitDto);
-            return deviceUnitDto
-                  .getModelDto()
-                  .getFunctions()
-                  .stream();
-          })
-              .anyMatch((deviceFunction) -> {
-                System.out.println(function);
-                System.out.println(deviceFunction.getIdentifier().identifier);
-                return  function.equals(deviceFunction.getIdentifier().identifier);
-              })))
+          function -> deviceUnitDtosOfUser.stream().flatMap(deviceUnitDto -> deviceUnitDto
+                .getModelDto()
+                .getFunctions()
+                .stream())
+              .anyMatch((deviceFunction) -> function.equals(deviceFunction.getName().name))))
         .map(mapper::functionBundleToDto)
         .collect(Collectors.toList());
   }

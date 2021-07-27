@@ -51,7 +51,7 @@ public class BookingService {
 
   public BookingDto book(String functionBundleId,
                          BookingInformationDto bookingInformationDto)
-      throws UserNotFoundException, DeviceNotFoundException {
+      throws UserNotFoundException {
     Booking booking = new Booking();
     booking.setFunctionBundle(functionBundleRepository.getFunctionBundleByFunctionBundleIdEquals(functionBundleId));
     booking.setUser(remoteUserRepository.fetchUser(bookingInformationDto.getUserId()));

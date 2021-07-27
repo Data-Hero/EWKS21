@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 @Embeddable
 public class DeviceManufacturer implements Serializable {
-    @Column public final String manAbbr;
-    @Column public final String manName;
+    @Column public String manAbbr;
+    @Column public String manName;
 
     public DeviceManufacturer() {
         this.manAbbr = "";

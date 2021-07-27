@@ -35,18 +35,24 @@ public class RemoteDeviceRepository {
   }
 
   public List<DeviceUnitDto> fetchDevices() {
-    Iterable<DeviceUnitDto> devices = circuitBreakerFactory.create("fetchUser").run(() -> {
-      ResponseEntity<List<DeviceUnitDto>> response
-          = restTemplate.exchange(
-          configurationService.getDeviceEndpoint()
-              + "/devices",
-          HttpMethod.GET,
-          null,
-          new ParameterizedTypeReference<List<DeviceUnitDto>>() {
-          }
-      );
-      return response.getBody();
-    }, t -> new LinkedList<>());
-    return StreamSupport.stream(devices.spliterator(), false).collect(Collectors.toList());
+    ResponseEntity<String> response2
+        = restTemplate.exchange(
+        configurationService.getDeviceEndpoint()
+            + "/devices",
+        HttpMethod.GET,
+        null,
+        new ParameterizedTypeReference<>() {
+        }
+    );
+    ResponseEntity<List<DeviceUnitDto>> response
+        = restTemplate.exchange(
+        configurationService.getDeviceEndpoint()
+            + "/devices",
+        HttpMethod.GET,
+        null,
+        new ParameterizedTypeReference<>() {
+        }
+    );
+    return response.getBody();
   }
 }
