@@ -10,7 +10,7 @@ import {Configuration} from './configuration';
 })
 export class BookingControllerService {
 
-  protected basePath = 'http://localhost:8081';
+  protected basePath = 'http://localhost:8084';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 

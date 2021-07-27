@@ -1,1 +1,7 @@
-<app-booking-functionbundle></app-booking-functionbundle>
+<div *ngIf="this.router.url === '/bookings'; else functionBundle">
+  <app-booking-booking></app-booking-booking>
+</div>
+
+<ng-template #functionBundle>
+  <app-booking-functionbundle></app-booking-functionbundle>
+</ng-template>

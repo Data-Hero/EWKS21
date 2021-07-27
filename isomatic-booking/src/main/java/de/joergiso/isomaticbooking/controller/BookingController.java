@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("booking")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 public class BookingController {
   private final BookingService bookingService;
 
@@ -61,7 +61,7 @@ public class BookingController {
   @ResponseBody
   public BookingDto bookFunctionBundle(@PathVariable String functionBundleId,
                                        @RequestBody BookingInformationDto bookingInformationDto)
-      throws UserNotFoundException, DeviceNotFoundException {
+      throws UserNotFoundException {
     return bookingService.book(functionBundleId, bookingInformationDto);
   }
 

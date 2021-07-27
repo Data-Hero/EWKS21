@@ -1,7 +1,8 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {BookingControllerService} from '../booking-services/booking-controller.service';
 import {MatTableDataSource} from '@angular/material/table';
+import {BookingControllerService} from '../../shared/_generated/rest-api';
+import {Router} from '@angular/router';
 
 export interface FunctionBundle {
   functionBundleId: string;
@@ -53,8 +54,6 @@ export class BookingFunctionbundleComponent implements OnInit {
     const formData = new FormData();
     // @ts-ignore
     formData.append('UserId', this.uploadForm.get('UserId').value);
-    // @ts-ignore
-    console.log(this.dataSource);
     // @ts-ignore
     this.bookingControllerService.getAvailableFunctionBundles(+formData.get('UserId').valueOf(), 'body')
       .subscribe(value => {
