@@ -1,9 +1,14 @@
 package de.joergiso.isomaticbooking.service;
 
-import de.joergiso.isomaticbooking.controllers.BookingDto;
-import de.joergiso.isomaticbooking.controllers.FunctionBundleDto;
+import de.joergiso.isomaticbooking.controller.BookingDto;
+import de.joergiso.isomaticbooking.controller.BookingInformationDto;
 import de.joergiso.isomaticbooking.domain.Booking;
+import de.joergiso.isomaticbooking.exception.DeviceNotFoundException;
+import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.repository.BookingRepository;
+import de.joergiso.isomaticbooking.repository.FunctionBundleRepository;
+import de.joergiso.isomaticbooking.repository.RemoteDeviceRepository;
+import de.joergiso.isomaticbooking.repository.RemoteUserRepository;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,14 +18,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookingService {
 
-  private  BookingRepository bookingRepository;
+  private final BookingRepository bookingRepository;
+
+  private FunctionBundleRepository functionBundleRepository;
+
+
+  private RemoteUserRepository remoteUserRepository;
 
   private final Mapper mapper;
 
   @Autowired
   public BookingService(BookingRepository bookingRepository,
+                        FunctionBundleRepository functionBundleRepository,
+                        RemoteUserRepository remoteUserRepository,
                         Mapper mapper) {
     this.bookingRepository = bookingRepository;
+    this.functionBundleRepository = functionBundleRepository;
+    this.remoteUserRepository = remoteUserRepository;
     this.mapper = mapper;
   }
 
@@ -32,9 +46,16 @@ public class BookingService {
         .collect(Collectors.toList());
   }
 
-  public BookingDto book(FunctionBundleDto functionBundleDto) {
-    return mapper.bookingToDto(
-        new Booking()
-    );
+  public BookingDto book(String functionBundleId,
+                         BookingInformationDto bookingInformationDto)
+      throws UserNotFoundException {
+    Booking booking = new Booking();
+    booking.setFunctionBundle(functionBundleRepository.getFunctionBundleByFunctionBundleIdEquals(functionBundleId));
+    booking.setUser(remoteUserRepository.fetchUser(bookingInformationDto.getUserId()));
+    booking.setStartTime(bookingInformationDto.getStartTime());
+    booking.setEndTime(bookingInformationDto.getEndTime());
+    System.out.println(booking);
+    bookingRepository.save(booking);
+    return mapper.bookingToDto(booking);
   }
 }

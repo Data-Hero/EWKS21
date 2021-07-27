@@ -20,6 +20,6 @@ public class DeviceUnitRegistrationStatus implements Serializable {
 
 
     public enum Status {
-        UNREGISTERED, REGISTERED;
+        UNREGISTERED, REGISTERED
     }
 }

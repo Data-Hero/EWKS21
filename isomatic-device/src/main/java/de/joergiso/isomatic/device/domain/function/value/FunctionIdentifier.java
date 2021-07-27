@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class FunctionIdentifier implements Serializable {
-    public final String identifier;
+    public String identifier;
 
     public FunctionIdentifier() {
         this.identifier = "";

@@ -9,6 +9,9 @@ public class DeviceFunctionDto {
     private FunctionName name;
     private FunctionPricing pricing;
 
+    public DeviceFunctionDto() {
+    }
+
     public DeviceFunctionDto(FunctionIdentifier identifier, FunctionName name, FunctionPricing pricing) {
         this.identifier = identifier;
         this.name = name;

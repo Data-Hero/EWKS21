@@ -9,8 +9,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
 public class DummyLoad implements ApplicationListener<ContextRefreshedEvent> {
-  private BookingRepository bookingRepository;
-  private FunctionBundleRepository functionBundleRepository;
+  private final BookingRepository bookingRepository;
+  private final FunctionBundleRepository functionBundleRepository;
 
   @Autowired
   public DummyLoad(BookingRepository bookingRepository, FunctionBundleRepository functionBundleRepository) {

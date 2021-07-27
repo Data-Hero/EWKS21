@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 @Embeddable
 public class FunctionPricing implements Serializable {
-    public final int price;
-    public final int amount;
-    public final Usage usage;
+    public int price;
+    public int amount;
+    public Usage usage;
 
     public FunctionPricing() {
         this.price = 0;
@@ -22,6 +22,6 @@ public class FunctionPricing implements Serializable {
     }
 
     public enum Usage {
-        PER_USE, PER_MINUTE;
+        PER_USE, PER_MINUTE
     }
 }
