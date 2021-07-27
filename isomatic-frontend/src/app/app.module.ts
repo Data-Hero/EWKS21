@@ -31,7 +31,7 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ],
   providers: [
-    { provide: BASE_PATH, useValue: 'api' }
+    { provide: BASE_PATH, useValue: '' }
   ],
   bootstrap: [AppComponent]
 })
