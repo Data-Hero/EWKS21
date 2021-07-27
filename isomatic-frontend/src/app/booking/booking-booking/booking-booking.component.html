@@ -25,3 +25,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+<div  class="container">
+  <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>UserID</mat-label>
+      <input matInput formControlName="UserId" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Fetch Booking</button>
+    <button mat-raised-button color="link" (click)="showAddBookingForm()">Add Booking</button>
+  </form>
+</div>
