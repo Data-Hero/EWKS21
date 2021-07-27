@@ -1,14 +1,10 @@
-package de.joergiso.isomaticbooking.controllers;
+package de.joergiso.isomaticbooking.controller;
 
 import java.time.LocalDateTime;
 
 public class BookingDto {
-
-  int id;
-
+  
   Long userId;
-
-  Long deviceId;
 
   LocalDateTime startTime;
 
@@ -18,27 +14,16 @@ public class BookingDto {
 
   public BookingDto() { }
 
-  public BookingDto(int id,
-                    Long userId,
-                    Long deviceId,
+  public BookingDto(Long userId,
                     LocalDateTime startTime,
                     LocalDateTime endTime,
                     String functionBundleId) {
-    this.id = id;
     this.userId = userId;
-    this.deviceId = deviceId;
     this.startTime = startTime;
     this.endTime = endTime;
     this.functionBundleId = functionBundleId;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public Long getUserId() {
     return userId;
@@ -46,14 +31,6 @@ public class BookingDto {
 
   public void setUserId(Long userId) {
     this.userId = userId;
-  }
-
-  public Long getDeviceId() {
-    return deviceId;
-  }
-
-  public void setDeviceId(Long deviceId) {
-    this.deviceId = deviceId;
   }
 
   public LocalDateTime getStartTime() {

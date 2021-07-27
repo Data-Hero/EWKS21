@@ -11,10 +11,10 @@ public class User {
     private Long id;
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(cascade=CascadeType.ALL)
     private Set<Booking> bookings;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(cascade=CascadeType.ALL)
     private Set<Device> devices;
 
     public User() {}

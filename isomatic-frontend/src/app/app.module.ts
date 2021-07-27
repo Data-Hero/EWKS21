@@ -26,7 +26,7 @@ import {UserModule} from "./user/user.module";
     HttpClientModule,
     ApiModule,
     FormsModule,
-    UserModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

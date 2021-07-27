@@ -4,7 +4,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class DeviceModelIdentifier {
-    public final String identifier;
+    public String identifier;
 
     public DeviceModelIdentifier() {
         identifier = "";

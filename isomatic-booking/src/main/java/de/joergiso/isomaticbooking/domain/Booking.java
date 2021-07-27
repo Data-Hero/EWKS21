@@ -28,9 +28,6 @@ public class Booking {
   @OneToOne
   private User user;
 
-  @OneToOne
-  private Device device;
-
   public Booking() {
   }
 
@@ -70,14 +67,6 @@ public class Booking {
     this.user = user;
   }
 
-  public Device getDevice() {
-    return device;
-  }
-
-  public void setDevice(Device device) {
-    this.device = device;
-  }
-
   @Override
   public String toString() {
     return "Booking{" +
@@ -86,7 +75,6 @@ public class Booking {
         ", startTime=" + startTime +
         ", endTime=" + endTime +
         ", user=" + user +
-        ", device=" + device +
         '}';
   }
 

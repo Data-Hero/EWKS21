@@ -15,6 +15,9 @@ public class DeviceModelDto {
     private DeviceManufacturer manufacturer;
     List <DeviceFunctionDto> functions;
 
+    public DeviceModelDto() {
+    }
+
     public DeviceModelDto(DeviceModelIdentifier identifier, DeviceType type, DeviceName name, DeviceManufacturer manufacturer, List<DeviceFunctionDto> functions) {
         this.identifier = identifier;
         this.type = type;

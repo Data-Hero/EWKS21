@@ -3,7 +3,6 @@
     {
       "inputFile": "./src/app/shared/openapi-booking.json",
       "pathModification": {
-        "prepend": "/booking"
       }
     },
     {
