@@ -12,7 +12,7 @@
 
 
 export interface User { 
-    devices?: Set<object>;
+    devices?: Set<string>;
     name?: string;
     id?: number;
     bookings?: Set<object>;

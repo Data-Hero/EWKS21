@@ -23,7 +23,6 @@ import { BASE_PATH, COLLECTION_FORMATS }                     from './variables';
 import { Configuration }                                     from './configuration';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -125,7 +124,7 @@ export class UserControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/user/userservice/user`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/userservice/user`,
             user,
             {
                 responseType: <any>responseType_,
@@ -166,7 +165,7 @@ export class UserControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/user/userservice/user`,
+        return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/userservice/user`,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -210,7 +209,7 @@ export class UserControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<User>(`${this.configuration.basePath}/user/userservice/user/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<User>(`${this.configuration.basePath}/userservice/user/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -262,7 +261,7 @@ export class UserControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.put<any>(`${this.configuration.basePath}/user/userservice/user`,
+        return this.httpClient.put<any>(`${this.configuration.basePath}/userservice/user`,
             user,
             {
                 responseType: <any>responseType_,
