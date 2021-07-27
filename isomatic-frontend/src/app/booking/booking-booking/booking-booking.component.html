@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!addBookingFormToggle">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="userId">
@@ -25,7 +25,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<div  class="container">
+<div class="container" *ngIf="!addBookingFormToggle">
   <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-label>UserID</mat-label>
@@ -34,4 +34,32 @@
     <button mat-raised-button color="primary" type="submit">Fetch Booking</button>
     <button mat-raised-button color="link" (click)="showAddBookingForm()">Add Booking</button>
   </form>
+</div>
+<div class="container" *ngIf="addBookingFormToggle">
+  <form [formGroup] = "addBookingForm" (ngSubmit)="onCreate()">
+    <mat-form-field appearance="fill">
+      <mat-label>NutzerId</mat-label>
+      <input matInput formControlName="UserId" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>FunktionsbündelId</mat-label>
+      <input matInput formControlName="FunctionBundleId" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Startzeit</mat-label>
+      <input matInput formControlName="Discount" placeholder="2016-01-25T12:35:55" required>
+    </mat-form-field >
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Endzeit</mat-label>
+      <input matInput formControlName="PriceByMinute" placeholder="2016-01-25T22:35:55" required>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit">Create new Booking</button>
+  </form>
+</div>
+<div class="container" *ngIf="addBookingFormToggle" >
+  <button mat-raised-button color="link" (click)="hideAddBookingForm()">Booking List</button>
 </div>

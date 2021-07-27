@@ -46,6 +46,7 @@ export class BookingFunctionbundleComponent implements OnInit {
     const formData = new FormData();
     // @ts-ignore
     formData.append('UserId', this.uploadForm.get('UserId').value);
+    this.dataSource.data = []
     // @ts-ignore
     this.bookingControllerService.getAvailableFunctionBundles(+formData.get('UserId').valueOf(), 'body')
       .subscribe(value => {

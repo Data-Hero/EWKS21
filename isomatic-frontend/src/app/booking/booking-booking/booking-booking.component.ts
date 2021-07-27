@@ -62,10 +62,24 @@ export class BookingBookingComponent implements OnInit {
 
   onSubmit(): void {
     const formData = new FormData();
+    this.dataSource.data = [];
     // @ts-ignore
-    formData.append('UserId', this.uploadForm.get('UserId').value);
-    // @ts-ignore
-
+    this.bookingControllerService.getBookingsForUser(this.uploadForm.get('UserId').value,"body")
+      .subscribe(value => {
+        let response: Booking[] = [];
+        value.forEach(element => {
+          console.log(element.userId);
+          response.push({
+              userId: element.userId!,
+              functionBundleId: element.functionBundleId!,
+              startTime: element.startTime!,
+              endTime: element.endTime!
+            }
+          );
+          this.dataSource.data = response;
+        })
+        this.changeDetectorRefs.detectChanges();
+      });
   }
 
   showAddBookingForm() {
@@ -76,4 +90,7 @@ export class BookingBookingComponent implements OnInit {
     this.addBookingFormToggle = false;
   }
 
+  onCreate() {
+
+  }
 }
