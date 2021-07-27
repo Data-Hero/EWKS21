@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BookingModule} from './booking/booking.module';
 import {DeviceModule} from "./device/device.module";
-import {ApiModule} from "./shared/_generated/rest-api";
+import {ApiModule, BASE_PATH} from "./shared/_generated/rest-api";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {UserModule} from "./user/user.module";
@@ -28,7 +28,9 @@ import {UserModule} from "./user/user.module";
     FormsModule,
     UserModule
   ],
-  providers: [],
+  providers: [
+    { provide: BASE_PATH, useValue: 'api' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

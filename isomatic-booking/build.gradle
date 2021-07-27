@@ -49,8 +49,8 @@ test {
 }
 
 openApi {
-	forkProperties.set("-Dserver.port=8080")
 	waitTimeInSeconds.set(300)
+	forkProperties.set("-Dserver.port=8080")
 }
 
 bootJar {
