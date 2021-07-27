@@ -5,6 +5,7 @@ import de.joergiso.isomaticbooking.service.BookingService;
 import de.joergiso.isomaticbooking.service.ConfigurationService;
 import de.joergiso.isomaticbooking.service.FunctionBundleService;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,10 +47,25 @@ public class BookingController {
     return bookingService.getAllBookings();
   }
 
+  @GetMapping("/booking/{userId}")
+  public List<BookingDto> getBookingsForUser(@PathVariable Long userId) {
+    return bookingService
+        .getAllBookings()
+        .stream()
+        .filter(bookingDto -> bookingDto.userId.equals(userId))
+        .collect(Collectors.toList());
+  }
+
   @GetMapping(value = "/functionBundle/{userId}", produces = MediaType.APPLICATION_JSON)
   public List<FunctionBundleDto> getAvailableFunctionBundles(@PathVariable Long userId) throws UserNotFoundException {
     return functionBundleService.getFunctionBundleByUser(userId);
   }
+
+  @GetMapping(value = "/functionBundle", produces = MediaType.APPLICATION_JSON)
+  public List<FunctionBundleDto> getAllFunctionBundles() throws UserNotFoundException {
+    return functionBundleService.getFunctionBundles();
+  }
+
 
   @PostMapping("/functionBundle/add")
   public void addFunctionBundle(@RequestBody FunctionBundleDto functionBundleDto) {

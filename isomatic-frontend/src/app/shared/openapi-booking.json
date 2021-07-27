@@ -1,0 +1,278 @@
+{
+  "components": {
+    "schemas": {
+      "BookingDto": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "functionBundleId": {
+            "type": "string"
+          },
+          "userId": {
+            "format": "int64",
+            "type": "integer"
+          }
+        }
+      },
+      "BookingInformationDto": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "userId": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "deviceId": {
+            "type": "string"
+          }
+        }
+      },
+      "FunctionBundleDto": {
+        "type": "object",
+        "properties": {
+          "priceByMinute": {
+            "format": "double",
+            "type": "number"
+          },
+          "discount": {
+            "format": "double",
+            "type": "number"
+          },
+          "functionBundleId": {
+            "type": "string"
+          },
+          "functionNumber": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Generated server url",
+      "url": "http://localhost:8080"
+    }
+  ],
+  "openapi": "3.0.1",
+  "paths": {
+    "/booking/book/{functionBundleId}": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingInformationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "bookFunctionBundle",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDto"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "functionBundleId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/booking": {
+      "get": {
+        "operationId": "getAllBookings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/config": {
+      "get": {
+        "operationId": "getConfig",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/booking/{userId}": {
+      "get": {
+        "operationId": "getBookingsForUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/functionBundle/add": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FunctionBundleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "addFunctionBundle",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/functionBundle": {
+      "get": {
+        "operationId": "getAllFunctionBundles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FunctionBundleDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    },
+    "/booking/functionBundle/{userId}": {
+      "get": {
+        "operationId": "getAvailableFunctionBundles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FunctionBundleDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "booking-controller"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  }
+}

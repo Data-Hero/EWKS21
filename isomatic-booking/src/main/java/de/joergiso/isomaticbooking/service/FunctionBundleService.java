@@ -53,6 +53,12 @@ public class FunctionBundleService {
         .collect(Collectors.toList());
   }
 
+  public List<FunctionBundleDto> getFunctionBundles() {
+    return StreamSupport.stream(functionBundleRepository.findAll().spliterator(), false)
+        .map(mapper::functionBundleToDto)
+        .collect(Collectors.toList());
+  }
+
   public FunctionBundle addFunctionBundle(FunctionBundleDto functionBundleDto){
     return functionBundleRepository.save(mapper.functionBundleFromDto(functionBundleDto));
   }
