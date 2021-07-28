@@ -28,7 +28,77 @@ context Booking {
 		date endTime
     }
 
-    list Bookings { Booking booking }
+    list Bookings { BookingDto booking }
     list FunctionBundles { FunctionBundle functionBundle }
+
+
+	structure BookingDto<valueObject> {
+		long userId,
+		date startTime,
+		date endTime,
+		string functionBundleId
+	}
+
+	structure BookingInformationDto<valueObject> {
+		long userId,
+		date startTime,
+		date endTime,
+		string functionBundleId
+	}
+
+	structure FunctionBundleDto<valueObject> {
+		string functionBundleId,
+		FunctionNumbers functionNumber,
+		double price,
+		double discount
+	}
+
+	structure BookingRepository<repository> {
+
+	}
+	structure FunctionBundleRepository<repository> {
+		function FunctionBundle getFunctionBundleByFunctionBundleIdEquals(string functionBundleId)
+	}
+	structure RemoteDeviceRepository<repository> {
+
+	}
+	structure RemoteUserRepository<repository> {
+
+	}
+	structure UserRepository<repository> {
+
+	}
+
+	structure MapperService<applicationService> {
+		function FunctionBundleDto functionBundleToDto(FunctionBundle functionBundle),
+		function BookingDto BookingToDto(Booking booking),
+		function Booking bookingFromDto(BookingDto bookingDto),
+		function FunctionBundle functionBundleFromDto(FunctionBundleDto functionBundleDto)
+	}
+
+	structure BookingService<applicationService> {
+		hide immutable BookingRepository bookingRepository,
+		hide immutable FunctionBundleRepository functionBundleRepository,
+		hide immutable RemoteUserRepository remoteUserRepository,
+		hide immutable MapperService mapperService,
+		function Bookings getAllBookings(),
+		function BookingDto book(string functionBundleId, BookingInformationDto bookingInformationDto)
+	}
+
+    structure FunctionBundleService<applicationService> {
+		hide immutable FunctionBundleRepository functionBundleRepository,
+		hide immutable RemoteUserRepository remoteUserRepository,
+		hide immutable RemoteDeviceRepository remoteDeviceRepository,
+		hide immutable MapperService mapperService,
+		function Bookings getAllBookings(),
+		function BookingDto book(string functionBundleId, BookingInformationDto bookingInformationDto)
+	}
+
+	structure ConigurationService<applicationService> {
+		//value
+		hide string deviceEndpoint,
+		//value
+		hide string userEndpoint
+	}
 
 }

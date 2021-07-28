@@ -9,7 +9,7 @@ import technology from "../technology/Generic.technology" as Generic
 
 @technology(Docker)
 @technology(JavaSpring)
-container DeviceContainer 
+container DeviceContainer
 	deployment technology Docker::_deployment.Docker
 	deploys deviceService::de.joergiso.isomatic.Device {
 		default values {
@@ -19,13 +19,13 @@ container DeviceContainer
 				COPY build/libs/isomatic-device.jar
 				.
 			')
-			
+
 			basic endpoints {
 				JavaSpring::_protocols.rest: "8082:8082";
 			}
 		}
 	}
-	
+
 @technology(Docker)
 @technology(JavaSpring)
 container BookingContainer
@@ -38,13 +38,13 @@ container BookingContainer
 				COPY build/libs/isomatic-booking.jar
 				.
 			')
-			
+
 			basic endpoints {
 				JavaSpring::_protocols.rest: "8084:8084";
 			}
 		}
 	}
-	
+
 @technology(Docker)
 @technology(JavaSpring)
 container UserContainer
@@ -57,7 +57,7 @@ container UserContainer
 				COPY build/libs/isomatic-user.jar
 				.
 			')
-			
+
 			basic endpoints {
 				JavaSpring::_protocols.rest: "8083:8083";
 			}
@@ -76,7 +76,7 @@ discovery is Eureka::_infrastructure.Eureka
 			JavaSpring::_protocols.rest: "8761";
 		}
 	}
-	
+
 @technology(JavaSpring)
 @technology(Generic)
 config is Generic::_infrastructure.Generic
