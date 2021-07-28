@@ -3,12 +3,15 @@ package de.joergiso.isomaticbooking.service;
 import de.joergiso.isomaticbooking.controller.BookingDto;
 import de.joergiso.isomaticbooking.controller.BookingInformationDto;
 import de.joergiso.isomaticbooking.domain.Booking;
+import de.joergiso.isomaticbooking.domain.User;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
 import de.joergiso.isomaticbooking.repository.BookingRepository;
 import de.joergiso.isomaticbooking.repository.FunctionBundleRepository;
 import de.joergiso.isomaticbooking.repository.RemoteUserRepository;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +42,8 @@ public class BookingService {
   public List<BookingDto> getAllBookings() {
     LinkedList<Booking> result = new LinkedList<>();
     bookingRepository.findAll().forEach(result::add);
-    result.forEach(System.out::println);
-    result.stream().map(mapper::bookingToDto).forEach(System.out::println);
     return result.stream()
+        .filter(booking -> booking.getUser() != null && booking.getFunctionBundle() != null)
         .map(mapper::bookingToDto)
         .collect(Collectors.toList());
   }
@@ -51,9 +53,7 @@ public class BookingService {
       throws UserNotFoundException {
     Booking booking = new Booking();
     booking.setFunctionBundle(functionBundleRepository.getFunctionBundleByFunctionBundleIdEquals(functionBundleId));
-    System.out.println("FunctionBundle in booking:" + booking.getFunctionBundle());
     booking.setUser(remoteUserRepository.fetchUser(bookingInformationDto.getUserId()));
-    System.out.println("User in booking:" + booking.getUser());
     booking.setStartTime(bookingInformationDto.getStartTime());
     booking.setEndTime(bookingInformationDto.getEndTime());
     bookingRepository.save(booking);
