@@ -1,22 +1,31 @@
-import datatypes from "Device.data" as device
+import datatypes from "../domain/Device.data" as device
 import technology from "../technology/JavaSpring.technology" as javaSpring
+import technology from "../technology/Eureka.technology" as eureka
 
 @technology(javaSpring)
+@technology(eureka)
 @sync(javaSpring::_protocols.rest/json)
 @endpoints(javaSpring::_protocols.rest/json: "/device";)
 @javaSpring::_aspects.Application("IsomaticDeviceApplication")
 @javaSpring::_aspects.Port(8082)
+@eureka::_aspects.EnableDiscoveryClient
 functional microservice de.joergiso.isomatic.Device {
 	
 	@endpoints(javaSpring::_protocols.rest/json: "/devices";)
 	interface DeviceController {
-		
+		---
+		Abfrage einer Liste aller Geräteeinheiten.
+		---
 		@javaSpring::_aspects.GetMapping
 		getAllDevices(
 			@javaSpring::_aspects.ResponseStatus("200")
 			sync out devices: device::Device.DeviceUnits
 		);
 		
+		---
+		Geräteeinheit auf Basis eines vorhandenen Gerätemodells erstellen.
+		@required modelIdentifier Identifier des Gerätemodells.
+		---
 		@javaSpring::_aspects.PostMapping
 		createDeviceByModelIdentifier(
 			@javaSpring::_aspects.RequestParam 
@@ -29,6 +38,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out fault duplicateSerialNumber: device::Device.DuplicateSerialNumberException
 		);
 		
+		---
+		Abfrage einer Geräteeinheit anhand dessen Seriennummer.
+		@required serialNumber Seriennummer des Geräts.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}";)
 		@javaSpring::_aspects.GetMapping
 		getDevice(
@@ -40,6 +53,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out fault notFound: device::Device.DeviceNotFoundException
 		);
 		
+		---
+		Entfernen eines Geräts anhand dessen Seriennummer.
+		@required serialNumber Seriennummer des Geräts.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}";)
 		@javaSpring::_aspects.DeleteMapping
 		deleteDevice(
@@ -49,6 +66,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out fault notFound: device::Device.DeviceNotFoundException
 		);
 		
+		---
+		Abfrage des Registrierungsstatus eines Geräts.
+		@required serialNumber Seriennummer des Geräts.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}/registration";)
 		@javaSpring::_aspects.GetMapping
 		getDeviceUnitRegistrationStatus(
@@ -60,6 +81,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out fault notFound: device::Device.DeviceNotFoundException
 		);
 		
+		---
+		Registrierung eines Geräts.
+		@required serialNumber Seriennummer des Geräts.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}/registration";)
 		@javaSpring::_aspects.PostMapping
 		registerDevice(
@@ -73,6 +98,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out fault alreadyRegistered: device::Device.DeviceAlreadyRegisteredException
 		);
 		
+		---
+		De-Registrierung eines Geräts.
+		@required serialNumber Seriennummer des Geräts.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{serialNumber}/registration";)
 		@javaSpring::_aspects.DeleteMapping
 		unregisterDevice(
@@ -89,12 +118,19 @@ functional microservice de.joergiso.isomatic.Device {
 	@endpoints(javaSpring::_protocols.rest/json: "/models";)
 	interface DeviceModelController {
 		
+		---
+		Abfrage aller Gerätemodelle.
+		---
 		@javaSpring::_aspects.GetMapping
 		getAllDeviceModels(
 			@javaSpring::_aspects.ResponseStatus("200")
 			sync out models: device::Device.DeviceModels
 		);
 		
+		---
+		Gerätemodell anlegen.
+		@required request RequestBody mit den benötigten Werten.
+		---
 		@javaSpring::_aspects.PostMapping
 		createDeviceModel(
 			@javaSpring::_aspects.RequestBody
@@ -103,6 +139,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out deviceModel: device::Device.DeviceModel
 		);
 		
+		---
+		Abfrage eines Gerätemodells anhand dessen Identifier.
+		@required modelIdentifier Identifier des Gerätemodells.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{modelIdentifier}";)
 		@javaSpring::_aspects.GetMapping
 		getDeviceModel(
@@ -114,6 +154,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out fault notFound: device::Device.DeviceModelNotFoundException
 		);
 		
+		---
+		Löschen eines Gerätemodells.
+		@required modelIdentifier Identifier des Gerätemodells.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{modelIdentifier}";)
 		@javaSpring::_aspects.DeleteMapping
 		deleteDeviceModel(
@@ -123,6 +167,10 @@ functional microservice de.joergiso.isomatic.Device {
 			sync out fault notFound: device::Device.DeviceModelNotFoundException
 		);
 		
+		---
+		Abfrage aller Funktionen eines Gerätemodells.
+		@required modelIdentifier Identifier des Gerätemodells.
+		---
 		@endpoints(javaSpring::_protocols.rest/json: "/{modelIdentifier}/functions";)
 		@javaSpring::_aspects.GetMapping
 		getDeviceModelFunctions(

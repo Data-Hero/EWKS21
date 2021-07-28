@@ -1,0 +1,50 @@
+import microservices from "../microservices/Device.services" as deviceService
+import technology from "../technology/Docker.technology" as Docker
+import technology from "../technology/JavaSpring.technology" as JavaSpring
+import technology from "../technology/Protocols.technology" as Protocols
+import technology from "../technology/Eureka.technology" as Eureka
+import technology from "../technology/Generic.technology" as Generic
+
+@technology(Docker)
+@technology(JavaSpring)
+container DeviceContainer 
+	deployment technology Docker::_deployment.Docker
+	deploys deviceService::de.joergiso.isomatic.Device {
+		default values {
+			Dockerfile('
+				RUN apk --no-cache add curl
+				CMD java ${JAVA_OPTS} -jar isomatic-device.jar
+				COPY build/libs/isomatic-device.jar
+				.
+			')
+			
+			basic endpoints {
+				JavaSpring::_protocols.rest: "8082:8082";
+			}
+		}
+	}
+
+@technology(JavaSpring)
+@technology(Eureka)
+discovery is Eureka::_infrastructure.Eureka
+	used by nodes DeviceContainer {
+		default values {
+			name = "eureka-server"
+			clientRegisterWithEureka = true
+		}
+		endpoints {
+			JavaSpring::_protocols.rest: "8761";
+		}
+	}
+	
+@technology(JavaSpring)
+@technology(Generic)
+config is Generic::_infrastructure.Generic
+	used by nodes DeviceContainer {
+		default values {
+			generic = "config-server"
+		}
+		endpoints {
+			JavaSpring::_protocols.rest: "8888";
+		}
+	}
