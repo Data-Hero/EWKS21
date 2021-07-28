@@ -40,6 +40,24 @@ export class BookingFunctionbundleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataSource.data = []
+    // @ts-ignore
+    this.bookingControllerService.getAllFunctionBundles( 'body')
+      .subscribe(value => {
+        let response: FunctionBundle[] = [];
+        value.forEach(element => {
+          console.log(element.functionNumber);
+          response.push({
+              functionBundleId: element.functionBundleId!,
+              functionNumber: element.functionNumber?.pop()!,
+              discount: element.discount!,
+              priceByMinute: element.priceByMinute!
+            }
+          );
+        });
+        this.dataSource.data = response;
+      });
+    this.changeDetectorRefs.detectChanges();
   }
 
   onSubmit(): void {

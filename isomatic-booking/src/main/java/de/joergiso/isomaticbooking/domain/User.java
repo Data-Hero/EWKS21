@@ -1,5 +1,6 @@
 package de.joergiso.isomaticbooking.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
@@ -8,7 +9,6 @@ import javax.persistence.*;
 public class User {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Column
