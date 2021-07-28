@@ -41,6 +41,9 @@ test {
 }
 
 openApi {
+	bootJar {
+		enabled = true
+	}
 	waitTimeInSeconds.set(300)
 	forkProperties.set("-Dserver.port=8080 " +
 			"-Dspring.cloud.service-registry.auto-registration.enabled=false " +
@@ -49,7 +52,7 @@ openApi {
 }
 
 bootJar {
-	enabled = true
+	enabled = false
 }
 
 jar {

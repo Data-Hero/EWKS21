@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConfigurationService {
 
-  @Value("${foo.bar:http://localhost:8082/device}")
+  @Value("${deviceEndpoint:http://localhost:8082/device}")
   private String deviceEndpoint;
-  @Value("${foo.bar:http://localhost:8083/userservice}")
+  @Value("${userEndpoint:http://localhost:8083/userservice}")
   private String userEndpoint;
 
   public String getDeviceEndpoint() {

@@ -9,8 +9,8 @@ import {BookingModule} from './booking/booking.module';
 import {DeviceModule} from "./device/device.module";
 import {ApiModule, BASE_PATH} from "./shared/_generated/rest-api";
 import {HttpClientModule} from "@angular/common/http";
-import {UserModule} from "./user/user.module";
 import {FormsModule} from "@angular/forms";
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [
@@ -25,10 +25,8 @@ import {FormsModule} from "@angular/forms";
     DeviceModule,
     HttpClientModule,
     ApiModule,
-    UserModule,
-    DeviceModule,
-    BookingModule,
-    FormsModule
+    FormsModule,
+    UserModule
   ],
   providers: [
     { provide: BASE_PATH, useValue: '' }

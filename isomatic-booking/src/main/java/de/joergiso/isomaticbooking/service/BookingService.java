@@ -18,10 +18,10 @@ public class BookingService {
 
   private final BookingRepository bookingRepository;
 
-  private FunctionBundleRepository functionBundleRepository;
+  private final FunctionBundleRepository functionBundleRepository;
 
 
-  private RemoteUserRepository remoteUserRepository;
+  private final RemoteUserRepository remoteUserRepository;
 
   private final Mapper mapper;
 
@@ -40,6 +40,7 @@ public class BookingService {
     LinkedList<Booking> result = new LinkedList<>();
     bookingRepository.findAll().forEach(result::add);
     return result.stream()
+        .filter(booking -> booking.getUser() != null && booking.getFunctionBundle() != null)
         .map(mapper::bookingToDto)
         .collect(Collectors.toList());
   }
@@ -52,7 +53,6 @@ public class BookingService {
     booking.setUser(remoteUserRepository.fetchUser(bookingInformationDto.getUserId()));
     booking.setStartTime(bookingInformationDto.getStartTime());
     booking.setEndTime(bookingInformationDto.getEndTime());
-    System.out.println(booking);
     bookingRepository.save(booking);
     return mapper.bookingToDto(booking);
   }
