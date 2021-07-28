@@ -91,6 +91,18 @@ export class BookingBookingComponent implements OnInit {
   }
 
   onCreate() {
-
+    this.bookingControllerService.bookFunctionBundle(
+      this.addBookingForm.get('FunctionBundleId')?.value, {
+        // @ts-ignore
+      userId: this.addBookingForm.get('UserId').value,
+        // @ts-ignore
+      functionBundleId:  this.addBookingForm.get('FunctionBundleId').value,
+        // @ts-ignore
+      startTime:  this.addBookingForm.get('StartTime').value,
+        // @ts-ignore
+      endTime:  this.addBookingForm.get('EndTime').value
+      },
+      "body"
+    ).subscribe(value => console.log(value));
   }
 }

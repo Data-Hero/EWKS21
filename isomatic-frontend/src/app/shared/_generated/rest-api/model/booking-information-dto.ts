@@ -15,6 +15,6 @@ export interface BookingInformationDto {
     startTime?: string;
     endTime?: string;
     userId?: number;
-    functionBundleId?: string;
+    functionBundle?: string;
 }
 
