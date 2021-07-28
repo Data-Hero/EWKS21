@@ -52,6 +52,10 @@
 		hide immutable RemoteDeviceRepository remoteDeviceRepository,
 
 		function Users getAll(),
-		function User createUser(UserDto userDto)
+		function User getUserById(long id),
+		
+		procedure updateUser(User user),	
+		procedure createUser(UserDto userDto),	
+		procedure registerDevice(long userId, DeviceDto deviceDto)
 	}
 }
