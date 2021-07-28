@@ -42,6 +42,7 @@ public class FunctionBundleService {
         .filter(deviceUnitDto -> user.getDevices().contains(deviceUnitDto.getSerialNumber().serialNumber))
         .collect(Collectors.toList());
 
+    //
     return StreamSupport.stream(
         functionBundleRepository.findAll().spliterator(), false
       ).filter(fb -> fb.getFunctions().stream().allMatch(
