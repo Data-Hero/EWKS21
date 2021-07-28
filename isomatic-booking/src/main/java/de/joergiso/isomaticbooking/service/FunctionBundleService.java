@@ -17,17 +17,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class FunctionBundleService {
   private final FunctionBundleRepository functionBundleRepository;
-  private final Mapper mapper;
+  private final MapperService mapperService;
   private final RemoteUserRepository remoteUserRepository;
   private final RemoteDeviceRepository remoteDeviceRepository;
 
   @Autowired
   public FunctionBundleService(FunctionBundleRepository functionBundleRepository,
-                               Mapper mapper,
+                               MapperService mapperService,
                                RemoteUserRepository remoteUserRepository,
                                RemoteDeviceRepository remoteDeviceRepository) {
     this.functionBundleRepository = functionBundleRepository;
-    this.mapper = mapper;
+    this.mapperService = mapperService;
     this.remoteUserRepository = remoteUserRepository;
     this.remoteDeviceRepository = remoteDeviceRepository;
   }
@@ -50,17 +50,17 @@ public class FunctionBundleService {
                 .getFunctions()
                 .stream())
               .anyMatch((deviceFunction) -> function.equals(deviceFunction.getName().name))))
-        .map(mapper::functionBundleToDto)
+        .map(mapperService::functionBundleToDto)
         .collect(Collectors.toList());
   }
 
   public List<FunctionBundleDto> getFunctionBundles() {
     return StreamSupport.stream(functionBundleRepository.findAll().spliterator(), false)
-        .map(mapper::functionBundleToDto)
+        .map(mapperService::functionBundleToDto)
         .collect(Collectors.toList());
   }
 
   public FunctionBundle addFunctionBundle(FunctionBundleDto functionBundleDto){
-    return functionBundleRepository.save(mapper.functionBundleFromDto(functionBundleDto));
+    return functionBundleRepository.save(mapperService.functionBundleFromDto(functionBundleDto));
   }
 }

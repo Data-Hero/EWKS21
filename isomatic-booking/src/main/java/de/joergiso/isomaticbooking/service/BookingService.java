@@ -23,17 +23,17 @@ public class BookingService {
 
   private final RemoteUserRepository remoteUserRepository;
 
-  private final Mapper mapper;
+  private final MapperService mapperService;
 
   @Autowired
   public BookingService(BookingRepository bookingRepository,
                         FunctionBundleRepository functionBundleRepository,
                         RemoteUserRepository remoteUserRepository,
-                        Mapper mapper) {
+                        MapperService mapperService) {
     this.bookingRepository = bookingRepository;
     this.functionBundleRepository = functionBundleRepository;
     this.remoteUserRepository = remoteUserRepository;
-    this.mapper = mapper;
+    this.mapperService = mapperService;
   }
 
   public List<BookingDto> getAllBookings() {
@@ -41,7 +41,7 @@ public class BookingService {
     bookingRepository.findAll().forEach(result::add);
     return result.stream()
         .filter(booking -> booking.getUser() != null && booking.getFunctionBundle() != null)
-        .map(mapper::bookingToDto)
+        .map(mapperService::bookingToDto)
         .collect(Collectors.toList());
   }
 
@@ -54,6 +54,6 @@ public class BookingService {
     booking.setStartTime(bookingInformationDto.getStartTime());
     booking.setEndTime(bookingInformationDto.getEndTime());
     bookingRepository.save(booking);
-    return mapper.bookingToDto(booking);
+    return mapperService.bookingToDto(booking);
   }
 }
