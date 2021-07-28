@@ -8,6 +8,7 @@ public class DeviceFunctionBlueprint {
     private int amount;
     private FunctionPricing.Usage usage;
 
+    public DeviceFunctionBlueprint() {}
     public DeviceFunctionBlueprint(String name, int price, int amount, FunctionPricing.Usage usage) {
         this.name = name;
         this.price = price;

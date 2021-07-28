@@ -9,6 +9,8 @@ public class CreateDeviceModelRequest {
     private String manufacturerName;
     private List<DeviceFunctionBlueprint> functionBlueprints;
 
+    public CreateDeviceModelRequest(){}
+
     public CreateDeviceModelRequest(String type, String name, String manufacturerAbbr, String manufacturerName, List<DeviceFunctionBlueprint> functionBlueprints) {
         this.type = type;
         this.name = name;
