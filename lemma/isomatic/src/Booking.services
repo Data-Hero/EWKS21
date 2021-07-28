@@ -4,6 +4,7 @@ import technology from "JavaSpring.technology" as JavaSpring
 
 @technology(JavaSpring)
 @JavaSpring::_aspects.CrossOrigin("*")
+@JavaSpring::_aspects.Port(8084)
 public functional microservice de.joergiso.isomatic.device.Booking {
 	interface BookingController {
 	---
