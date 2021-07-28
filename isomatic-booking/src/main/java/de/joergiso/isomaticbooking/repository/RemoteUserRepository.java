@@ -35,15 +35,6 @@ public class RemoteUserRepository {
   }
 
   public User fetchUser(Long userId) throws UserNotFoundException {
-    ResponseEntity<String> response2
-        = restTemplate.exchange(
-        configurationService.getUserEndpoint()
-            + "/user/"
-            + userId,
-        HttpMethod.GET,
-        null,
-        new ParameterizedTypeReference<String>() { });
-    System.out.println("remote user call" + response2);
     Optional<User> user = circuitBreakerFactory.create("fetchUser").run(() -> {
       ResponseEntity<User> response
           = restTemplate.exchange(
@@ -56,7 +47,6 @@ public class RemoteUserRepository {
       );
       return Optional.ofNullable(response.getBody());
     }, t -> userRepository.findById(userId));
-    System.out.println(user);
     user.ifPresent(userRepository::save);
     return user.orElseThrow(UserNotFoundException::new);
   }
