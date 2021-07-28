@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper {
+public class MapperService {
   private final FunctionBundleRepository functionBundleRepository;
 
   private final RemoteDeviceRepository remoteDeviceRepository;
@@ -21,9 +21,9 @@ public class Mapper {
   private final RemoteUserRepository remoteUserRepository;
 
   @Autowired
-  public Mapper(FunctionBundleRepository functionBundleRepository,
-                RemoteDeviceRepository remoteDeviceRepository,
-                RemoteUserRepository remoteUserRepository) {
+  public MapperService(FunctionBundleRepository functionBundleRepository,
+                       RemoteDeviceRepository remoteDeviceRepository,
+                       RemoteUserRepository remoteUserRepository) {
     this.functionBundleRepository = functionBundleRepository;
     this.remoteDeviceRepository = remoteDeviceRepository;
     this.remoteUserRepository = remoteUserRepository;
