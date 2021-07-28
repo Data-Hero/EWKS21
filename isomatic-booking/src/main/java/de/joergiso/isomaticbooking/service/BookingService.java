@@ -39,6 +39,8 @@ public class BookingService {
   public List<BookingDto> getAllBookings() {
     LinkedList<Booking> result = new LinkedList<>();
     bookingRepository.findAll().forEach(result::add);
+    result.forEach(System.out::println);
+    result.stream().map(mapper::bookingToDto).forEach(System.out::println);
     return result.stream()
         .map(mapper::bookingToDto)
         .collect(Collectors.toList());
@@ -49,10 +51,11 @@ public class BookingService {
       throws UserNotFoundException {
     Booking booking = new Booking();
     booking.setFunctionBundle(functionBundleRepository.getFunctionBundleByFunctionBundleIdEquals(functionBundleId));
+    System.out.println("FunctionBundle in booking:" + booking.getFunctionBundle());
     booking.setUser(remoteUserRepository.fetchUser(bookingInformationDto.getUserId()));
+    System.out.println("User in booking:" + booking.getUser());
     booking.setStartTime(bookingInformationDto.getStartTime());
     booking.setEndTime(bookingInformationDto.getEndTime());
-    System.out.println(booking);
     bookingRepository.save(booking);
     return mapper.bookingToDto(booking);
   }

@@ -79,7 +79,6 @@ export class BookingFunctionbundleComponent implements OnInit {
   }
 
   onCreate() {
-    const formData = new FormData();
     this.bookingControllerService.addFunctionBundle({
       // @ts-ignore
       functionBundleId: this.addForm.get('FunctionBundleId').value,
