@@ -2,6 +2,7 @@ package de.joergiso.isomaticbooking.service;
 
 import de.joergiso.isomatic.device.domain.unit.DeviceUnitDto;
 import de.joergiso.isomaticbooking.controller.FunctionBundleDto;
+import de.joergiso.isomaticbooking.domain.Device;
 import de.joergiso.isomaticbooking.domain.FunctionBundle;
 import de.joergiso.isomaticbooking.domain.User;
 import de.joergiso.isomaticbooking.exception.UserNotFoundException;
@@ -39,7 +40,10 @@ public class FunctionBundleService {
     List<DeviceUnitDto> deviceUnitDtosOfUser = remoteDeviceRepository
         .fetchDevices()
         .stream()
-        .filter(deviceUnitDto -> user.getDevices().contains(deviceUnitDto.getSerialNumber().serialNumber))
+        .filter(deviceUnitDto -> user.getDevices().stream()
+                .map(Device::getSerialNumber)
+                .collect(Collectors.toList())
+                .contains(deviceUnitDto.getSerialNumber().serialNumber))
         .collect(Collectors.toList());
 
     return StreamSupport.stream(
