@@ -17,8 +17,8 @@ public class User {
   @OneToMany
   private Set<Booking> bookings;
 
-  @ManyToMany(cascade=CascadeType.ALL)
-  private Set<Device> devices;
+  @ElementCollection
+  private Set<String> devices;
 
   public User() {}
 
@@ -30,11 +30,11 @@ public class User {
     this.bookings = bookings;
   }
 
-  public Set<Device> getDevices() {
+  public Set<String> getDevices() {
     return devices;
   }
 
-  public void setDevices(Set<Device> devices) {
+  public void setDevices(Set<String> devices) {
     this.devices = devices;
   }
 
