@@ -36,8 +36,6 @@ public class FunctionBundleService {
       throws UserNotFoundException {
     User user = remoteUserRepository.fetchUser(userId);
 
-    System.out.println("user:" + user);
-
     List<DeviceUnitDto> deviceUnitDtosOfUser = remoteDeviceRepository
         .fetchDevices()
         .stream()

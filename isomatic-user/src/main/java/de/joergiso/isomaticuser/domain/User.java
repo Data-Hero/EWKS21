@@ -17,7 +17,7 @@ public class User {
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Booking> bookings;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     private Set<Device> devices;
 
     public User() {}
