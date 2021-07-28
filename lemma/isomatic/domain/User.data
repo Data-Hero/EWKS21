@@ -27,6 +27,31 @@
 		//Column
 		string serialNumber
 	}
+	
+	structure UserDto<valueObject> {
+		string name
+	}
+	
+	structure DeviceDto<valueObject> {
+		long id,
+		string serialNumber
+	}
+	
+	structure UserRepository<repository> {
+		function Users findAll()
+	}
 
+	list DeviceUnitDtos {DeviceUnitDtos deviceUnitDtos}
 
+	structure RemoteDeviceRepository<repository> {
+		function DeviceUnitDtos fetchDevices()
+	}
+	
+	structure UserService<applicationService> {
+		hide immutable UserRepository userRepository,
+		hide immutable RemoteDeviceRepository remoteDeviceRepository,
+
+		function Users getAll(),
+		function User createUser(UserDto userDto)
+	}
 }
