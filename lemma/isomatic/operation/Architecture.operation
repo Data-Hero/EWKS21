@@ -1,4 +1,6 @@
 import microservices from "../microservices/Device.services" as deviceService
+import microservices from "../microservices/Booking.services" as bookingService
+import microservices from "../microservices/User.services" as userService
 import technology from "../technology/Docker.technology" as Docker
 import technology from "../technology/JavaSpring.technology" as JavaSpring
 import technology from "../technology/Protocols.technology" as Protocols
@@ -23,11 +25,49 @@ container DeviceContainer
 			}
 		}
 	}
+	
+@technology(Docker)
+@technology(JavaSpring)
+container BookingContainer
+	deployment technology Docker::_deployment.Docker
+	deploys bookingService::de.joergiso.isomatic.Booking {
+		default values {
+			Dockerfile('
+				RUN apk --no-cache add curl
+				CMD java ${JAVA_OPTS} -jar isomatic-booking.jar
+				COPY build/libs/isomatic-booking.jar
+				.
+			')
+			
+			basic endpoints {
+				JavaSpring::_protocols.rest: "8084:8084";
+			}
+		}
+	}
+	
+@technology(Docker)
+@technology(JavaSpring)
+container UserContainer
+	deployment technology Docker::_deployment.Docker
+	deploys userService::de.joergiso.isomatic.User {
+		default values {
+			Dockerfile('
+				RUN apk --no-cache add curl
+				CMD java ${JAVA_OPTS} -jar isomatic-user.jar
+				COPY build/libs/isomatic-user.jar
+				.
+			')
+			
+			basic endpoints {
+				JavaSpring::_protocols.rest: "8083:8083";
+			}
+		}
+	}
 
 @technology(JavaSpring)
 @technology(Eureka)
 discovery is Eureka::_infrastructure.Eureka
-	used by nodes DeviceContainer {
+	used by nodes DeviceContainer, BookingContainer, UserContainer {
 		default values {
 			name = "eureka-server"
 			clientRegisterWithEureka = true
@@ -40,7 +80,7 @@ discovery is Eureka::_infrastructure.Eureka
 @technology(JavaSpring)
 @technology(Generic)
 config is Generic::_infrastructure.Generic
-	used by nodes DeviceContainer {
+	used by nodes DeviceContainer, BookingContainer {
 		default values {
 			generic = "config-server"
 		}

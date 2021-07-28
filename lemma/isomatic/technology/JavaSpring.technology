@@ -46,7 +46,7 @@ technology JavaSpring {
 
 		aspect Collection<singleval> for fields;
 		aspect Constant<singleval> for fields;
-		aspect CrossOrigin<singleval> for operations { string origins <mandatory>; }
+		aspect CrossOrigin<singleval> for microservices, interfaces, operations { string origins <mandatory>; }
 		aspect CustomProperty for microservices {
 			string name <mandatory>;
 			string value <mandatory>;

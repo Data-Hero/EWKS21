@@ -1,0 +1,35 @@
+import datatypes from "../domain/Booking.data" as booking
+import datatypes from "../domain/User.data" as domain
+import technology from "../technology/JavaSpring.technology" as JavaSpring
+
+@technology(JavaSpring)
+@JavaSpring::_aspects.CrossOrigin("*")
+@JavaSpring::_aspects.Port(8083)
+public functional microservice de.joergiso.isomatic.User {
+	interface UserController {
+	---
+	Acess CRUD functionality inside User Microservice
+
+	---
+	@JavaSpring::_aspects.GetMapping
+	getUserById(
+		@JavaSpring::_aspects.PathVariable sync in userId: domain::User.User,
+		@JavaSpring::_aspects.ResponseStatus("200") @JavaSpring::_aspects.ResponseEntity sync out user: domain::User.User
+	);
+
+	@JavaSpring::_aspects.GetMapping
+	getAll(
+		@JavaSpring::_aspects.ResponseStatus("200") @JavaSpring::_aspects.ResponseEntity sync out user: domain::User.User
+	);
+
+	@JavaSpring::_aspects.PostMapping
+	createUser(
+		@JavaSpring::_aspects.RequestBody sync in user: domain::User.User
+	);
+
+	@JavaSpring::_aspects.PutMapping
+	updateUser(
+		@JavaSpring::_aspects.RequestBody sync in user: domain::User.User
+	);
+	}
+}

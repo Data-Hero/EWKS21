@@ -12,6 +12,7 @@ import technology from "../technology/Eureka.technology" as eureka
 functional microservice de.joergiso.isomatic.Device {
 	
 	@endpoints(javaSpring::_protocols.rest/json: "/devices";)
+	@javaSpring::_aspects.CrossOrigin("*")
 	interface DeviceController {
 		---
 		Abfrage einer Liste aller Geräteeinheiten.
@@ -116,6 +117,7 @@ functional microservice de.joergiso.isomatic.Device {
 	
 	
 	@endpoints(javaSpring::_protocols.rest/json: "/models";)
+	@javaSpring::_aspects.CrossOrigin("*")
 	interface DeviceModelController {
 		
 		---

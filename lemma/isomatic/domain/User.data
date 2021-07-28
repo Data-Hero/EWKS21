@@ -1,0 +1,32 @@
+ context User {
+	//Entity
+	structure User<valueObject> {
+		//Id
+		//GeneratedValue
+		long id,
+		//Column
+		string name,
+		//OneToMany
+		Booking bookings,
+		//OneToMany
+		Device devices
+	}
+
+	list Users { User user }
+
+	//Entity
+	structure Booking {
+		//Id
+		long id
+	}
+
+	//Entity
+	structure Device {
+		//Id
+		long id,
+		//Column
+		string serialNumber
+	}
+
+
+}
