@@ -39,6 +39,7 @@ public class Mapper {
   }
 
   public BookingDto bookingToDto(Booking booking) {
+    System.out.println(booking);
     return new BookingDto(
         booking.getUser().getId(),
         booking.getStartTime(),

@@ -1,5 +1,7 @@
 package de.joergiso.isomaticuser.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -9,14 +11,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column
     private String name;
 
+    @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Booking> bookings;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     private Set<Device> devices;
 
     public User() {}
